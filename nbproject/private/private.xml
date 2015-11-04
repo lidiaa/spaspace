@@ -3,9 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Visao/FrmArquivo.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Mercadoria.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Utilitarios.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Secretaria.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/BancoDeDados/OperacoesEmBanco.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/BancoDeDados/ServicoDAO.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Pessoa.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/BancoDeDados/MassagistaDAO.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/BancoDeDados/FornecedorDAO.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Servico.java</file>
             <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Cliente.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Massagista.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/BancoDeDados/MercadoriaDAO.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Interfaces/IDAO.java</file>
             <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Fornecedor.java</file>
             <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Arquivo.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Principal.java</file>
+            <file>file:/D:/Workspace/IFSP/JAVA/spaspace/src/Modelo/Funcionario.java</file>
         </group>
     </open-files>
 </project-private>
