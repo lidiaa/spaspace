@@ -15,9 +15,99 @@ import Modelo.Servico; //importanto a classe que sera utilizada, informando o pa
  */
 public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
 
+    public void insereServico (Servico servico)
+    {
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLInsert()));
+
+            //DatabaseUtilit.getPs().setInt(1, servico.getCodigoServico()); 
+            DatabaseUtilit.getPs().setString(1, servico.getNomeServico());
+            DatabaseUtilit.getPs().setString(2, servico.getDescricaoServico());
+            DatabaseUtilit.getPs().setInt(3, servico.getDuracaoMinutosServico());
+            
+            DatabaseUtilit.getPs().execute();
+            System.out.println("Servico cadastrado com sucesso");
+
+        } catch (SQLException ex)
+        {
+            System.err.println("Servico não foi cadastrado por @insertServico\\ServicoDAO \nErro: "+ex);
+        }
+    }
+    
+    public void updateServico (Servico servico)
+    {
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
+
+            //DatabaseUtilit.getPs().setInt(1, servico.getCodigoServico()); 
+            DatabaseUtilit.getPs().setString(1, servico.getNomeServico());
+            DatabaseUtilit.getPs().setString(2, servico.getDescricaoServico());
+            DatabaseUtilit.getPs().setInt(3, servico.getDuracaoMinutosServico());
+
+            DatabaseUtilit.getPs().executeUpdate();
+
+            System.out.println("Servico atualizado com sucesso");   
+        } catch (SQLException ex)
+        {
+            System.err.println("Servico não foi atualizado por @updateServico\\ServicoDAO \nErro: "+ex);
+        }
+    }
+    
+    public void deleteServico (Servico servico)
+    {
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLDelete()));
+
+            DatabaseUtilit.getPs().setInt(1, servico.getCodigoServico()); 
+
+            DatabaseUtilit.getPs().executeUpdate();
+            System.out.println("Servico removido com sucesso");   
+        } catch (SQLException ex)
+        {
+            System.err.println("Servico não foi removido por @deleteServico\\ServicoDAO \nErro: "+ex);
+        }
+    }
+    
+    public List<Servico> listarTodosServicos ()
+    {
+        List<Servico> listaServico = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLList()));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    Servico tempServico = new Servico();
+                    tempServico.setCodigoServico(rs.getInt(1));
+                    tempServico.setNomeServico(rs.getString(2));
+                    tempServico.setDescricaoServico(rs.getString(3));
+                    tempServico.setDuracaoMinutosServico(rs.getInt(4));
+                    
+                    listaServico.add(tempServico);
+                }
+                return listaServico;
+            }
+        } catch(SQLException ex)
+        {
+            System.err.println("Servico não foi consultado \nErro: "+ex);
+        }
+        return null;
+    }
+    
+    public List<Servico> listarTodosServicosLike (String Like)
+    {
+        return null;
+    }
+    
     @Override
     public String SQLInsert() {
-        String sql = "insert into servico (codigoservico, descricaoservico, duracaoservico) values (?, ?, ?)";
+        String sql = "insert into servico (nomeservico, descricaoservico, duracaoservico) values (?, ?, ?)";
         return sql;
     }
 
@@ -35,7 +125,8 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
 
     @Override
     public String SQLList() {
-        String sql = "select descricaoservico, duracaoservico from servico";
+        String sql = "select * from servico";
+        //select descricaoservico, duracaoservico from servico
         return sql;
     }
     

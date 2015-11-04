@@ -15,4 +15,15 @@ public class Cliente extends Pessoa {
     }
     
     
+    public Cliente(int codigo, String cpf, String rg, String nome, String telefone, String genero)
+    {
+        codigo = super.getCodigo();
+        cpf = super.getCPF();
+        rg = super.getRG();
+        nome = super.getNome();
+        telefone = super.getTelefone();
+        genero = super.getGenero();
+    }
+    
+    
 }

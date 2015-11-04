@@ -11,9 +11,26 @@ package Modelo;
  */
 public class Massagista extends Funcionario{
     private String formacao;
-    private String anosExperiencia;
+    private int anosExperiencia;
     private String especialidade;
 
+    public Massagista() {
+    }
+    
+    public Massagista(String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String formacao, int anos, String especialidade)        
+    {
+        cpf = super.getCPF();
+        rg = super.getRG();
+        nome = super.getNome();
+        telefone = super.getTelefone();
+        genero = super.getGenero();
+        cep = super.getCep();
+        nro = super.getNumeroCasa();
+        formacao = this.formacao;
+        anos = this.anosExperiencia;
+        especialidade = this.especialidade;       
+    }
+    
     public String getFormacao() {
         return formacao;
     }
@@ -22,11 +39,11 @@ public class Massagista extends Funcionario{
         this.formacao = formacao;
     }
 
-    public String getAnosExperiencia() {
+    public int getAnosExperiencia() {
         return anosExperiencia;
     }
 
-    public void setAnosExperiencia(String anosExperiencia) {
+    public void setAnosExperiencia(int anosExperiencia) {
         this.anosExperiencia = anosExperiencia;
     }
 

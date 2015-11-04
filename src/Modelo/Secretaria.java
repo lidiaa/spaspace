@@ -11,6 +11,22 @@ package Modelo;
  */
 public class Secretaria extends Funcionario{
     private String cargo;
+    
+    public Secretaria(){
+    }
+    
+    public Secretaria(int codigo, String cpf, String rg, String nome, String telefone, String cep, String nro, String cargo)
+    {
+        codigo = super.getCodigo();
+        cpf = super.getCPF();
+        rg = super.getRG();
+        nome = super.getNome();
+        telefone = super.getTelefone();
+        cep = super.getCep();
+        nro = super.getNumeroCasa();
+        cargo = this.cargo;
+    }
+    
 
     public String getCargo() {
         return cargo;

@@ -16,6 +16,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
+ * Finalizar edicao
+    Git -> Adicionar
+    Git > fazer Commit
+    Git > Expandir para Upstream
+    Ou no git bash (dentro da pasta do spaspace3) – git push (origin master)
+
+ * 
  *
  * @author Pessoal
  */

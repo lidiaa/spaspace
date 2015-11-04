@@ -24,6 +24,11 @@ public class Mercadoria extends Arquivo{
     private double valorMercadoria;
     private int quantidadeMercadoria;
 
+    public Mercadoria()
+    {
+        
+    }
+    
     public Mercadoria(int codigoMercadoria, String nomeMercadoria, int codigoFornecedor, String descricaoMercadoria, double valorMercadoria, int quantidadeMercadoria) {
         this.codigoMercadoria = codigoMercadoria;
         this.nomeMercadoria = nomeMercadoria;

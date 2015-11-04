@@ -15,6 +15,11 @@ public class Servico {
     private String descricaoServico;
     private int duracaoMinutosServico;
 
+    public Servico()
+    {
+        
+    }
+    
     public Servico(int codigoServico, String nomeServico, String descricaoServico, int duracaoMinutosServico) {
         this.codigoServico = codigoServico;
         this.nomeServico = nomeServico;
