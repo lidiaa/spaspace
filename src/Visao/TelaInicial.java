@@ -6,6 +6,7 @@
 package Visao;
 
 import Modelo.Cliente;
+import Relatorio.GerarRelatorio;
 
 /**
  *
@@ -86,9 +87,14 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Inserir Funcionalidade");
+        jButton6.setText("-");
 
-        jButton7.setText("Inserir Funcionalidade");
+        jButton7.setText("Relatório Mercadoria");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Venda");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -172,9 +178,9 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(pnlInicialLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121)
+                .addGap(130, 130, 130)
                 .addComponent(pnlImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         pnlInicialLayout.setVerticalGroup(
             pnlInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,6 +251,13 @@ public class TelaInicial extends javax.swing.JFrame {
         FrmVenda frmVenda = new FrmVenda();
         frmVenda.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        String caminhoDoRelatorio = "C:\\Users\\Pessoal\\Documents\\00 IFSP\\4 Semestre\\LP3\\Prova P2\\Spa Space\\SpaSpace3\\spaspace\\relatorio\\spaspace-mercadoria.jasper";
+        GerarRelatorio gerRel = new GerarRelatorio();
+        gerRel.gerandoRelatorio(caminhoDoRelatorio);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -78,6 +78,11 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtServico);
 
         btnCadastro.setText("Cadastrar Serviço");
+        btnCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlVisualizarClienteLayout = new javax.swing.GroupLayout(pnlVisualizarCliente);
         pnlVisualizarCliente.setLayout(pnlVisualizarClienteLayout);
@@ -135,6 +140,10 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
         configuraTabelaModelo(txtPesquisa.getText());
         configuraTabelaColunas();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadastroActionPerformed
 
     /**
      * @param args the command line arguments

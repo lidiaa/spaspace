@@ -1,0 +1,2 @@
+Netbeans > No projeto > Na parte de bibliotecas
+Botão direito em Bibliotecas > adicionar JAR/Pasta > Selecionar todos esses (commons, groovy, jasp, jcommon) >  Abrir > ok

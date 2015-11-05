@@ -11,9 +11,7 @@ import java.sql.*;
  * @author Pessoal
  */
 public class DatabaseUtilit {
-        
-        /* NAO FOI TESTADA A CONEXÃO AO BANCO!*/
-    
+            
     private static Connection con; //conexao
     private static PreparedStatement ps; //envio de comandos ao banco
     private static String url = "jdbc:mysql://127.0.0.1/spaspace"; //caminho ao banco

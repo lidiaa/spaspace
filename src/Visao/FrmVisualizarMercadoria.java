@@ -79,6 +79,11 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtMercadoria);
 
         btnCadastro.setText("Cadastrar Mercadoria");
+        btnCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlVisualizarClienteLayout = new javax.swing.GroupLayout(pnlVisualizarCliente);
         pnlVisualizarCliente.setLayout(pnlVisualizarClienteLayout);
@@ -136,6 +141,10 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
         configuraTabelaModelo(txtPesquisa.getText());
         configuraTabelaColunas();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadastroActionPerformed
 
     /**
      * @param args the command line arguments
