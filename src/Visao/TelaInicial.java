@@ -90,7 +90,12 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButton7.setText("Inserir Funcionalidade");
 
-        jButton8.setText("Inserir Funcionalidade");
+        jButton8.setText("Venda");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Importar Arquivo");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -235,6 +240,11 @@ public class TelaInicial extends javax.swing.JFrame {
         FrmArquivo frmArquivo = new FrmArquivo();
         frmArquivo.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        FrmVenda frmVenda = new FrmVenda();
+        frmVenda.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
