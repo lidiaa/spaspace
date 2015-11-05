@@ -5,7 +5,11 @@
  */
 package Visao;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -132,6 +136,33 @@ public class FrmArquivo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnProcessarActionPerformed
 
+    private void processarArquivo(File file) throws FileNotFoundException, IOException
+    {
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line = br.readLine();
+            
+            while (line != null) {  
+                processarLinhas(line);
+                line = br.readLine();
+            }
+            br.close();
+        }
+        catch(FileNotFoundException ex)
+        {
+            throw new FileNotFoundException("Erro ao processar arquivo" + ex.getMessage());
+        }
+    }
+    
+    private void processarLinhas(String line)
+    {
+        String nossoNumero;
+        String cliente;
+        String valor;
+        String dataPagamento;
+        
+    }
     /**
      * @param args the command line arguments
      */
