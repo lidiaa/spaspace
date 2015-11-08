@@ -14,6 +14,7 @@ public class Servico {
     private String nomeServico;
     private String descricaoServico;
     private int duracaoMinutosServico;
+    private double valorServico;
 
     public Servico()
     {
@@ -59,7 +60,13 @@ public class Servico {
     public void setDuracaoMinutosServico(int duracaoMinutosServico) {
         this.duracaoMinutosServico = duracaoMinutosServico;
     }
-    
-    
+
+    public double getValorServico() {
+        return valorServico;
+    }
+
+    public void setValorServico(double valorServico) {
+        this.valorServico = valorServico;
+    }
     
 }

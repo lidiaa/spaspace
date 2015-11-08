@@ -7,10 +7,12 @@ package Visao;
 
 import BancoDeDados.ServicoDAO;
 import BancoDeDados.VendaDAO;
+import Modelo.Cliente;
 import Modelo.Servico;
 import Modelo.Utilitarios;
 import Modelo.Venda;
-import Util.ComboItem;
+import Util.VendaComboItem;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -19,6 +21,9 @@ import javax.swing.JOptionPane;
  * @author Jonathan
  */
 public class FrmVenda extends javax.swing.JFrame {
+    
+    public Cliente cliente;
+    public Servico servico;
 
     Modelo.Utilitarios util = new Utilitarios();
     /**
@@ -41,7 +46,7 @@ public class FrmVenda extends javax.swing.JFrame {
             for(Servico service : servicos)
             {  
                 //model.addElement(new Item(service.getCodigoServico(), service.getDescricaoServico()));
-                cboServicos.addItem(new ComboItem(service.getDescricaoServico(), String.valueOf(service.getCodigoServico())));  
+                cboServicos.addItem(new VendaComboItem(service.getDescricaoServico(), String.valueOf(service.getCodigoServico()), String.valueOf(service.getValorServico())));  
             }
         } 
         catch (Exception ex) 
@@ -107,6 +112,11 @@ public class FrmVenda extends javax.swing.JFrame {
         });
 
         jButton1.setText("...");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Serviço:");
 
@@ -216,21 +226,29 @@ public class FrmVenda extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         Venda tmpVenda = new Venda();
-        tmpVenda.setCodigoCliente(0);
+        tmpVenda.setCodigoCliente(1);
         tmpVenda.setDataPagamento(null);
         tmpVenda.setFormaPagamento(cboPagamento.getSelectedItem().toString());
         //teste
         //para pegar o Value, basta usar getValue ao inves de getKey
         Object item = cboServicos.getSelectedItem();
-        String value = ((ComboItem)item).getValue();
+        String value = ((VendaComboItem)item).getValue();
+        String valorServico = ((VendaComboItem)item).getValor();
 
         tmpVenda.setCodigoServico(Integer.valueOf(value));
-        tmpVenda.setValor(0);
+        tmpVenda.setValorsevico(0);
+        tmpVenda.setValorsevico(Double.valueOf(valorServico));
         
-        JOptionPane.showMessageDialog(pnlCliente,value);
         VendaDAO vendaDAO = new VendaDAO();
-        //vendaDAO
+        vendaDAO.insert(tmpVenda);
+        JOptionPane.showMessageDialog(pnlCliente, "Venda Inserida");
+        util.limparCampos(pnlCliente);
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FrmVisualizarCliente frmCliente = new FrmVisualizarCliente();
+        frmCliente.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

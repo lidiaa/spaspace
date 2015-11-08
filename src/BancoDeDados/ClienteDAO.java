@@ -83,8 +83,14 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
         if(rs != null){
             while(rs.next())
             {
+                //cpfcliente, rgcliente, nomecliente, telefonecliente, generocliente from cliente
                 Cliente tempCliente = new Cliente();
-              //  tempClient;
+                tempCliente.setCodigo(Integer.valueOf(rs.getString(1)));
+                tempCliente.setCPF(rs.getString(2));
+                tempCliente.setRG(rs.getString(3));
+                tempCliente.setNome(rs.getString(4));
+                tempCliente.setTelefone(rs.getString(5));
+                tempCliente.setGenero(rs.getString(6));
                 listaCliente.add(tempCliente);
             }
             return listaCliente;
@@ -104,7 +110,7 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
     
     @Override
     public String SQLList() {
-        String sql = "select * from cliente";
+        String sql = "select codigocliente, cpfcliente, rgcliente, nomecliente, telefonecliente, generocliente from cliente";
         //select cpfcliente, rgcliente, nomecliente, telefonecliente, generocliente from cliente
         return sql;
     }

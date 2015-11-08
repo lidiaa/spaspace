@@ -5,18 +5,59 @@
  */
 package Visao;
 
+import Modelo.VendaModelo;
+import Util.JTableUtil;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
+
 /**
  *
  * @author Jonathan
  */
 public class FrmVisualizarVenda extends javax.swing.JFrame {
 
+    private VendaModelo model;
     /**
      * Creates new form FrmVisualizarVenda
      */
     public FrmVisualizarVenda() {
         initComponents();
+        
+        ConfiguraTabela();
+        JTableUtil.ConfiguraTabelaColunas(jtVenda);
     }
+    
+    public void ConfiguraTabela()
+    {
+        model = new VendaModelo();
+        try 
+        {
+            model.fillingRows();
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(FrmVisualizarVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jtVenda.setModel(model);
+    }
+    
+    public void ConfiguraTabela(String like)
+    {
+        model = new VendaModelo();
+        try 
+        {
+            model.fillingRows(like);
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(FrmVisualizarVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jtVenda.setModel(model);
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,7 +69,7 @@ public class FrmVisualizarVenda extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtVenda = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -36,11 +77,16 @@ public class FrmVisualizarVenda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtVenda);
 
         jLabel1.setText("jLabel1");
 
         jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("jButton2");
 
@@ -83,6 +129,10 @@ public class FrmVisualizarVenda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -123,7 +173,7 @@ public class FrmVisualizarVenda extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jtVenda;
     // End of variables declaration//GEN-END:variables
 }

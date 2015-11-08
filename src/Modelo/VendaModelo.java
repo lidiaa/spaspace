@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import BancoDeDados.VendaDAO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class VendaModelo extends AbstractTableModel {
     
-    private String colunas[] = {"ID", "NOME", "TELEFONE"};
+    private String colunas[] = {"CÓDIGO", "NOME", "TELEFONE"};
     private static List<Venda> linhas;
     
     @Override
@@ -40,14 +42,44 @@ public class VendaModelo extends AbstractTableModel {
         switch (columnIndex)
         {
             case 0:
-                break;
+                return venda.getCodigoVenda();
             case 1:
-                break;
+                return venda.getCodigoCliente();
             case 2:
-                break;
+                return venda.getCodigoServico();
+            default:
+                throw new IndexOutOfBoundsException("Column out of bounds");
         }
-        
-        return venda;
+    }
+    
+    public List<Venda> fillingRows() throws Exception
+    {
+        try
+        {
+            VendaDAO vendaDAO = new VendaDAO();
+            linhas = new ArrayList();
+            //linhas = vendaDAO.ListarTodos();
+        }
+        catch(Exception ex)
+        {
+            throw new Exception("Erro ao preencher tabela:" + ex.getMessage());
+        }
+        return linhas;
+    }
+    
+    public List<Venda> fillingRows(String like) throws Exception
+    {
+        try
+        {
+            VendaDAO vendaDAO = new VendaDAO();
+            linhas = new ArrayList();
+            //linhas = vendaDAO.ListarLike(like);
+        }
+        catch(Exception ex)
+        {
+            throw new Exception("Erro ao preencher tabela:" + ex.getMessage());
+        }
+        return linhas;
     }
     
 }

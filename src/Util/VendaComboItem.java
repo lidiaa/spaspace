@@ -9,15 +9,17 @@ package Util;
  *
  * @author Jonathan
  */
-public class ComboItem
+public class VendaComboItem
 {
     private String key;
     private String value;
+    private String valor;
 
-    public ComboItem(String key, String value)
+    public VendaComboItem(String key, String value, String valor)
     {
         this.key = key;
         this.value = value;
+        this.valor = valor;
     }
 
     @Override
@@ -34,5 +36,10 @@ public class ComboItem
     public String getValue()
     {
         return value;
+    }
+    
+    public String getValor()
+    {
+        return valor;
     }
 }

@@ -1,4 +1,5 @@
 /*
+
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -13,28 +14,37 @@ import BancoDeDados.VendaDAO;
  */
 public class Venda {
     
-    private int Id;
-    private double Valor;
-    private String DataVencimento;
-    private String DataPagamento;
-    private String FormaPagamento;
+    private int codigoVenda;
+    private String Observacao;
     private int codigoCliente;
     private int codigoServico;
+    private String FormaPagamento;
+    private double valorsevico;
+    private String DataVencimento;
+    private String DataPagamento;
 
-    public int getId() {
-        return Id;
+    public int getCodigoVenda() {
+        return codigoVenda;
     }
 
-    public void setId(int Id) {
-        this.Id = Id;
+    public void setCodigoVenda(int codigoVenda) {
+        this.codigoVenda = codigoVenda;
     }
 
-    public double getValor() {
-        return Valor;
+    public String getObservacao() {
+        return Observacao;
     }
 
-    public void setValor(double Valor) {
-        this.Valor = Valor;
+    public void setObservacao(String Observacao) {
+        this.Observacao = Observacao;
+    }
+
+    public double getValorsevico() {
+        return valorsevico;
+    }
+
+    public void setValorsevico(double valorsevico) {
+        this.valorsevico = valorsevico;
     }
 
     public String getDataVencimento() {
@@ -77,16 +87,17 @@ public class Venda {
         this.codigoServico = codigoServico;
     }
 
-    public Venda(int Id, double Valor, String DataVencimento, String DataPagamento, String FormaPagamento, int codigoCliente, int codigoServico) {
-        this.Id = Id;
-        this.Valor = Valor;
-        this.DataVencimento = DataVencimento;
-        this.DataPagamento = DataPagamento;
-        this.FormaPagamento = FormaPagamento;
+    public Venda(int codigoVenda, String Observacao, int codigoCliente, int codigoServico, String FormaPagamento, double valorsevico, String DataVencimento, String DataPagamento) {
+        this.codigoVenda = codigoVenda;
+        this.Observacao = Observacao;
         this.codigoCliente = codigoCliente;
         this.codigoServico = codigoServico;
+        this.FormaPagamento = FormaPagamento;
+        this.valorsevico = valorsevico;
+        this.DataVencimento = DataVencimento;
+        this.DataPagamento = DataPagamento;
     }
-        
+      
     public boolean inserir() throws Exception
     {
         VendaDAO vendaDAO = new VendaDAO();
