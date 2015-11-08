@@ -5,7 +5,14 @@
  */
 package Visao;
 
+import BancoDeDados.ServicoDAO;
+import BancoDeDados.VendaDAO;
+import Modelo.Servico;
 import Modelo.Utilitarios;
+import Modelo.Venda;
+import Util.ComboItem;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,11 +20,34 @@ import Modelo.Utilitarios;
  */
 public class FrmVenda extends javax.swing.JFrame {
 
+    Modelo.Utilitarios util = new Utilitarios();
     /**
      * Creates new form FrmVenda
      */
     public FrmVenda() {
         initComponents();
+        setCboServicos();
+    }
+    
+    //função para trazer os serviços do banco
+    public void setCboServicos()
+    {        
+        cboServicos.removeAllItems();    
+        ServicoDAO servDAO = new ServicoDAO();
+        //Vector model = new Vector();
+        try
+        {   
+            List<Servico> servicos = servDAO.listarTodosServicos();            
+            for(Servico service : servicos)
+            {  
+                //model.addElement(new Item(service.getCodigoServico(), service.getDescricaoServico()));
+                cboServicos.addItem(new ComboItem(service.getDescricaoServico(), String.valueOf(service.getCodigoServico())));  
+            }
+        } 
+        catch (Exception ex) 
+        {
+            //Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 
     /**
@@ -39,8 +69,8 @@ public class FrmVenda extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        cboServicos = new javax.swing.JComboBox();
+        cboPagamento = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
@@ -51,6 +81,11 @@ public class FrmVenda extends javax.swing.JFrame {
         jLabel1.setText("Cliente:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -79,9 +114,9 @@ public class FrmVenda extends javax.swing.JFrame {
 
         jLabel8.setText("Observações:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboServicos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboPagamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dinheiro", "Cartão", "Boleto" }));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -110,8 +145,8 @@ public class FrmVenda extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNomeCliente)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, 0, 411, Short.MAX_VALUE)
+                            .addComponent(cboPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboServicos, 0, 411, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)))
@@ -128,11 +163,11 @@ public class FrmVenda extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboServicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlClienteLayout.createSequentialGroup()
@@ -168,7 +203,6 @@ public class FrmVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlCliente);
     }//GEN-LAST:event_btnLimparActionPerformed
 
@@ -177,11 +211,26 @@ public class FrmVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairItemStateChanged
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        // TODO add your handling code here:
-        Modelo.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
-
     }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        Venda tmpVenda = new Venda();
+        tmpVenda.setCodigoCliente(0);
+        tmpVenda.setDataPagamento(null);
+        tmpVenda.setFormaPagamento(cboPagamento.getSelectedItem().toString());
+        //teste
+        //para pegar o Value, basta usar getValue ao inves de getKey
+        Object item = cboServicos.getSelectedItem();
+        String value = ((ComboItem)item).getValue();
+
+        tmpVenda.setCodigoServico(Integer.valueOf(value));
+        tmpVenda.setValor(0);
+        
+        JOptionPane.showMessageDialog(pnlCliente,value);
+        VendaDAO vendaDAO = new VendaDAO();
+        //vendaDAO
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,9 +271,9 @@ public class FrmVenda extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox cboPagamento;
+    private javax.swing.JComboBox cboServicos;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

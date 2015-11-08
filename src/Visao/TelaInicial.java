@@ -5,8 +5,8 @@
  */
 package Visao;
 
-import Modelo.Cliente;
 import Relatorio.GerarRelatorio;
+import javax.swing.JFrame;
 
 /**
  *
@@ -244,11 +244,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         FrmArquivo frmArquivo = new FrmArquivo();
+        frmArquivo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frmArquivo.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         FrmVenda frmVenda = new FrmVenda();
+        frmVenda.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frmVenda.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 

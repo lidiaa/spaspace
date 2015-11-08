@@ -19,21 +19,53 @@ public class VendaDAO {
         return "UPDATE VENDA SET DATAPAGAMENTO=?, STATUS='F' WHERE ID=?";
     }
     
-    public void updateCliente(Venda venda, String dataPagamento){
-    try
+    public String SQLList() 
     {
-        DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
-        
-        // DatabaseUtilit.getPs().setInt(1, cliente.getCodigo()); //Duvida -> se tem codigo na area de update
-        DatabaseUtilit.getPs().setString(1, dataPagamento);
-        DatabaseUtilit.getPs().setString(2, String.valueOf(venda.getId()));        
-        DatabaseUtilit.getPs().executeUpdate();
-        
-        System.out.println("Venda atualizado com sucesso");   
-    } 
-    catch (SQLException ex)
-    {
-        System.err.println("Cliente não foi atualizado por @updateCliente\\ClienteDAO \nErro: "+ex);
+        String sql = "SELECT * from VENDA";
+        return sql;
     }
-}
+    
+    public String SQLLInsert() 
+    {
+        String sql = "INSERT INTO venda () VALUES (?, ?, ? , ?, ?, ?)";
+        return sql;
+    }
+    
+    public void update(Venda venda, String dataPagamento)
+    {
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
+
+            // DatabaseUtilit.getPs().setInt(1, cliente.getCodigo()); //Duvida -> se tem codigo na area de update
+            DatabaseUtilit.getPs().setString(1, dataPagamento);
+            DatabaseUtilit.getPs().setString(2, String.valueOf(venda.getId()));        
+            DatabaseUtilit.getPs().executeUpdate();
+
+            System.out.println("Venda atualizado com sucesso");   
+        } 
+        catch (SQLException ex)
+        {
+            System.err.println("Cliente não foi atualizado por @updateCliente\\ClienteDAO \nErro: "+ex);
+        }
+    }
+    
+    public void insert(Venda venda)
+    {
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
+
+            // DatabaseUtilit.getPs().setInt(1, cliente.getCodigo()); //Duvida -> se tem codigo na area de update
+            DatabaseUtilit.getPs().setString(1, "");
+            DatabaseUtilit.getPs().setString(2, String.valueOf(venda.getId()));        
+            DatabaseUtilit.getPs().executeUpdate();
+
+            System.out.println("Venda atualizado com sucesso");   
+        } 
+        catch (SQLException ex)
+        {
+            System.err.println("Cliente não foi atualizado por @updateCliente\\ClienteDAO \nErro: "+ex);
+        }
+    }
 }

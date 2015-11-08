@@ -71,7 +71,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
         }
     }
     
-    public List<Servico> listarTodosServicos ()
+    public List<Servico> listarTodosServicos () throws Exception
     {
         List<Servico> listaServico = new ArrayList<>();
         try
@@ -96,6 +96,10 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
         } catch(SQLException ex)
         {
             System.err.println("Servico não foi consultado \nErro: "+ex);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Erro ao processar:" + ex.getMessage());
         }
         return null;
     }

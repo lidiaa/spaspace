@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import BancoDeDados.VendaDAO;
+
 /**
  *
  * @author Jonathan
@@ -16,8 +18,8 @@ public class Venda {
     private String DataVencimento;
     private String DataPagamento;
     private String FormaPagamento;
-    private Cliente Cliente;
-    private Servico Servico;
+    private int codigoCliente;
+    private int codigoServico;
 
     public int getId() {
         return Id;
@@ -59,30 +61,44 @@ public class Venda {
         this.FormaPagamento = FormaPagamento;
     }
 
-    public Cliente getCliente() {
-        return Cliente;
+    public int getCodigoCliente() {
+        return codigoCliente;
     }
 
-    public void setCliente(Cliente Cliente) {
-        this.Cliente = Cliente;
+    public void setCodigoCliente(int codigoCliente) {
+        this.codigoCliente = codigoCliente;
     }
 
-    public Servico getServico() {
-        return Servico;
+    public int getCodigoServico() {
+        return codigoServico;
     }
 
-    public void setServico(Servico Servico) {
-        this.Servico = Servico;
+    public void setCodigoServico(int codigoServico) {
+        this.codigoServico = codigoServico;
     }
 
-    public Venda(int Id, double Valor, String DataVencimento, String DataPagamento, String FormaPagamento, Cliente Cliente, Servico Servico) {
+    public Venda(int Id, double Valor, String DataVencimento, String DataPagamento, String FormaPagamento, int codigoCliente, int codigoServico) {
         this.Id = Id;
         this.Valor = Valor;
         this.DataVencimento = DataVencimento;
         this.DataPagamento = DataPagamento;
         this.FormaPagamento = FormaPagamento;
-        this.Cliente = Cliente;
-        this.Servico = Servico;
+        this.codigoCliente = codigoCliente;
+        this.codigoServico = codigoServico;
+    }
+        
+    public boolean inserir() throws Exception
+    {
+        VendaDAO vendaDAO = new VendaDAO();
+        try
+        {
+            //vendaDAO.
+            return true;
+        }
+        catch(Exception ex)
+        {
+            throw new Exception("Erro ao inserir:" + ex.getMessage());
+        }
     }
     
     public Venda()
