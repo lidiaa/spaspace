@@ -8,7 +8,7 @@ package Visao;
 import BancoDeDados.DatabaseUtilit;
 import BancoDeDados.ServicoDAO;
 import Modelo.Servico;
-import Modelo.Utilitarios;
+import Util.Utilitarios;
 import java.awt.Component;
 import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
@@ -193,7 +193,7 @@ public class FrmServico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
     }//GEN-LAST:event_btnSairActionPerformed
 
@@ -211,13 +211,13 @@ public class FrmServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlServico);
          
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtDuracaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracaoKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtDuracaoKeyTyped
 

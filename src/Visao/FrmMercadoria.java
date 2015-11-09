@@ -6,9 +6,13 @@
 package Visao;
 
 import BancoDeDados.DatabaseUtilit;
+import BancoDeDados.FornecedorDAO;
 import BancoDeDados.MercadoriaDAO;
+import Modelo.Fornecedor;
 import Modelo.Mercadoria;
-import Modelo.Utilitarios;
+import Util.Utilitarios;
+import Util.MercadoriaComboFornecedor;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +27,7 @@ public class FrmMercadoria extends javax.swing.JFrame {
     public FrmMercadoria() {
         initComponents();
         this.setLocationRelativeTo(null);  //centralizar a tela
+        setCboFornecedor(); //para inicializar o combobox com os fornecedores
     }
 
     /**
@@ -76,6 +81,11 @@ public class FrmMercadoria extends javax.swing.JFrame {
         });
 
         cbbFornecedores.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbFornecedoresActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -184,18 +194,18 @@ public class FrmMercadoria extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlMercadoria);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtQuantidadeKeyTyped
 
@@ -212,14 +222,41 @@ public class FrmMercadoria extends javax.swing.JFrame {
         String descricao = txtDescricao.getText();
         Double valor = Double.parseDouble(txtValor.getText());
         int quantidade = Integer.parseInt(txtQuantidade.getText());
-        //String fornecedor - tem q pegar o codigo.
+        //Comandos para pegar o valor selecionado no combobox, ao inves do texto pega a chave primaria
+        Object item = cbbFornecedores.getSelectedItem();
+        String valueFornecedor = ((MercadoriaComboFornecedor)item).getValue();
+        int fornecedor = Integer.parseInt(valueFornecedor); //convertendo de String para int
         
-        //alt codigo - 2 codigo do fornecedor
-        Mercadoria m = new Mercadoria(nome, 2, descricao, valor, quantidade);
+        System.out.println("Seu fornecedor é: "+fornecedor);
+        Mercadoria m = new Mercadoria(nome, fornecedor, descricao, valor, quantidade);
         DatabaseUtilit.Conectar();
         MercadoriaDAO mDAO = new MercadoriaDAO();
         mDAO.insereMercadoria(m);
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    public void setCboFornecedor()
+    {        
+        cbbFornecedores.removeAllItems();    
+        FornecedorDAO fDAO = new FornecedorDAO();
+        //Vector model = new Vector();
+        try
+        {   
+            List<Fornecedor> fornecedor = fDAO.listarTodosFornecedores();
+            for(Fornecedor fornece : fornecedor)
+            {  
+                //model.addElement(new Item(service.getCodigoServico(), service.getDescricaoServico()));
+                cbbFornecedores.addItem(new Util.MercadoriaComboFornecedor(fornece.getNomeFantasia(), String.valueOf(fornece.getCodigo())));  
+            }
+        } 
+        catch (Exception ex) 
+        {
+            //Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+    
+    private void cbbFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbFornecedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbFornecedoresActionPerformed
 
     /**
      * @param args the command line arguments

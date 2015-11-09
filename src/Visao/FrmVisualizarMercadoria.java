@@ -6,6 +6,7 @@
 package Visao;
 
 import Modelo.MercadoriaModelo;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -63,6 +64,8 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtMercadoria = new javax.swing.JTable();
         btnCadastro = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        brnAlterar = new javax.swing.JButton();
 
         pnlVisualizarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Mercadoria"));
 
@@ -84,6 +87,20 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        brnAlterar.setText("Alterar");
+        brnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlVisualizarClienteLayout = new javax.swing.GroupLayout(pnlVisualizarCliente);
         pnlVisualizarCliente.setLayout(pnlVisualizarClienteLayout);
         pnlVisualizarClienteLayout.setHorizontalGroup(
@@ -98,7 +115,12 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
                         .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addComponent(btnBuscar))
-                    .addComponent(btnCadastro))
+                    .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
+                        .addComponent(btnCadastro)
+                        .addGap(86, 86, 86)
+                        .addComponent(btnExcluir)
+                        .addGap(110, 110, 110)
+                        .addComponent(brnAlterar)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         pnlVisualizarClienteLayout.setVerticalGroup(
@@ -112,7 +134,11 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(btnCadastro)
+                .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastro)
+                    .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnExcluir)
+                        .addComponent(brnAlterar)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -145,6 +171,17 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
         FrmMercadoria objM = new FrmMercadoria();
         objM.setVisible(true);
     }//GEN-LAST:event_btnCadastroActionPerformed
+
+    private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_brnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if(JOptionPane.showConfirmDialog(null,"Deseja excluir cadastro selecionado? A operação não poderá ser desfeita.","ATENÇÃO ",javax.swing.JOptionPane.YES_NO_OPTION)==0)
+        {
+            //Colocaar código para caso de Excluão
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,8 +219,10 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton brnAlterar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastro;
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JComboBox cbbBuscarPor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtMercadoria;

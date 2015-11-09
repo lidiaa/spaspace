@@ -116,7 +116,7 @@ public class MercadoriaDAO implements OperacoesEmBanco, BuscaEmBanco{
 
     @Override
     public String SQLInsert() {
-        String sql = "select from mercadoria (nomemercadoria, "
+        String sql = "insert into mercadoria (nomemercadoria, "
                 + "codigofornecedor, descricaomercadoria, valormercadoria, quantidademercadoria) "
                 + "values (?, ?, ?, ?, ?)";
         return sql;
