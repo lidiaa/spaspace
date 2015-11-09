@@ -18,8 +18,8 @@ public class Fornecedor {
     private String nomeResponsavel;
     private String telefone;
 
-    public Fornecedor(int codigo, String CNPJ, String nome, String nomeFantasia, String email, String nomeResponsavel, String telefone) {
-        this.codigo = codigo;
+    public Fornecedor(String CNPJ, String nome, String nomeFantasia, String email, String nomeResponsavel, String telefone) {
+        //this.codigo = codigo;
         this.CNPJ = CNPJ;
         this.nome = nome;
         this.nomeFantasia = nomeFantasia;

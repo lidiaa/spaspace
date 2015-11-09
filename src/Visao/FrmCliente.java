@@ -5,6 +5,9 @@
  */
 package Visao;
 
+import BancoDeDados.ClienteDAO;
+import BancoDeDados.DatabaseUtilit;
+import Modelo.Cliente;
 import Modelo.Utilitarios;
 import java.awt.event.KeyEvent;
 import javax.swing.ButtonGroup;
@@ -95,6 +98,11 @@ public class FrmCliente extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -302,6 +310,26 @@ public class FrmCliente extends javax.swing.JFrame {
     private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
 
     }//GEN-LAST:event_formKeyTyped
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        String nome = txtNomeCliente.getText();
+        String rg = txtRgCliente.getText();
+        String cpf = txtCpfCliente.getText();
+        String telefone = txtTelefone.getText();
+        String genero="";
+        if(cbxFeminino.isSelected())
+        {
+            genero = "F";
+        }
+        if(cbxMasculino.isSelected())
+        {
+            genero = "M";
+        }
+        Cliente c = new Cliente(7, cpf, rg, nome, telefone, genero); //passar os itens por aqui
+        DatabaseUtilit.Conectar();
+        ClienteDAO cDAO = new ClienteDAO();
+        cDAO.insertCliente(c);
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

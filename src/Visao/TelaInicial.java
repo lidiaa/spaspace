@@ -216,7 +216,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         // TODO add your handling code here:
-        FrmCliente objC = new FrmCliente();
+        FrmVisualizarCliente objC = new FrmVisualizarCliente();
         objC.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
 
@@ -226,7 +226,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFornecedorActionPerformed
-        FrmFornecedor objFo = new FrmFornecedor();
+        FrmVisualizarFornecedor objFo = new FrmVisualizarFornecedor();
         objFo.setVisible(true);
     }//GEN-LAST:event_btnFornecedorActionPerformed
 
@@ -238,7 +238,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
         // TODO add your handling code here:
-        FrmMercadoria objM = new FrmMercadoria();
+        FrmVisualizarMercadoria objM = new FrmVisualizarMercadoria();
         objM.setVisible(true);
     }//GEN-LAST:event_btnProdutoActionPerformed
 

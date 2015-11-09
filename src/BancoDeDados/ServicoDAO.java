@@ -25,6 +25,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
             DatabaseUtilit.getPs().setString(1, servico.getNomeServico());
             DatabaseUtilit.getPs().setString(2, servico.getDescricaoServico());
             DatabaseUtilit.getPs().setInt(3, servico.getDuracaoMinutosServico());
+            DatabaseUtilit.getPs().setDouble(4, servico.getValorServico());
             
             DatabaseUtilit.getPs().execute();
             System.out.println("Servico cadastrado com sucesso");
@@ -45,6 +46,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
             DatabaseUtilit.getPs().setString(1, servico.getNomeServico());
             DatabaseUtilit.getPs().setString(2, servico.getDescricaoServico());
             DatabaseUtilit.getPs().setInt(3, servico.getDuracaoMinutosServico());
+            DatabaseUtilit.getPs().setDouble(4, servico.getValorServico());
 
             DatabaseUtilit.getPs().executeUpdate();
 
@@ -88,7 +90,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
                     tempServico.setNomeServico(rs.getString(2));
                     tempServico.setDescricaoServico(rs.getString(3));
                     tempServico.setDuracaoMinutosServico(rs.getInt(4));
-                    
+                    tempServico.setValorServico(rs.getDouble(5));
                     listaServico.add(tempServico);
                 }
                 return listaServico;
@@ -111,13 +113,13 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
     
     @Override
     public String SQLInsert() {
-        String sql = "insert into servico (nomeservico, descricaoservico, duracaoservico) values (?, ?, ?)";
+        String sql = "insert into servico (nomeservico, descricaoservico, duracaoservico, valor) values (?, ?, ?, ?)";
         return sql;
     }
 
     @Override
     public String SQLUpdate() {
-        String sql = "update servico set descricaoservico = ?, duracaoservico = ? where codigoservico = ?";
+        String sql = "update servico set descricaoservico = ?, duracaoservico = ?, valor = ? where codigoservico = ?";
         return sql;
     }
 
@@ -130,7 +132,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
     @Override
     public String SQLList() {
         String sql = "select * from servico";
-        //select descricaoservico, duracaoservico from servico
+        //select descricaoservico, duracaoservico, valor from servico
         return sql;
     }
     

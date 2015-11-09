@@ -21,11 +21,12 @@ public class Servico {
         
     }
     
-    public Servico(int codigoServico, String nomeServico, String descricaoServico, int duracaoMinutosServico) {
-        this.codigoServico = codigoServico;
+    public Servico(String nomeServico, String descricaoServico, int duracaoMinutosServico, double valorServico) {
+        //this.codigoServico = codigoServico;
         this.nomeServico = nomeServico;
         this.descricaoServico = descricaoServico;
         this.duracaoMinutosServico = duracaoMinutosServico;
+        this.valorServico = valorServico;
     }
 
     

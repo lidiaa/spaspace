@@ -79,8 +79,6 @@ public class FrmVenda extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         pnlCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Venda"));
 
         jLabel1.setText("Cliente:");

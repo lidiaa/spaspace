@@ -23,7 +23,7 @@ public class FrmVisualizarVenda extends javax.swing.JFrame {
      */
     public FrmVisualizarVenda() {
         initComponents();
-        
+        this.setLocationRelativeTo(null);  //centralizar a tela
         ConfiguraTabela();
         JTableUtil.ConfiguraTabelaColunas(jtVenda);
     }
@@ -74,8 +74,6 @@ public class FrmVisualizarVenda extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jScrollPane1.setViewportView(jtVenda);
 

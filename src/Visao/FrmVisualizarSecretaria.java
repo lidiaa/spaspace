@@ -21,6 +21,7 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
     
     public FrmVisualizarSecretaria() {
         initComponents();
+        this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
     }
@@ -65,8 +66,6 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
         jtSecretaria = new javax.swing.JTable();
         btnCadastro = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         pnlVisualizarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Funcionário de Secretaria"));
 
         cbbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "código", "nome", "cpf" }));
@@ -81,6 +80,11 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtSecretaria);
 
         btnCadastro.setText("Cadastrar Funcionário");
+        btnCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlVisualizarClienteLayout = new javax.swing.GroupLayout(pnlVisualizarCliente);
         pnlVisualizarCliente.setLayout(pnlVisualizarClienteLayout);
@@ -138,6 +142,11 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
         configuraTabelaModelo(txtPesquisa.getText());
         configuraTabelaColunas();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
+        FrmSecretaria objSe = new FrmSecretaria();
+        objSe.setVisible(true);
+    }//GEN-LAST:event_btnCadastroActionPerformed
 
     /**
      * @param args the command line arguments

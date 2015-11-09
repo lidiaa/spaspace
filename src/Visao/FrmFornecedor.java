@@ -5,6 +5,9 @@
  */
 package Visao;
 
+import BancoDeDados.DatabaseUtilit;
+import BancoDeDados.FornecedorDAO;
+import Modelo.Fornecedor;
 import Modelo.Utilitarios;
 import javax.swing.JOptionPane;
 
@@ -65,6 +68,11 @@ public class FrmFornecedor extends javax.swing.JFrame {
         jLabel6.setText("Nome Responsável:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -217,6 +225,24 @@ public class FrmFornecedor extends javax.swing.JFrame {
         Modelo.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtTelefoneKeyTyped
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        String nome = txtNome.getText();
+        String nomeFantasia = txtNomeFantasia.getText();
+        String cnpj = txtCnpj.getText();
+        String email = txtEmail.getText();
+        String telefone = txtTelefone.getText();
+        String nomeResponsavel = txtNomeResponsavel.getText();
+        
+        System.out.println("CNPJ : "+cnpj);
+        
+        //alt codigo
+        Fornecedor f = new Fornecedor(cnpj, nome, nomeFantasia, email, nomeResponsavel, telefone);
+        DatabaseUtilit.Conectar();
+        FornecedorDAO forDAO = new FornecedorDAO();
+        forDAO.insereFornecedor(f);
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

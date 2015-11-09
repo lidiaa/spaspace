@@ -15,13 +15,14 @@ public class Secretaria extends Funcionario{
     public Secretaria(){
     }
     
-    public Secretaria(int codigo, String cpf, String rg, String nome, String telefone, String cep, String nro, String cargo)
+    public Secretaria(String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String cargo)
     {
-        codigo = super.getCodigo();
+        //codigo = super.getCodigo();
         cpf = super.getCPF();
         rg = super.getRG();
         nome = super.getNome();
         telefone = super.getTelefone();
+        genero = super.getGenero();
         cep = super.getCep();
         nro = super.getNumeroCasa();
         cargo = this.cargo;

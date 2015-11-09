@@ -5,6 +5,9 @@
  */
 package Visao;
 
+import BancoDeDados.DatabaseUtilit;
+import BancoDeDados.SecretariaDAO;
+import Modelo.Secretaria;
 import Modelo.Utilitarios;
 import java.awt.Component;
 import java.awt.Container;
@@ -57,7 +60,7 @@ public class FrmSecretaria extends javax.swing.JFrame{
         txtRgSecretaria = new javax.swing.JFormattedTextField();
         txtCpfSecretaria = new javax.swing.JFormattedTextField();
         txtCep = new javax.swing.JFormattedTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtTelefone = new javax.swing.JFormattedTextField();
 
         setTitle("Cadastro De Funcionário da Secretaria");
 
@@ -98,6 +101,11 @@ public class FrmSecretaria extends javax.swing.JFrame{
         jLabel6.setText("Cep:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -156,13 +164,13 @@ public class FrmSecretaria extends javax.swing.JFrame{
         });
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+            txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jFormattedTextField1KeyTyped(evt);
+                txtTelefoneKeyTyped(evt);
             }
         });
 
@@ -194,7 +202,7 @@ public class FrmSecretaria extends javax.swing.JFrame{
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlSecretariaLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jFormattedTextField1))
+                                .addComponent(txtTelefone))
                             .addGroup(pnlSecretariaLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -246,7 +254,7 @@ public class FrmSecretaria extends javax.swing.JFrame{
                     .addComponent(jLabel5)
                     .addComponent(cbxFeminino)
                     .addComponent(cbxMasculino)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(pnlSecretariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -325,15 +333,37 @@ public class FrmSecretaria extends javax.swing.JFrame{
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtRgSecretariaKeyTyped
 
-    private void jFormattedTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyTyped
+    private void txtTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyTyped
         Modelo.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
-    }//GEN-LAST:event_jFormattedTextField1KeyTyped
+    }//GEN-LAST:event_txtTelefoneKeyTyped
 
     private void txtCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyTyped
         Modelo.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCepKeyTyped
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        String nome = txtNomeSecretaria.getText();
+        String cpf = txtCpfSecretaria.getText();
+        String rg = txtRgSecretaria.getText();
+        String telefone = txtTelefone.getText();
+        String genero = "";
+            if(cbxFeminino.isSelected())
+                genero = "F";
+            if(cbxMasculino.isSelected())   
+                genero = "M";
+        String cep = txtCep.getText();
+        String nroCasa = txtNroCasa.getText();
+        String cargo = cbbCargo.getSelectedItem().toString();
+        
+        //alterar codigo
+        Secretaria s = new Secretaria(cpf, rg, nome, telefone, genero, cep, nroCasa, cargo);
+        DatabaseUtilit.Conectar();
+        SecretariaDAO sDAO = new SecretariaDAO();
+        sDAO.insereSecretaria(s);
+     
+    }//GEN-LAST:event_btnSalvarActionPerformed
     
     /**
      * @param args the command line arguments
@@ -377,7 +407,6 @@ public class FrmSecretaria extends javax.swing.JFrame{
     private javax.swing.JComboBox cbbCargo;
     private javax.swing.JCheckBox cbxFeminino;
     private javax.swing.JCheckBox cbxMasculino;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -392,5 +421,6 @@ public class FrmSecretaria extends javax.swing.JFrame{
     private javax.swing.JTextField txtNomeSecretaria;
     private javax.swing.JTextField txtNroCasa;
     private javax.swing.JFormattedTextField txtRgSecretaria;
+    private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

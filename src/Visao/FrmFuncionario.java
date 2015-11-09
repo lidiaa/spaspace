@@ -125,14 +125,14 @@ public class FrmFuncionario extends javax.swing.JFrame {
 
     private void btnMassagistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMassagistaActionPerformed
         // TODO add your handling code here:
-        FrmMassagista objMa = new FrmMassagista();
+        FrmVisualizarMassagista objMa = new FrmVisualizarMassagista();
         objMa.setVisible(true);
                 
     }//GEN-LAST:event_btnMassagistaActionPerformed
 
     private void btnSecretariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSecretariaActionPerformed
         // TODO add your handling code here:
-        FrmSecretaria objSe = new FrmSecretaria();
+        FrmVisualizarSecretaria objSe = new FrmVisualizarSecretaria();
         objSe.setVisible(true);
     }//GEN-LAST:event_btnSecretariaActionPerformed
 

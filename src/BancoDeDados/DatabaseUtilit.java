@@ -15,9 +15,9 @@ public class DatabaseUtilit {
     private static Connection con; //conexao
     private static PreparedStatement ps; //envio de comandos ao banco
     private static String url = "jdbc:mysql://127.0.0.1/spaspace"; //caminho ao banco
-        //127.0.0.1:3306 // ou SpaSpaceJava 
     private static String user = "root"; //usuario do banco de dados dono do banco a ser usado no programa
-    private static String psw = "jonathan159"; //senha do usuario do banco de dados
+    private static String psw = "root"; //senha do usuario do banco de dados
+                                //jonathan159
     
     public static void Conectar()
     {

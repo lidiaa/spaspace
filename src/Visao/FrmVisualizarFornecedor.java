@@ -18,6 +18,7 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
      */
     public FrmVisualizarFornecedor() {
         initComponents();
+        this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
     }
@@ -62,8 +63,6 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
         jtFornecedor = new javax.swing.JTable();
         btnCadastro = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         pnlVisualizarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Fornecedor"));
 
         cbbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "código", "nome", "cpf" }));
@@ -78,6 +77,11 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtFornecedor);
 
         btnCadastro.setText("Cadastrar Fornecedor");
+        btnCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlVisualizarClienteLayout = new javax.swing.GroupLayout(pnlVisualizarCliente);
         pnlVisualizarCliente.setLayout(pnlVisualizarClienteLayout);
@@ -135,6 +139,11 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
         configuraTabelaModelo(txtPesquisa.getText());
         configuraTabelaColunas();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
+        FrmFornecedor objFo = new FrmFornecedor();
+        objFo.setVisible(true);
+    }//GEN-LAST:event_btnCadastroActionPerformed
 
     /**
      * @param args the command line arguments

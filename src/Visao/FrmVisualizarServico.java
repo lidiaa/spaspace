@@ -19,6 +19,7 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
      */
     public FrmVisualizarServico() {
         initComponents();
+        this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
     }
@@ -61,8 +62,6 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtServico = new javax.swing.JTable();
         btnCadastro = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pnlVisualizarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Serviço"));
 
@@ -142,7 +141,8 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        // TODO add your handling code here:
+        FrmServico objS = new FrmServico();
+        objS.setVisible(true);
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     /**

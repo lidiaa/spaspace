@@ -5,6 +5,9 @@
  */
 package Visao;
 
+import BancoDeDados.DatabaseUtilit;
+import BancoDeDados.MassagistaDAO;
+import Modelo.Massagista;
 import Modelo.Utilitarios;
 import javax.swing.JOptionPane;
 
@@ -86,6 +89,11 @@ public class FrmMassagista extends javax.swing.JFrame {
         jLabel4.setText("Telefone:");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -364,6 +372,31 @@ public class FrmMassagista extends javax.swing.JFrame {
         Modelo.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCepKeyTyped
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        String nome = txtNomeMassagista.getText();
+        String cpf = txtCpfMassagista.getText();
+        String rg = txtRgMassagista.getText();
+        String telefone = txtTelefoneMassagista.getText();
+        String genero="";
+        if(cbxFeminino.isSelected())
+            genero = "F";
+        if(cbxMasculino.isSelected())
+            genero = "M";
+        String cep = txtCep.getText();
+        String numeroCasa = txtNroCasa.getText();
+        String formacao = txtFormacao.getText();
+        int anosExp = Integer.parseInt(txtAnosExperiencia.getText());
+        String especialidade = txtEspecialidade.getText();
+        
+        //alt codigo
+        Massagista m = new Massagista(cpf, rg, nome, telefone, genero, cep, numeroCasa, formacao, anosExp, especialidade);
+        DatabaseUtilit.Conectar();
+        MassagistaDAO mDAO = new MassagistaDAO();
+        mDAO.insereMassagista(m);
+                    
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -20,6 +20,7 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
     
     public FrmVisualizarMercadoria() {
         initComponents();
+        this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
     }
@@ -62,8 +63,6 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtMercadoria = new javax.swing.JTable();
         btnCadastro = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pnlVisualizarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Mercadoria"));
 
@@ -143,7 +142,8 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        // TODO add your handling code here:
+        FrmMercadoria objM = new FrmMercadoria();
+        objM.setVisible(true);
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     /**
