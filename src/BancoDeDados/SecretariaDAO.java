@@ -119,10 +119,79 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
         return null;
     }
     
-    public List<Secretaria> listarTodasSecretariasLike (String Like)
+    public List<Secretaria> listarTodasSecretariasLike (String Like) //polimorfismo
     {
+        List<Secretaria> listaSecretaria = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    Secretaria tempSecretaria = new Secretaria();
+                    tempSecretaria.setCodigo(rs.getInt(1));
+                    tempSecretaria.setCPF(rs.getString(2));
+                    tempSecretaria.setRG(rs.getString(3));
+                    tempSecretaria.setNome(rs.getString(4));
+                    tempSecretaria.setTelefone(rs.getString(5));
+                    tempSecretaria.setGenero(rs.getString(6));
+                    tempSecretaria.setCep(rs.getString(7));
+                    tempSecretaria.setNumeroCasa(rs.getString(8));
+                    tempSecretaria.setCargo(rs.getString(9));
+                    
+                    listaSecretaria.add(tempSecretaria);
+                    
+                }
+                return listaSecretaria;
+            }
+        } catch(SQLException ex)
+        {
+            System.err.println("Secretaria não foi consultado \nErro: "+ex);
+        }
+        
         return null;
     }
+    
+        public List<Secretaria> listarTodasSecretariasLike (int Like) //polimorfismo
+    {
+        List<Secretaria> listaSecretaria = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    
+                    Secretaria tempSecretaria = new Secretaria();
+                    tempSecretaria.setCodigo(rs.getInt(1));
+                    tempSecretaria.setCPF(rs.getString(2));
+                    tempSecretaria.setRG(rs.getString(3));
+                    tempSecretaria.setNome(rs.getString(4));
+                    tempSecretaria.setTelefone(rs.getString(5));
+                    tempSecretaria.setGenero(rs.getString(6));
+                    tempSecretaria.setCep(rs.getString(7));
+                    tempSecretaria.setNumeroCasa(rs.getString(8));
+                    tempSecretaria.setCargo(rs.getString(9));
+                    
+                    listaSecretaria.add(tempSecretaria);
+                    
+                }
+                return listaSecretaria;
+            }
+        } catch(SQLException ex)
+        {
+            System.err.println("Secretaria não foi consultado \nErro: "+ex);
+        }
+        
+        return null;
+    }
+
     
     @Override
     public String SQLInsert() {
@@ -154,6 +223,18 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
                 + "generosecretaria, cepsecretaria, numerocasasecretaria, cargosecretaria "
                 + "from secretaria
         */
+        return sql;
+    }
+
+    @Override
+    public String SQLListLike(String Like) { //polimorfismo
+        String sql = "select * from secretaria where nomesecretaria like "+Like+" ";
+        return sql;
+    }
+
+    @Override
+    public String SQLListLike(int Like) { //polimorfismo
+        String sql = "select * from secretaria where codigosecretaria = "+Like+" ";
         return sql;
     }
     

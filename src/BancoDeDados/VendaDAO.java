@@ -72,5 +72,9 @@ public class VendaDAO {
         {
             System.err.println("Cliente não foi inserido: "+ex);
         }
+        finally
+        {
+            DatabaseUtilit.Desconectar();
+        }
     }
 }

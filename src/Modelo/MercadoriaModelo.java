@@ -69,7 +69,19 @@ public class MercadoriaModelo extends AbstractTableModel{
         return linhas;
     }
     
-    public List<Mercadoria> fillingRows(String Like)
+    public List<Mercadoria> fillingRows(String Like) //polimorfismo
+    {
+        try{
+            MercadoriaDAO sDAO = new MercadoriaDAO();
+            linhas = new ArrayList();
+            linhas = sDAO.listarTodasMercadoriasLike(Like);
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao encher tabela "+e);
+        }
+        return linhas;
+    }
+    
+    public List<Mercadoria> fillingRows(int Like) //polimorfismo
     {
         try{
             MercadoriaDAO sDAO = new MercadoriaDAO();

@@ -64,7 +64,19 @@ public class ServicoModelo extends AbstractTableModel{
         return linhas;
     }
     
-    public List<Servico> fillingRows(String Like)
+    public List<Servico> fillingRows(String Like) //polimorfismo
+    {
+        try{
+            ServicoDAO sDAO = new ServicoDAO();
+            linhas = new ArrayList();
+            linhas = sDAO.listarTodosServicosLike(Like);
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao encher tabela "+e);
+        }
+        return linhas;
+    }
+    
+    public List<Servico> fillingRows(int Like) //polimorfismo
     {
         try{
             ServicoDAO sDAO = new ServicoDAO();

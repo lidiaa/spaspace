@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import Modelo.Cliente; //importanto a classe que sera utilizada, informando o pacote
+import javax.swing.JOptionPane;
 
 public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
     
@@ -102,7 +103,61 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
     return null;
 }
 
-    public List<Cliente> listarTodosClientesLike(String Like){
+    public List<Cliente> listarTodosClientesLike(String Like){ //polimorfismo
+        List<Cliente> listaCliente = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    //cpfcliente, rgcliente, nomecliente, telefonecliente, generocliente from cliente
+                    Cliente tempCliente = new Cliente();
+                    tempCliente.setCodigo(Integer.valueOf(rs.getString(1)));
+                    tempCliente.setCPF(rs.getString(2));
+                    tempCliente.setRG(rs.getString(3));
+                    tempCliente.setNome(rs.getString(4));
+                    tempCliente.setTelefone(rs.getString(5));
+                    tempCliente.setGenero(rs.getString(6));
+                    listaCliente.add(tempCliente);
+                }
+                return listaCliente;
+            }
+            } catch(SQLException ex){
+                System.err.println("Cliente não foi consultado \nErro: "+ex);
+            }
+        return null;
+    }
+    
+    public List<Cliente> listarTodosClientesLike(int Like){ //polimorfismo
+        List<Cliente> listaCliente = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    //cpfcliente, rgcliente, nomecliente, telefonecliente, generocliente from cliente
+                    Cliente tempCliente = new Cliente();
+                    tempCliente.setCodigo(Integer.valueOf(rs.getString(1)));
+                    tempCliente.setCPF(rs.getString(2));
+                    tempCliente.setRG(rs.getString(3));
+                    tempCliente.setNome(rs.getString(4));
+                    tempCliente.setTelefone(rs.getString(5));
+                    tempCliente.setGenero(rs.getString(6));
+                    listaCliente.add(tempCliente);
+                }
+                return listaCliente;
+            }
+            } catch(SQLException ex){
+                System.err.println("Cliente não foi consultado \nErro: "+ex);
+            }
         return null;
     }
     
@@ -114,7 +169,21 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
         //select cpfcliente, rgcliente, nomecliente, telefonecliente, generocliente from cliente
         return sql;
     }
-
+    
+    @Override
+    public String SQLListLike(String busca) { //polimorfismo
+       String sql = "select codigocliente, cpfcliente, rgcliente, nomecliente, telefonecliente, generocliente from cliente where nomecliente like "+busca+" ";
+        return sql;
+     }
+    
+    @Override
+    public String SQLListLike(int busca) { //polimorfismo
+       String sql = "select codigocliente, cpfcliente, rgcliente, nomecliente, telefonecliente, generocliente from cliente where codigocliente = "+busca+" ";
+       System.out.println("Seu SQL codigo está como: "+sql);
+        return sql;
+     }
+    
+    
     @Override
     public String SQLInsert() {
         String sql = "insert into cliente (cpfcliente, rgcliente, "

@@ -68,12 +68,24 @@ public class ClienteModelo extends AbstractTableModel{
         return linhas;
     }
     
-    public List<Cliente> fillingRows(String like)
+    public List<Cliente> fillingRows(String like) //polimorfismo
     {
         try{
             ClienteDAO cDAO = new ClienteDAO();
             linhas = new ArrayList();
             linhas = cDAO.listarTodosClientesLike(like);
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao encher tabela "+e);
+        }
+        return linhas;
+    }
+    
+    public List<Cliente> fillingRows(int like) //polimorfismo
+    {
+        try{
+            ClienteDAO cDAO = new ClienteDAO();
+            linhas = new ArrayList();
+            linhas = cDAO.listarTodosClientesLike(like); //polimorfismo
         }catch(Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao encher tabela "+e);
         }

@@ -71,7 +71,7 @@ public class FornecedorModelo extends AbstractTableModel{
         return linhas;
     }
     
-    public List<Fornecedor> fillingRows(String Like)
+    public List<Fornecedor> fillingRows(String Like) //polimorfismo
     {
         try{
             FornecedorDAO fDAO = new FornecedorDAO();
@@ -83,4 +83,15 @@ public class FornecedorModelo extends AbstractTableModel{
         return linhas;
     }
     
+     public List<Fornecedor> fillingRows(int Like) //polimorfismo
+    {
+        try{
+            FornecedorDAO fDAO = new FornecedorDAO();
+            linhas = new ArrayList();
+            linhas = fDAO.listarTodosFornecedoresLike(Like);
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao encher tabela "+e);
+        }
+        return linhas;
+    }
 }

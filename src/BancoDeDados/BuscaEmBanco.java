@@ -13,4 +13,8 @@ public interface BuscaEmBanco {
     String SQLList();
     //Fazer Pesquisas em banco ???
     
+    String SQLListLike(String Like);
+    
+    String SQLListLike(int Like);
+    
 }

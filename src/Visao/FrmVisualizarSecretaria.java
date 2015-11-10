@@ -6,6 +6,7 @@
 package Visao;
 
 import Modelo.SecretariaModelo;
+import Util.Utilitarios;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,7 +35,14 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
         jtSecretaria.setModel(model);
     }
     
-     public void configuraTabelaModelo(String like)
+     public void configuraTabelaModelo(String like) 
+    {
+        model = new SecretariaModelo();
+        model.fillingRows(like);
+        jtSecretaria.setModel(model);
+    }
+     
+     public void configuraTabelaModelo(int like) 
     {
         model = new SecretariaModelo();
         model.fillingRows(like);
@@ -68,10 +76,27 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
         btnCadastro = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         brnAlterar = new javax.swing.JButton();
+        btnVerTodos = new javax.swing.JButton();
 
         pnlVisualizarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Funcionário de Secretaria"));
 
-        cbbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "código", "nome", "cpf" }));
+        cbbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "código", "nome" }));
+        cbbBuscarPor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbBuscarPorItemStateChanged(evt);
+            }
+        });
+        cbbBuscarPor.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cbbBuscarPorPropertyChange(evt);
+            }
+        });
+
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +128,13 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
             }
         });
 
+        btnVerTodos.setText("Ver todos");
+        btnVerTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlVisualizarClienteLayout = new javax.swing.GroupLayout(pnlVisualizarCliente);
         pnlVisualizarCliente.setLayout(pnlVisualizarClienteLayout);
         pnlVisualizarClienteLayout.setHorizontalGroup(
@@ -116,14 +148,16 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(btnBuscar))
+                        .addComponent(btnBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVerTodos))
                     .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
                         .addComponent(btnCadastro)
                         .addGap(105, 105, 105)
                         .addComponent(btnExcluir)
                         .addGap(110, 110, 110)
                         .addComponent(brnAlterar)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         pnlVisualizarClienteLayout.setVerticalGroup(
             pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,15 +166,16 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
                 .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(btnVerTodos))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastro)
+                .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnExcluir)
-                        .addComponent(brnAlterar)))
+                        .addComponent(brnAlterar))
+                    .addComponent(btnCadastro))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -165,7 +200,14 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        configuraTabelaModelo(txtPesquisa.getText());
+        if(cbbBuscarPor.getSelectedItem().toString()=="código") { //Faz a busca por código
+            configuraTabelaModelo(Integer.parseInt(txtPesquisa.getText() ) );
+        }
+        
+        if(cbbBuscarPor.getSelectedItem().toString()=="nome") { //Faz a Busca por nome
+            String nomeComAspas = "\'"+"%"+ txtPesquisa.getText()+"%"+"\'"; //concatena o nome com '% para busca com like
+            configuraTabelaModelo(nomeComAspas); // '%exemplo%'
+        }
         configuraTabelaColunas();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -184,6 +226,35 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
             //Colocaar código para caso de Excluão
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
+        if(cbbBuscarPor.getSelectedItem().toString()=="código"){
+            Util.Utilitarios util = new Utilitarios();
+            util.apenasNumeros(evt);
+        }
+        
+    }//GEN-LAST:event_txtPesquisaKeyTyped
+
+    private void cbbBuscarPorPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cbbBuscarPorPropertyChange
+
+    }//GEN-LAST:event_cbbBuscarPorPropertyChange
+
+    private void cbbBuscarPorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbBuscarPorItemStateChanged
+        if(cbbBuscarPor.getSelectedItem().toString()=="código"){
+            txtPesquisa.setText("");
+            txtPesquisa.transferFocus();
+        }
+        if(cbbBuscarPor.getSelectedItem().toString()=="nome"){
+            txtPesquisa.setText("");
+            txtPesquisa.transferFocus();
+        }
+    }//GEN-LAST:event_cbbBuscarPorItemStateChanged
+
+    private void btnVerTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerTodosActionPerformed
+        configuraTabelaModelo();
+        configuraTabelaColunas();
+        txtPesquisa.setText("");
+    }//GEN-LAST:event_btnVerTodosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,6 +296,7 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastro;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnVerTodos;
     private javax.swing.JComboBox cbbBuscarPor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtSecretaria;

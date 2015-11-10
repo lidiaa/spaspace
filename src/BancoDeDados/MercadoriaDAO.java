@@ -108,8 +108,66 @@ public class MercadoriaDAO implements OperacoesEmBanco, BuscaEmBanco{
         return null;
     }
     
-    public List<Mercadoria> listarTodasMercadoriasLike (String Like)
+    public List<Mercadoria> listarTodasMercadoriasLike (String Like) //polimorfismo
     {
+        List<Mercadoria> listaMercadoria = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    Mercadoria tempMercadoria = new Mercadoria();
+                    tempMercadoria.setCodigoMercadoria(rs.getInt(1));
+                    tempMercadoria.setNomeMercadoria(rs.getString(2));
+                    tempMercadoria.setCodigoFornecedor(rs.getInt(3));
+                    tempMercadoria.setDescricaoMercadoria(rs.getString(4));
+                    tempMercadoria.setValorMercadoria(rs.getDouble(5));
+                    tempMercadoria.setQuantidadeMercadoria(rs.getInt(6));
+                    
+                    listaMercadoria.add(tempMercadoria);
+                }
+                return listaMercadoria;
+            }
+        } catch(SQLException ex)
+        {
+            System.err.println("Mercadoria não foi consultado \nErro: "+ex);
+        }
+        return null;
+    }
+    
+    public List<Mercadoria> listarTodasMercadoriasLike (int Like) //polimorfismo
+    {
+        List<Mercadoria> listaMercadoria = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    Mercadoria tempMercadoria = new Mercadoria();
+                    tempMercadoria.setCodigoMercadoria(rs.getInt(1));
+                    tempMercadoria.setNomeMercadoria(rs.getString(2));
+                    tempMercadoria.setCodigoFornecedor(rs.getInt(3));
+                    tempMercadoria.setDescricaoMercadoria(rs.getString(4));
+                    tempMercadoria.setValorMercadoria(rs.getDouble(5));
+                    tempMercadoria.setQuantidadeMercadoria(rs.getInt(6));
+                    
+                    listaMercadoria.add(tempMercadoria);
+                }
+                return listaMercadoria;
+            }
+        } catch(SQLException ex)
+        {
+            System.err.println("Mercadoria não foi consultado \nErro: "+ex);
+        }
+        
         return null;
     }
     
@@ -143,6 +201,18 @@ public class MercadoriaDAO implements OperacoesEmBanco, BuscaEmBanco{
        select select nomemercadoria, codigofornecedor, descricaomercadoria, "
                + "valormercadoria, quantidademercadoria from mercadoria
        */
+        return sql;
+    }
+
+    @Override
+    public String SQLListLike(String Like) { //polimorfismo
+        String sql = "select * from mercadoria where nomemercadoria like "+Like+" ";
+        return sql;
+    }
+
+    @Override
+    public String SQLListLike(int Like) { //polimorfismo
+        String sql = "select * from mercadoria where codigomercadoria = "+Like+" ";
         return sql;
     }
     

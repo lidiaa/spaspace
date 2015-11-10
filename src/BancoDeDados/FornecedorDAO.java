@@ -108,8 +108,65 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
         return null;
     }
     
-    public List<Fornecedor> listarTodosFornecedoresLike(String Like)
+    public List<Fornecedor> listarTodosFornecedoresLike(String Like) //polimorfismo
     {
+        List<Fornecedor> listaFornecedor = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    Fornecedor tempFornecedor = new Fornecedor();
+                    tempFornecedor.setCodigo(rs.getInt(1));
+                    tempFornecedor.setCNPJ(rs.getString(2));
+                    tempFornecedor.setNome(rs.getString(3));
+                    tempFornecedor.setNomeFantasia(rs.getString(4));
+                    tempFornecedor.setEmail(rs.getString(5));
+                    tempFornecedor.setNomeResponsavel(rs.getString(6));
+                    tempFornecedor.setTelefone(rs.getString(7));
+                    listaFornecedor.add(tempFornecedor);
+                }
+                return listaFornecedor;
+            }
+        } catch(SQLException ex)
+        {
+            System.err.println("Fornecedor não foi consultado \nErro: "+ex);
+        }    
+        return null;
+    }
+    
+    public List<Fornecedor> listarTodosFornecedoresLike(int Like) //polimorfismo
+    {
+        List<Fornecedor> listaFornecedor = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    Fornecedor tempFornecedor = new Fornecedor();
+                    tempFornecedor.setCodigo(rs.getInt(1));
+                    tempFornecedor.setCNPJ(rs.getString(2));
+                    tempFornecedor.setNome(rs.getString(3));
+                    tempFornecedor.setNomeFantasia(rs.getString(4));
+                    tempFornecedor.setEmail(rs.getString(5));
+                    tempFornecedor.setNomeResponsavel(rs.getString(6));
+                    tempFornecedor.setTelefone(rs.getString(7));
+                    listaFornecedor.add(tempFornecedor);
+                }
+                return listaFornecedor;
+            }
+        } catch(SQLException ex)
+        {
+            System.err.println("Fornecedor não foi consultado \nErro: "+ex);
+        }    
         return null;
     }
     
@@ -137,6 +194,18 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
     public String SQLList() {
         String sql = "select * from fornecedor";
         //select codigofornecedor, CNPJ, nome, nomefantasia, email, nomeresponsavel,telefone from fornecedor
+        return sql;
+    }
+
+    @Override
+    public String SQLListLike(String Like) {
+        String sql = "select * from fornecedor where nomefantasia like "+Like+" ";
+        return sql;
+    }
+
+    @Override
+    public String SQLListLike(int Like) {
+        String sql = "select * from fornecedor where codigofornecedor = "+Like+" ";
         return sql;
     }
     

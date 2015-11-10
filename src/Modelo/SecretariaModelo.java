@@ -87,4 +87,16 @@ public class SecretariaModelo extends AbstractTableModel{
         return linhas;
     }
     
+    public List<Secretaria> fillingRows(int Like)
+    {
+        try{
+            SecretariaDAO sDAO = new SecretariaDAO();
+            linhas = new ArrayList();
+            linhas = sDAO.listarTodasSecretariasLike(Like);
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao encher tabela "+e);
+        }
+        return linhas;
+    }
+    
 }

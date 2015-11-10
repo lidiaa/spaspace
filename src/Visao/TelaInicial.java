@@ -232,7 +232,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void btnServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServicoActionPerformed
         // TODO add your handling code here:
-        FrmServico objS = new FrmServico();
+        FrmVisualizarServico objS = new FrmVisualizarServico();
         objS.setVisible(true);
     }//GEN-LAST:event_btnServicoActionPerformed
 

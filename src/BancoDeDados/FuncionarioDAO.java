@@ -40,5 +40,15 @@ public class FuncionarioDAO implements OperacoesEmBanco, BuscaEmBanco {
        String sql = "";
         return sql;
     }
+
+    @Override
+    public String SQLListLike(String Like) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String SQLListLike(int Like) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

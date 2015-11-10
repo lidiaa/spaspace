@@ -99,15 +99,64 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Servico não foi consultado \nErro: "+ex);
         }
-        catch (Exception ex)
+        return null;
+    }
+    
+    public List<Servico> listarTodosServicosLike (String Like) //polimorfismo
+    {
+        List<Servico> listaServico = new ArrayList<>();
+        try
         {
-            throw new Exception("Erro ao processar:" + ex.getMessage());
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    Servico tempServico = new Servico();
+                    tempServico.setCodigoServico(rs.getInt(1));
+                    tempServico.setNomeServico(rs.getString(2));
+                    tempServico.setDescricaoServico(rs.getString(3));
+                    tempServico.setDuracaoMinutosServico(rs.getInt(4));
+                    tempServico.setValorServico(rs.getDouble(5));
+                    listaServico.add(tempServico);
+                }
+                return listaServico;
+            }
+        } catch(SQLException ex)
+        {
+            System.err.println("Servico não foi consultado \nErro: "+ex);
         }
         return null;
     }
     
-    public List<Servico> listarTodosServicosLike (String Like)
+    public List<Servico> listarTodosServicosLike (int Like) //polimorfismo
     {
+        List<Servico> listaServico = new ArrayList<>();
+        try
+        {
+            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
+
+            ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+
+            if(rs != null){
+                while(rs.next())
+                {
+                    Servico tempServico = new Servico();
+                    tempServico.setCodigoServico(rs.getInt(1));
+                    tempServico.setNomeServico(rs.getString(2));
+                    tempServico.setDescricaoServico(rs.getString(3));
+                    tempServico.setDuracaoMinutosServico(rs.getInt(4));
+                    tempServico.setValorServico(rs.getDouble(5));
+                    listaServico.add(tempServico);
+                }
+                return listaServico;
+            }
+        } catch(SQLException ex)
+        {
+            System.err.println("Servico não foi consultado \nErro: "+ex);
+        }
         return null;
     }
     
@@ -133,6 +182,18 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
     public String SQLList() {
         String sql = "select * from servico";
         //select descricaoservico, duracaoservico, valor from servico
+        return sql;
+    }
+
+    @Override
+    public String SQLListLike(String Like) { //polimorfismo
+        String sql = "select * from servico where nomeservico like "+Like+"";
+        return sql;
+    }
+
+    @Override
+    public String SQLListLike(int Like) { //polimorfismo
+        String sql = "select * from servico where codigoservico = "+Like+" ";
         return sql;
     }
     

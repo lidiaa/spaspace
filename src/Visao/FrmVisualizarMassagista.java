@@ -6,6 +6,7 @@
 package Visao;
 
 import Modelo.MassagistaModelo;
+import Util.Utilitarios;
 
 /**
  *
@@ -31,7 +32,14 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
         jtMassagista.setModel(model);
     }
     
-     public void configuraTabelaModelo(String like)
+     public void configuraTabelaModelo(String like) //polimorfismo
+    {
+        model = new MassagistaModelo();
+        model.fillingRows(like);
+        jtMassagista.setModel(model);
+    }
+     
+     public void configuraTabelaModelo(int like) //polimorfismo
     {
         model = new MassagistaModelo();
         model.fillingRows(like);
@@ -64,10 +72,22 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
         btnCadastro = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         brnAlterar = new javax.swing.JButton();
+        btnVerTodos3 = new javax.swing.JButton();
 
         pnlVisualizarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Funcionário de Atendimento"));
 
-        cbbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "código", "nome", "cpf" }));
+        cbbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "código", "nome" }));
+        cbbBuscarPor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbBuscarPorItemStateChanged(evt);
+            }
+        });
+
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +114,13 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
             }
         });
 
+        btnVerTodos3.setText("Ver todos");
+        btnVerTodos3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerTodos3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlVisualizarClienteLayout = new javax.swing.GroupLayout(pnlVisualizarCliente);
         pnlVisualizarCliente.setLayout(pnlVisualizarClienteLayout);
         pnlVisualizarClienteLayout.setHorizontalGroup(
@@ -107,14 +134,16 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(btnBuscar))
+                        .addComponent(btnBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVerTodos3))
                     .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
                         .addComponent(btnCadastro)
                         .addGap(80, 80, 80)
                         .addComponent(btnExcluir)
                         .addGap(110, 110, 110)
                         .addComponent(brnAlterar)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         pnlVisualizarClienteLayout.setVerticalGroup(
             pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,15 +152,16 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
                 .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                    .addComponent(btnBuscar)
+                    .addComponent(btnVerTodos3))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastro)
+                .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnExcluir)
-                        .addComponent(brnAlterar)))
+                        .addComponent(brnAlterar))
+                    .addComponent(btnCadastro))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -156,7 +186,14 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        configuraTabelaModelo(txtPesquisa.getText());
+        if(cbbBuscarPor.getSelectedItem().toString()=="código") { //Faz a busca por código
+            configuraTabelaModelo(Integer.parseInt(txtPesquisa.getText() ) );
+        }
+        
+        if(cbbBuscarPor.getSelectedItem().toString()=="nome") { //Faz a Busca por nome
+            String nomeComAspas = "\'"+"%"+ txtPesquisa.getText()+"%"+"\'"; //concatena o nome com '% para busca com like
+            configuraTabelaModelo(nomeComAspas); // '%exemplo%'
+        }
         configuraTabelaColunas();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -169,6 +206,28 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
     private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_brnAlterarActionPerformed
+
+    private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped
+        if(cbbBuscarPor.getSelectedItem().toString()=="código"){
+            Util.Utilitarios util = new Utilitarios();
+            util.apenasNumeros(evt);
+        }
+    }//GEN-LAST:event_txtPesquisaKeyTyped
+
+    private void cbbBuscarPorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbBuscarPorItemStateChanged
+        if(cbbBuscarPor.getSelectedItem().toString()=="código"){
+            txtPesquisa.setText("");
+        }
+        if(cbbBuscarPor.getSelectedItem().toString()=="nome"){
+            txtPesquisa.setText("");
+        }
+    }//GEN-LAST:event_cbbBuscarPorItemStateChanged
+
+    private void btnVerTodos3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerTodos3ActionPerformed
+        configuraTabelaModelo();
+        configuraTabelaColunas();
+        txtPesquisa.setText("");
+    }//GEN-LAST:event_btnVerTodos3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,6 +269,10 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastro;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnVerTodos;
+    private javax.swing.JButton btnVerTodos1;
+    private javax.swing.JButton btnVerTodos2;
+    private javax.swing.JButton btnVerTodos3;
     private javax.swing.JComboBox cbbBuscarPor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtMassagista;

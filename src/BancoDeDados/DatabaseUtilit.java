@@ -16,7 +16,7 @@ public class DatabaseUtilit {
     private static PreparedStatement ps; //envio de comandos ao banco
     private static String url = "jdbc:mysql://127.0.0.1/spaspace"; //caminho ao banco
     private static String user = "root"; //usuario do banco de dados dono do banco a ser usado no programa
-    private static String psw = "root"; //senha do usuario do banco de dados
+    private static String psw = "jonathan159"; //senha do usuario do banco de dados
                                 //jonathan159
     
     public static void Conectar()
@@ -27,7 +27,7 @@ public class DatabaseUtilit {
                 con = DriverManager.getConnection(getUrl(),user,psw);
                 System.out.println("Conexão ao Banco de Dados aberta!");
             }else{
-                System.out.println("Conexão ao Banco de Dados já esteve aberta!");
+                System.out.println("Conexão ao Banco de Dados já estava aberta!");
             }
         } catch (SQLException ex) {
             System.out.println("Não se conectou ao Banco de Dados \n Erro: "+ex);
@@ -39,6 +39,7 @@ public class DatabaseUtilit {
         try{
             con.close();
             System.out.println("Conexão ao Banco de Dados fechada!");
+            con = null;
         }catch (SQLException ex)
         {
             System.out.println("Não conectou ao Banco de Dados \n Erro: "+ex);

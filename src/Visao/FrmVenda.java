@@ -22,7 +22,8 @@ import javax.swing.JOptionPane;
  */
 public class FrmVenda extends javax.swing.JFrame {
     
-    public Cliente cliente;
+    public String CodigoClienteParameter;
+    public String NomeClienteParameter;
     public Servico servico;
 
     Util.Utilitarios util = new Utilitarios();
@@ -32,6 +33,21 @@ public class FrmVenda extends javax.swing.JFrame {
     public FrmVenda() {
         initComponents();
         setCboServicos();
+    }
+    
+    public void setCodigoCliente(String codigo)
+    {
+        this.CodigoClienteParameter = codigo;
+    }
+    
+    public void setNomeCliente(String nome)
+    {
+        this.NomeClienteParameter = nome;
+    }
+    
+    public void setTxtNomeCliente()
+    {
+        txtNomeCliente.setText(this.NomeClienteParameter);
     }
     
     //função para trazer os serviços do banco
@@ -82,6 +98,8 @@ public class FrmVenda extends javax.swing.JFrame {
         pnlCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Venda"));
 
         jLabel1.setText("Cliente:");
+
+        txtNomeCliente.setEditable(false);
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -223,28 +241,31 @@ public class FrmVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Venda tmpVenda = new Venda();
-        tmpVenda.setCodigoCliente(1);
-        tmpVenda.setDataPagamento(null);
-        tmpVenda.setFormaPagamento(cboPagamento.getSelectedItem().toString());
-        //teste
-        //para pegar o Value, basta usar getValue ao inves de getKey
-        Object item = cboServicos.getSelectedItem();
-        String value = ((VendaComboItem)item).getValue();
-        String valorServico = ((VendaComboItem)item).getValor();
-
-        tmpVenda.setCodigoServico(Integer.valueOf(value));
-        tmpVenda.setValorsevico(0);
-        tmpVenda.setValorsevico(Double.valueOf(valorServico));
+        if(!("".equals(txtNomeCliente.getText())))
+        {
+            Venda tmpVenda = new Venda();
+            tmpVenda.setDataPagamento(null);
+            tmpVenda.setDataVencimento(null);
+            tmpVenda.setFormaPagamento(cboPagamento.getSelectedItem().toString());
+            //para pegar o Value, basta usar getValue ao inves de getKey
+            Object item = cboServicos.getSelectedItem();
+            String value = ((VendaComboItem)item).getValue();
+            String valorServico = ((VendaComboItem)item).getValor();
+            tmpVenda.setCodigoServico(Integer.valueOf(value));
+            tmpVenda.setValorsevico(Double.valueOf(valorServico));
+            tmpVenda.setCodigoCliente(Integer.valueOf(CodigoClienteParameter));
+            VendaDAO vendaDAO = new VendaDAO();
+            vendaDAO.insert(tmpVenda);
+            JOptionPane.showMessageDialog(pnlCliente, "Venda Inserida");
+            util.limparCampos(pnlCliente);           
+        }
+        else
+            JOptionPane.showMessageDialog(pnlCliente, "É necessário selecionar um cliente.");
         
-        VendaDAO vendaDAO = new VendaDAO();
-        vendaDAO.insert(tmpVenda);
-        JOptionPane.showMessageDialog(pnlCliente, "Venda Inserida");
-        util.limparCampos(pnlCliente);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FrmVisualizarCliente frmCliente = new FrmVisualizarCliente();
+        FrmEscolherCliente frmCliente = new FrmEscolherCliente(this);
         frmCliente.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

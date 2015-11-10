@@ -78,7 +78,7 @@ public class MassagistaModelo extends AbstractTableModel{
         return linhas;
     }
     
-    public List<Massagista> fillingRows(String Like)
+    public List<Massagista> fillingRows(String Like) //polimorfismo
     {
         try{
             MassagistaDAO fDAO = new MassagistaDAO();
@@ -89,4 +89,17 @@ public class MassagistaModelo extends AbstractTableModel{
         }
         return linhas;
     }
+    
+    public List<Massagista> fillingRows(int Like) //polimorfismo
+    {
+        try{
+            MassagistaDAO fDAO = new MassagistaDAO();
+            linhas = new ArrayList();
+            linhas = fDAO.listarTodosMassagistasLike(Like);
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao encher tabela "+e);
+        }
+        return linhas;
+    }
+    
 }
