@@ -39,6 +39,7 @@ public class DatabaseUtilit {
         try{
             con.close();
             System.out.println("Conexão ao Banco de Dados fechada!");
+            con = null;
         }catch (SQLException ex)
         {
             System.out.println("Não conectou ao Banco de Dados \n Erro: "+ex);
