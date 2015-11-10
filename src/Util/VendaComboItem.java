@@ -25,7 +25,7 @@ public class VendaComboItem
     @Override
     public String toString()
     {
-        return key;
+        return key + " - " + valor;
     }
 
     public String getKey()
