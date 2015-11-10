@@ -8,7 +8,7 @@ package Visao;
 import BancoDeDados.DatabaseUtilit;
 import BancoDeDados.FornecedorDAO;
 import Modelo.Fornecedor;
-import Modelo.Utilitarios;
+import Util.Utilitarios;
 import javax.swing.JOptionPane;
 
 /**
@@ -207,22 +207,22 @@ public class FrmFornecedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlFornecedor);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtCnpjKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCnpjKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCnpjKeyTyped
 
     private void txtTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtTelefoneKeyTyped
 

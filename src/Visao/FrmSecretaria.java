@@ -8,7 +8,7 @@ package Visao;
 import BancoDeDados.DatabaseUtilit;
 import BancoDeDados.SecretariaDAO;
 import Modelo.Secretaria;
-import Modelo.Utilitarios;
+import Util.Utilitarios;
 import java.awt.Component;
 import java.awt.Container;
 import javax.swing.JCheckBox;
@@ -294,18 +294,18 @@ public class FrmSecretaria extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlSecretaria);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtNroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroCasaKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtNroCasaKeyTyped
 
@@ -324,22 +324,22 @@ public class FrmSecretaria extends javax.swing.JFrame{
     }//GEN-LAST:event_cbxMasculinoActionPerformed
 
     private void txtCpfSecretariaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfSecretariaKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCpfSecretariaKeyTyped
 
     private void txtRgSecretariaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRgSecretariaKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtRgSecretariaKeyTyped
 
     private void txtTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtTelefoneKeyTyped
 
     private void txtCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCepKeyTyped
 

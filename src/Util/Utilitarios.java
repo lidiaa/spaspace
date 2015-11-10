@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package Util;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -72,6 +72,8 @@ public class Utilitarios {
             tela.dispose(); //fecha 
         }
     }
+    
+    
     
     
 }

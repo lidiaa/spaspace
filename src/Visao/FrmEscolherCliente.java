@@ -7,7 +7,7 @@ package Visao;
 
 import Modelo.Cliente;
 import Modelo.ClienteModelo;
-import Modelo.Utilitarios;
+import Util.Utilitarios;
 import java.awt.image.ImageObserver;
 import javax.swing.JOptionPane;
 /**
@@ -18,7 +18,7 @@ public class FrmEscolherCliente extends javax.swing.JFrame {
 
     
     private ClienteModelo model;
-    Modelo.Utilitarios util;
+    Utilitarios util;
     FrmVenda frmVendaLocal;
 
     /**

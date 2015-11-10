@@ -9,7 +9,7 @@ import BancoDeDados.ServicoDAO;
 import BancoDeDados.VendaDAO;
 import Modelo.Cliente;
 import Modelo.Servico;
-import Modelo.Utilitarios;
+import Util.Utilitarios;
 import Modelo.Venda;
 import Util.VendaComboItem;
 import java.sql.SQLException;
@@ -26,7 +26,7 @@ public class FrmVenda extends javax.swing.JFrame {
     public String NomeClienteParameter;
     public Servico servico;
 
-    Modelo.Utilitarios util = new Utilitarios();
+    Util.Utilitarios util = new Utilitarios();
     /**
      * Creates new form FrmVenda
      */

@@ -8,7 +8,7 @@ package Visao;
 import BancoDeDados.ClienteDAO;
 import BancoDeDados.DatabaseUtilit;
 import Modelo.Cliente;
-import Modelo.Utilitarios;
+import Util.Utilitarios;
 import java.awt.event.KeyEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -256,13 +256,13 @@ public class FrmCliente extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
         
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlCliente);
     }//GEN-LAST:event_btnLimparActionPerformed
 
@@ -281,17 +281,17 @@ public class FrmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxMasculinoActionPerformed
 
     private void txtCpfClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfClienteKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCpfClienteKeyTyped
 
     private void txtRgClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRgClienteKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtRgClienteKeyTyped
 
     private void txtTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtTelefoneKeyTyped
 

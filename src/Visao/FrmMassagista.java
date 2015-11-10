@@ -8,7 +8,7 @@ package Visao;
 import BancoDeDados.DatabaseUtilit;
 import BancoDeDados.MassagistaDAO;
 import Modelo.Massagista;
-import Modelo.Utilitarios;
+import Util.Utilitarios;
 import javax.swing.JOptionPane;
 
 /**
@@ -313,12 +313,12 @@ public class FrmMassagista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlMassagista);
     }//GEN-LAST:event_btnLimparActionPerformed
 
@@ -330,13 +330,13 @@ public class FrmMassagista extends javax.swing.JFrame {
         //evt.consume();
         //}
         
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
         
     }//GEN-LAST:event_txtAnosExperienciaKeyTyped
 
     private void txtNroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroCasaKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtNroCasaKeyTyped
 
@@ -354,22 +354,22 @@ public class FrmMassagista extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxMasculinoActionPerformed
 
     private void txtCpfMassagistaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfMassagistaKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCpfMassagistaKeyTyped
 
     private void txtRgMassagistaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRgMassagistaKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtRgMassagistaKeyTyped
 
     private void txtTelefoneMassagistaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneMassagistaKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtTelefoneMassagistaKeyTyped
 
     private void txtCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyTyped
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCepKeyTyped
 

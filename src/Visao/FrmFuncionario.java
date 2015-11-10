@@ -5,7 +5,7 @@
  */
 package Visao;
 
-import Modelo.Utilitarios;
+import Util.Utilitarios;
 import javax.swing.JOptionPane;
 
 /**
@@ -137,7 +137,7 @@ public class FrmFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSecretariaActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        Modelo.Utilitarios util = new Utilitarios();
+        Util.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
     }//GEN-LAST:event_btnSairActionPerformed
 
