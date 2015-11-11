@@ -5,12 +5,17 @@
  */
 package Visao;
 
+import Thread.ThreadArquivo;
 import Util.Utilitarios;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -185,6 +190,8 @@ public class FrmArquivo extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) 
         {
             arquivo = fileChooser.getSelectedFile();
+            lblNome.setText(arquivo.getName());
+            lblExtensao.setText("");
         }
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
@@ -193,9 +200,16 @@ public class FrmArquivo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Importe um arquivo antes de processar");
         else
         {
-            lblNome.setText(arquivo.getName());
-            lblExtensao.setText("");
-            JOptionPane.showMessageDialog(rootPane, "Processando...");
+            try 
+            {
+                processarArquivo(arquivo);
+            } 
+            catch 
+            (IOException ex) 
+            {
+                Logger.getLogger(FrmArquivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(rootPane, "Processando...enquanto isso, você pode continuar usando o sistema normalmente");
         }
     }//GEN-LAST:event_btnProcessarActionPerformed
 
@@ -205,13 +219,16 @@ public class FrmArquivo extends javax.swing.JFrame {
 
     private void processarArquivo(File file) throws FileNotFoundException, IOException
     {
+        ThreadArquivo thread = new ThreadArquivo();
+        List<String> linhas = new ArrayList();
         try
         {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line = br.readLine();
             
-            while (line != null) {  
-                processarLinhas(line);
+            while (line != null) 
+            {  
+                linhas.add(line);  
                 line = br.readLine();
             }
             br.close();
@@ -220,16 +237,11 @@ public class FrmArquivo extends javax.swing.JFrame {
         {
             throw new FileNotFoundException("Erro ao processar arquivo" + ex.getMessage());
         }
+        
+        thread.setLinhas(linhas);
+        thread.run();
     }
     
-    private void processarLinhas(String line)
-    {
-        String nossoNumero;
-        String cliente;
-        String valor;
-        String dataPagamento;
-        
-    }
     /**
      * @param args the command line arguments
      */

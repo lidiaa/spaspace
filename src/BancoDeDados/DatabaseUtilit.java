@@ -52,8 +52,9 @@ public class DatabaseUtilit {
         return con;
     }
 
-    public static String getUrl() {
-      return url;
+    public static String getUrl() 
+    {
+        return url;
     }
     
     public static PreparedStatement getPs()
@@ -65,10 +66,4 @@ public class DatabaseUtilit {
     {
         DatabaseUtilit.ps = ps;
     }
-    
-    
-    
-    
-    
-    
 }

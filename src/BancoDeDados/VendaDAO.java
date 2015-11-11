@@ -16,7 +16,7 @@ public class VendaDAO {
     
     private String SQLUpdate()
     {
-        return "UPDATE VENDA SET DATAPAGAMENTO=?, STATUS='F' WHERE ID=?";
+        return "UPDATE VENDA SET DATAPAGAMENTO=?, STATUS='F' WHERE codigoVenda=?";
     }
     
     public String SQLList() 
@@ -42,6 +42,7 @@ public class VendaDAO {
             DatabaseUtilit.getPs().setString(1, dataPagamento);
             DatabaseUtilit.getPs().setString(2, String.valueOf(id));        
             DatabaseUtilit.getPs().executeUpdate();
+            DatabaseUtilit.Desconectar();
 
             System.out.println("Venda atualizado com sucesso");   
         } 
