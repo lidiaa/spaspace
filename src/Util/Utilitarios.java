@@ -8,6 +8,7 @@ package Util;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -71,6 +72,25 @@ public class Utilitarios {
         {
             tela.dispose(); //fecha 
         }
+    }
+    
+    public void controlaBotoes(JFrame tela, JButton botaoSalvar, JButton botaoAlterar, boolean novo)
+    {
+        //Recebe o frame de cadastro
+        // Caso seja um novo cadastro, o botão salvar fica disponivel e o alterar indisponivel;
+       // Caso seja alteração de cadastro, botão salvar indisponivel e alterar disponivel
+        
+        if(novo == true) //Novo cadastro
+        {
+            botaoSalvar.setEnabled(true);
+            botaoAlterar.setEnabled(false);
+        }
+        if(novo == false) //caso Seja uma alteração de cadastro
+        {
+            botaoSalvar.setEnabled(false);
+            botaoAlterar.setEnabled(true);   
+        }
+        
     }
     
     

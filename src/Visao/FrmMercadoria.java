@@ -17,19 +17,56 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Pessoal
+ * @author Lidia;
  */
 public class FrmMercadoria extends javax.swing.JFrame {
-
+    int codMercadoria;
+    Utilitarios util;
+    MercadoriaDAO mDAO;
     /**
      * Creates new form FrmMercadoria
      */
     public FrmMercadoria() {
         initComponents();
+        util = new Utilitarios();
+        mDAO = new MercadoriaDAO();
         this.setLocationRelativeTo(null);  //centralizar a tela
         setCboFornecedor(); //para inicializar o combobox com os fornecedores
     }
 
+    public void setCodigoMercadoriaAlteracao(int codigo)
+    {
+        this.codMercadoria = codigo;
+    }
+    
+    public void setTxtNome (String nome)
+    {
+         txtNome.setText(nome);
+    }
+    
+    public void setTxtDescricao (String descricao)
+    {
+         txtDescricao.setText(descricao);
+    }
+    
+    public void setTxtValor (String valor)
+    {
+         txtValor.setText(valor);
+    }
+    
+    public void setTxtQuantidade (String quant)
+    {
+         txtQuantidade.setText(quant);
+    }
+    
+    public void setTxtCodFornecedor (String codForn)
+    {
+         
+    }
+    
+        
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +90,7 @@ public class FrmMercadoria extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro de Mercadoria");
 
@@ -108,6 +146,13 @@ public class FrmMercadoria extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlMercadoriaLayout = new javax.swing.GroupLayout(pnlMercadoria);
         pnlMercadoria.setLayout(pnlMercadoriaLayout);
         pnlMercadoriaLayout.setHorizontalGroup(
@@ -138,6 +183,8 @@ public class FrmMercadoria extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMercadoriaLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAlterar)
+                .addGap(42, 42, 42)
                 .addComponent(btnSalvar)
                 .addGap(40, 40, 40)
                 .addComponent(btnLimpar)
@@ -168,7 +215,8 @@ public class FrmMercadoria extends javax.swing.JFrame {
                 .addGroup(pnlMercadoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
-                    .addComponent(btnSair))
+                    .addComponent(btnSair)
+                    .addComponent(btnAlterar))
                 .addContainerGap())
         );
 
@@ -194,18 +242,15 @@ public class FrmMercadoria extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        Util.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
-        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlMercadoria);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtQuantidadeKeyTyped
 
@@ -230,7 +275,6 @@ public class FrmMercadoria extends javax.swing.JFrame {
         System.out.println("Seu fornecedor é: "+fornecedor);
         Mercadoria m = new Mercadoria(nome, fornecedor, descricao, valor, quantidade);
         DatabaseUtilit.Conectar();
-        MercadoriaDAO mDAO = new MercadoriaDAO();
         mDAO.insereMercadoria(m);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -257,6 +301,21 @@ public class FrmMercadoria extends javax.swing.JFrame {
     private void cbbFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbFornecedoresActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbFornecedoresActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String nome = txtNome.getText();
+        String descricao = txtDescricao.getText();
+        Double valor = Double.parseDouble(txtValor.getText());
+        int quantidade = Integer.parseInt(txtQuantidade.getText());
+        //Comandos para pegar o valor selecionado no combobox, ao inves do texto pega a chave primaria
+        Object item = cbbFornecedores.getSelectedItem();
+        String valueFornecedor = ((MercadoriaComboFornecedor)item).getValue();
+        int fornecedor = Integer.parseInt(valueFornecedor); //convertendo de String para int
+        
+        Mercadoria m = new Mercadoria(nome, fornecedor, descricao, valor, quantidade, codMercadoria);
+        DatabaseUtilit.Conectar();
+        mDAO.updateMercadoria(m);
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -294,6 +353,7 @@ public class FrmMercadoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;

@@ -21,7 +21,6 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLInsert()));
 
-            //DatabaseUtilit.getPs().setInt(1, secretaria.getCodigo()); 
             DatabaseUtilit.getPs().setString(1, secretaria.getCPF());
             DatabaseUtilit.getPs().setString(2, secretaria.getRG());
             DatabaseUtilit.getPs().setString(3, secretaria.getNome());
@@ -30,6 +29,7 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
             DatabaseUtilit.getPs().setString(6, secretaria.getCep());
             DatabaseUtilit.getPs().setString(7, secretaria.getNumeroCasa());
             DatabaseUtilit.getPs().setString(8, secretaria.getCargo());
+            
             
             DatabaseUtilit.getPs().execute();
             System.out.println("Funcionario de Secretaria cadastrado com sucesso");
@@ -47,7 +47,6 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
             
-            //DatabaseUtilit.getPs().setInt(1, secretaria.getCodigo()); 
             DatabaseUtilit.getPs().setString(1, secretaria.getCPF());
             DatabaseUtilit.getPs().setString(2, secretaria.getRG());
             DatabaseUtilit.getPs().setString(3, secretaria.getNome());
@@ -56,6 +55,7 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
             DatabaseUtilit.getPs().setString(6, secretaria.getCep());
             DatabaseUtilit.getPs().setString(7, secretaria.getNumeroCasa());
             DatabaseUtilit.getPs().setString(8, secretaria.getCargo());
+            DatabaseUtilit.getPs().setInt(9, secretaria.getCodigo()); 
            
             DatabaseUtilit.getPs().executeUpdate();
 

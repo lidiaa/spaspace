@@ -7,6 +7,7 @@ package Visao;
 
 import Modelo.MassagistaModelo;
 import Util.Utilitarios;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,12 +15,14 @@ import Util.Utilitarios;
  */
 public class FrmVisualizarMassagista extends javax.swing.JFrame {
     private MassagistaModelo model;
+    FrmMassagista frmM;
     /**
      * Creates new form FrmVisualizarMassagista
      */
     
     public FrmVisualizarMassagista() {
         initComponents();
+        frmM = new FrmMassagista();
         this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
@@ -204,7 +207,26 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
-        // TODO add your handling code here:
+        int row = jtMassagista.convertRowIndexToModel(jtMassagista.getSelectedRow());
+        MassagistaModelo model = (MassagistaModelo)jtMassagista.getModel();
+        if(row >= 0)
+            {
+                frmM.setCodigoMassagistaAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
+                frmM.setTxtCpf(model.getValueAt(row, 1).toString());
+                frmM.setTxtRg(model.getValueAt(row, 2).toString());
+                frmM.setTxtNome(model.getValueAt(row, 3).toString());
+                frmM.setTxtTelefone(model.getValueAt(row, 4).toString());
+                frmM.setTxtGenero(model.getValueAt(row, 5).toString());
+                frmM.setTxtCep(model.getValueAt(row, 6).toString());
+                frmM.setTxtNumCasa(model.getValueAt(row, 7).toString());
+                frmM.setTxtFormacao(model.getValueAt(row, 8).toString());
+                frmM.setTxtAnos(model.getValueAt(row, 9).toString());
+                frmM.setTxtEspecialidade(model.getValueAt(row, 10).toString());
+                
+                frmM.setVisible(true);
+            }
+        else
+                JOptionPane.showMessageDialog(rootPane, "Escolha um Funcionário na lista para fazer alteração"); 
     }//GEN-LAST:event_brnAlterarActionPerformed
 
     private void txtPesquisaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyTyped

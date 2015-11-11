@@ -13,16 +13,80 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Pessoal
+ * @author Lidia
  */
 public class FrmMassagista extends javax.swing.JFrame {
-
+    int codMassagista;
+    Utilitarios util;
     /**
      * Creates new form frmFuncionario
      */
     public FrmMassagista() {
         initComponents();
+        util = new Utilitarios();
         this.setLocationRelativeTo(null);  //centralizar a tela
+    }
+    
+    public void setCodigoMassagistaAlteracao(int codigo)
+    {
+        this.codMassagista = codigo;
+    }
+    
+    public void setTxtCpf(String cpf)
+    {
+        txtCpfMassagista.setText(cpf);
+    }
+    
+    public void setTxtRg(String rg)
+    {
+        txtRgMassagista.setText(rg);
+    }
+    
+    public void setTxtNome(String nome)
+    {
+        txtNomeMassagista.setText(nome);
+    }
+    
+    public void setTxtTelefone(String telefone)
+    {
+        txtTelefoneMassagista.setText(telefone);
+    }
+    
+    public void setTxtGenero(String genero)
+    {
+        if(genero.equals("F"))
+         {
+             cbxFeminino.setSelected(true);
+         }
+         else if(genero.equals("M"))
+         {
+             cbxMasculino.setSelected(true);
+         }
+    }
+    
+    public void setTxtCep(String cep)
+    {
+        txtCep.setText(cep);
+    }
+    
+    public void setTxtNumCasa(String num)
+    {
+        txtNroCasa.setText(num);
+    }
+    
+    public void setTxtFormacao(String formacao)
+    {
+        txtFormacao.setText(formacao);
+    }
+    
+    public void setTxtAnos(String anos)
+    {
+        txtAnosExperiencia.setText(anos);
+    }
+    
+    public void setTxtEspecialidade(String especialidade)
+    {
+        txtEspecialidade.setText(especialidade);
     }
 
     /**
@@ -59,6 +123,7 @@ public class FrmMassagista extends javax.swing.JFrame {
         txtRgMassagista = new javax.swing.JFormattedTextField();
         txtTelefoneMassagista = new javax.swing.JFormattedTextField();
         txtCep = new javax.swing.JFormattedTextField();
+        btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro de Funcionários Atendentes ao Público");
 
@@ -180,18 +245,17 @@ public class FrmMassagista extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlMassagistaLayout = new javax.swing.GroupLayout(pnlMassagista);
         pnlMassagista.setLayout(pnlMassagistaLayout);
         pnlMassagistaLayout.setHorizontalGroup(
             pnlMassagistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMassagistaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalvar)
-                .addGap(40, 40, 40)
-                .addComponent(btnLimpar)
-                .addGap(40, 40, 40)
-                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
             .addGroup(pnlMassagistaLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(pnlMassagistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,20 +297,31 @@ public class FrmMassagista extends javax.swing.JFrame {
                         .addComponent(txtNroCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(221, 221, 221))
                     .addGroup(pnlMassagistaLayout.createSequentialGroup()
-                        .addGroup(pnlMassagistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pnlMassagistaLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEspecialidade))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlMassagistaLayout.createSequentialGroup()
-                                .addComponent(instform)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFormacao, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlMassagistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAlterar)
+                            .addGroup(pnlMassagistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(pnlMassagistaLayout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtEspecialidade))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlMassagistaLayout.createSequentialGroup()
+                                    .addComponent(instform)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtFormacao, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtAnosExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(162, 162, 162))))
+                        .addGroup(pnlMassagistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMassagistaLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtAnosExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(162, 162, 162))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMassagistaLayout.createSequentialGroup()
+                                .addComponent(btnSalvar)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnLimpar)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40))))))
         );
         pnlMassagistaLayout.setVerticalGroup(
             pnlMassagistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +363,8 @@ public class FrmMassagista extends javax.swing.JFrame {
                 .addGroup(pnlMassagistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
-                    .addComponent(btnSair))
+                    .addComponent(btnSair)
+                    .addComponent(btnAlterar))
                 .addContainerGap())
         );
 
@@ -398,6 +474,29 @@ public class FrmMassagista extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String nome = txtNomeMassagista.getText();
+        String cpf = txtCpfMassagista.getText();
+        String rg = txtRgMassagista.getText();
+        String telefone = txtTelefoneMassagista.getText();
+        String genero="";
+        if(cbxFeminino.isSelected())
+            genero = "F";
+        if(cbxMasculino.isSelected())
+            genero = "M";
+        String cep = txtCep.getText();
+        String numeroCasa = txtNroCasa.getText();
+        String formacao = txtFormacao.getText();
+        int anosExp = Integer.parseInt(txtAnosExperiencia.getText());
+        String especialidade = txtEspecialidade.getText();
+        
+        //alt codigo
+        Massagista m = new Massagista(codMassagista, cpf, rg, nome, telefone, genero, cep, numeroCasa, formacao, anosExp, especialidade);
+        DatabaseUtilit.Conectar();
+        MassagistaDAO mDAO = new MassagistaDAO();
+        mDAO.updateMassagista(m);
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -435,6 +534,7 @@ public class FrmMassagista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;

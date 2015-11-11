@@ -157,9 +157,7 @@ public class FrmEscolherCliente extends javax.swing.JFrame {
                 this.dispose();               
             }
             else
-                JOptionPane.showMessageDialog(rootPane, "Escolha um client na lista, por favor."); 
-                
-
+                JOptionPane.showMessageDialog(rootPane, "Escolha um cliente na lista, por favor."); 
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     /**

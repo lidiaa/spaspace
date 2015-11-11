@@ -48,7 +48,6 @@ public class MassagistaDAO implements OperacoesEmBanco, BuscaEmBanco{
         {
            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
            
-            //DatabaseUtilit.getPs().setInt(1, massagista.getCodigo()); 
             DatabaseUtilit.getPs().setString(1, massagista.getCPF());
             DatabaseUtilit.getPs().setString(2, massagista.getRG());
             DatabaseUtilit.getPs().setString(3, massagista.getNome());
@@ -59,6 +58,7 @@ public class MassagistaDAO implements OperacoesEmBanco, BuscaEmBanco{
             DatabaseUtilit.getPs().setString(8, massagista.getFormacao());
             DatabaseUtilit.getPs().setInt(9, massagista.getAnosExperiencia());
             DatabaseUtilit.getPs().setString(10, massagista.getEspecialidade());
+            DatabaseUtilit.getPs().setInt(11, massagista.getCodigo()); 
         
            DatabaseUtilit.getPs().executeUpdate();
 

@@ -15,19 +15,35 @@ public class Secretaria extends Funcionario{
     public Secretaria(){
     }
     
+    public Secretaria (int cod)
+    {
+        super.setCodigo(cod);
+    }
+    
     public Secretaria(String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String cargo)
     {
-        //codigo = super.getCodigo();
-        cpf = super.getCPF();
-        rg = super.getRG();
-        nome = super.getNome();
-        telefone = super.getTelefone();
-        genero = super.getGenero();
-        cep = super.getCep();
-        nro = super.getNumeroCasa();
+        super.setCPF(cpf);
+        super.setRG(rg);
+        super.setNome(nome);
+        super.setTelefone(telefone);
+        super.setGenero(genero);
+        super.setCep(cep);
+        super.setNumeroCasa(nro);
         cargo = this.cargo;
     }
     
+    public Secretaria(int codigo, String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String cargo)
+    {
+        super.setCodigo(codigo);
+        super.setCPF(cpf);
+        super.setRG(rg);
+        super.setNome(nome);
+        super.setTelefone(telefone);
+        super.setGenero(genero);
+        super.setCep(cep);
+        super.setNumeroCasa(nro);
+        cargo = this.cargo;
+    }
 
     public String getCargo() {
         return cargo;

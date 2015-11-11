@@ -42,11 +42,11 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
 
-            //DatabaseUtilit.getPs().setInt(1, servico.getCodigoServico()); 
             DatabaseUtilit.getPs().setString(1, servico.getNomeServico());
             DatabaseUtilit.getPs().setString(2, servico.getDescricaoServico());
             DatabaseUtilit.getPs().setInt(3, servico.getDuracaoMinutosServico());
             DatabaseUtilit.getPs().setDouble(4, servico.getValorServico());
+            DatabaseUtilit.getPs().setInt(5, servico.getCodigoServico()); 
 
             DatabaseUtilit.getPs().executeUpdate();
 
@@ -168,7 +168,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
 
     @Override
     public String SQLUpdate() {
-        String sql = "update servico set descricaoservico = ?, duracaoservico = ?, valor = ? where codigoservico = ?";
+        String sql = "update servico set nomeservico = ?, descricaoservico = ?, duracaoservico = ?, valor = ? where codigoservico = ?";
         return sql;
     }
 

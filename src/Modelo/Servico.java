@@ -21,8 +21,21 @@ public class Servico {
         
     }
     
+    public Servico(int cod)
+    {
+        this.codigoServico = cod;
+    }
+    
     public Servico(String nomeServico, String descricaoServico, int duracaoMinutosServico, double valorServico) {
         //this.codigoServico = codigoServico;
+        this.nomeServico = nomeServico;
+        this.descricaoServico = descricaoServico;
+        this.duracaoMinutosServico = duracaoMinutosServico;
+        this.valorServico = valorServico;
+    }
+    
+    public Servico(int codigoServico, String nomeServico, String descricaoServico, int duracaoMinutosServico, double valorServico) {
+        this.codigoServico = codigoServico;
         this.nomeServico = nomeServico;
         this.descricaoServico = descricaoServico;
         this.duracaoMinutosServico = duracaoMinutosServico;

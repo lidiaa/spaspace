@@ -5,22 +5,36 @@
  */
 package Visao;
 
+import BancoDeDados.DatabaseUtilit;
+import BancoDeDados.FornecedorDAO;
 import Modelo.FornecedorModelo;
 import Util.Utilitarios;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Pessoal
+ * @author Lidia
  */
 public class FrmVisualizarFornecedor extends javax.swing.JFrame {
+    
     private FornecedorModelo model;
+    FrmFornecedor frmF;
+    Utilitarios util;
     /**
      * Creates new form FrmVisualizarFornecedor
      */
     public FrmVisualizarFornecedor() {
         initComponents();
+        frmF = new FrmFornecedor();
+        util = new Utilitarios();
         this.setLocationRelativeTo(null);  //centralizar a tela
+        configuraTabelaModelo();
+        configuraTabelaColunas();
+    }
+    
+    public void refresh() //atualiza a tabela (após remoção)
+    {
         configuraTabelaModelo();
         configuraTabelaColunas();
     }
@@ -209,18 +223,47 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        FrmFornecedor objFo = new FrmFornecedor();
-        objFo.setVisible(true);
+     //   frmF.statusBotoesCadastrais = true; //new cadastro
+        frmF.setVisible(true);
+        
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
-        // TODO add your handling code here:
+        int row = jtFornecedor.convertRowIndexToModel(jtFornecedor.getSelectedRow());
+        FornecedorModelo model = (FornecedorModelo)jtFornecedor.getModel();
+        if(row >= 0)
+            {
+                frmF.setCodigoFornecedorAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
+                frmF.setTxtCnpj(model.getValueAt(row, 1).toString());
+                frmF.setTxtNome(model.getValueAt(row, 2).toString());
+                frmF.setTxtNomeFantasia(model.getValueAt(row, 3).toString());
+                frmF.setTxtEmail(model.getValueAt(row, 4).toString());
+                frmF.setTxtResponsavel(model.getValueAt(row, 5).toString());
+                frmF.setTxtTelefone(model.getValueAt(row, 6).toString());
+              //  frmF.statusBotoesCadastrais = false;
+                frmF.setVisible(true);
+            }
+        else
+                JOptionPane.showMessageDialog(rootPane, "Escolha um Fornecedor na lista para fazer a alteração"); 
     }//GEN-LAST:event_brnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(JOptionPane.showConfirmDialog(null,"Deseja excluir cadastro selecionado? A operação não poderá ser desfeita.","ATENÇÃO ",javax.swing.JOptionPane.YES_NO_OPTION)==0)
         {
-            //Colocaar código para caso de Excluão
+            int row = jtFornecedor.convertRowIndexToModel(jtFornecedor.getSelectedRow());
+            FornecedorModelo model = (FornecedorModelo)jtFornecedor.getModel();
+            if(row >= 0) {
+                int codigoFornecedorDeletar = (Integer.parseInt(model.getValueAt(row, 0).toString()));
+                
+                Modelo.Fornecedor f = new Modelo.Fornecedor(codigoFornecedorDeletar);
+                DatabaseUtilit.Conectar();
+                FornecedorDAO fDAO = new FornecedorDAO();
+                fDAO.deleteFornecedor(f);
+                refresh(); //atualiza o jTable sem o valor removida
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Escolha um Cliente na lista para fazer a alteração"); 
+            }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 

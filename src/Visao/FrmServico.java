@@ -18,10 +18,11 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Pessoal
+ * @author Lidia
  */
 public class FrmServico extends javax.swing.JFrame {
-    
+    int codServico;
+    Utilitarios util;
     
 
     /**
@@ -29,8 +30,33 @@ public class FrmServico extends javax.swing.JFrame {
      */
     public FrmServico() {
         initComponents();
-        this.setLocationRelativeTo(null);  //centralizar a tela
-       
+        util = new Utilitarios();
+        this.setLocationRelativeTo(null);  //centralizar a tela  
+    }
+    
+    public void setCodigoServicoAlteracao(int codigo)
+    {
+        this.codServico = codigo;
+    }
+    
+    public void setTxtNome (String nome)
+    {
+        txtNome.setText(nome);
+    }
+    
+    public void setTxtDescricao (String descricao)
+    {
+        txtDescricao.setText(descricao);
+    }
+    
+    public void setTxtDuracao (String duracao)
+    {
+        txtDuracao.setText(duracao);
+    }
+    
+    public void setTxtValor (String valor)
+    {
+         txtValor.setText(valor);
     }
 
     /**
@@ -55,6 +81,7 @@ public class FrmServico extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtValor = new javax.swing.JTextField();
+        btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro de Serviço");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -110,38 +137,48 @@ public class FrmServico extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlServicoLayout = new javax.swing.GroupLayout(pnlServico);
         pnlServico.setLayout(pnlServicoLayout);
         pnlServicoLayout.setHorizontalGroup(
             pnlServicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlServicoLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(pnlServicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlServicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlServicoLayout.createSequentialGroup()
-                        .addComponent(btnSalvar)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnLimpar)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlServicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlServicoLayout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel4)
-                            .addGap(100, 100, 100)
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlServicoLayout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlServicoLayout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlServicoLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlServicoLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addGap(100, 100, 100)
+                        .addGroup(pnlServicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlServicoLayout.createSequentialGroup()
+                                .addComponent(btnAlterar)
+                                .addGap(49, 49, 49)
+                                .addComponent(btnSalvar)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnLimpar)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlServicoLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         pnlServicoLayout.setVerticalGroup(
@@ -168,7 +205,8 @@ public class FrmServico extends javax.swing.JFrame {
                 .addGroup(pnlServicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
-                    .addComponent(btnSair))
+                    .addComponent(btnSair)
+                    .addComponent(btnAlterar))
                 .addGap(26, 26, 26))
         );
 
@@ -207,17 +245,14 @@ public class FrmServico extends javax.swing.JFrame {
         DatabaseUtilit.Conectar();
         ServicoDAO serDAO = new ServicoDAO();
         serDAO.insereServico(x);
-       
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlServico);
          
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtDuracaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracaoKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtDuracaoKeyTyped
 
@@ -232,6 +267,18 @@ public class FrmServico extends javax.swing.JFrame {
     private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String nomeServico = txtNome.getText();
+        String descricaoServico = txtDescricao.getText();
+        int minutosDuracao = Integer.parseInt(txtDuracao.getText());
+        double valorServico = Double.parseDouble(txtValor.getText());
+                
+        Servico x = new Servico(codServico, nomeServico, descricaoServico, minutosDuracao, valorServico);
+        DatabaseUtilit.Conectar();
+        ServicoDAO serDAO = new ServicoDAO();
+        serDAO.updateServico(x);
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     
     /**
@@ -270,6 +317,7 @@ public class FrmServico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;

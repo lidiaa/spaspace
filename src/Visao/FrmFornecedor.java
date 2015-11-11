@@ -13,18 +13,59 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Pessoal
+ * @author Lidia
  */
 public class FrmFornecedor extends javax.swing.JFrame {
-
+    int codFornecedor;
+   // boolean statusBotoesCadastrais;
+    Utilitarios util;
     /**
      * Creates new form FrmFornecedor
      */
+    
     public FrmFornecedor() {
         initComponents();
+        util = new Utilitarios();
+        //util.controlaBotoes(this, btnSalvar, btnAlterar, statusBotoesCadastrais);
         this.setLocationRelativeTo(null);  //centralizar a tela
+        
     }
+    
+     public void setCodigoFornecedorAlteracao(int codigo) {
+        this.codFornecedor = codigo;
+     }
+     
+     public void setTxtCnpj(String cnpj)
+     {
+         txtCnpj.setText(cnpj);
+     }
+     
+     public void setTxtNome(String nome)
+     {
+         txtNome.setText(nome);
+     }
+     
+     public void setTxtNomeFantasia(String nomef)
+     {
+         txtNomeFantasia.setText(nomef);
+     }
+     
+     public void setTxtEmail(String email)
+     {
+         txtEmail.setText(email);
+     }
+     
+     public void setTxtTelefone(String telefone)
+     {
+         txtTelefone.setText(telefone);
+     }
+     
+     public void setTxtResponsavel(String nomeResponsavel)
+     {
+         txtNomeResponsavel.setText(nomeResponsavel);
+     }
 
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,6 +91,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
         txtNomeResponsavel = new javax.swing.JTextField();
         txtCnpj = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
+        btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro de Fornecedor");
 
@@ -110,6 +152,13 @@ public class FrmFornecedor extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlFornecedorLayout = new javax.swing.GroupLayout(pnlFornecedor);
         pnlFornecedor.setLayout(pnlFornecedorLayout);
         pnlFornecedorLayout.setHorizontalGroup(
@@ -148,6 +197,8 @@ public class FrmFornecedor extends javax.swing.JFrame {
                 .addGap(48, 48, 48))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFornecedorLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAlterar)
+                .addGap(40, 40, 40)
                 .addComponent(btnSalvar)
                 .addGap(40, 40, 40)
                 .addComponent(btnLimpar)
@@ -182,7 +233,8 @@ public class FrmFornecedor extends javax.swing.JFrame {
                 .addGroup(pnlFornecedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
-                    .addComponent(btnSair))
+                    .addComponent(btnSair)
+                    .addComponent(btnAlterar))
                 .addGap(23, 23, 23))
         );
 
@@ -205,25 +257,23 @@ public class FrmFornecedor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
+    
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        Util.Utilitarios util = new Utilitarios();
         util.fecharJanela(this);
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlFornecedor);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtCnpjKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCnpjKeyTyped
-        Util.Utilitarios util = new Utilitarios();
+
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCnpjKeyTyped
 
     private void txtTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyTyped
-        Util.Utilitarios util = new Utilitarios();
-        util.apenasNumeros(evt);
+    util.apenasNumeros(evt);
     }//GEN-LAST:event_txtTelefoneKeyTyped
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -243,6 +293,21 @@ public class FrmFornecedor extends javax.swing.JFrame {
         forDAO.insereFornecedor(f);
 
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String nome = txtNome.getText();
+        String nomeFantasia = txtNomeFantasia.getText();
+        String cnpj = txtCnpj.getText();
+        String email = txtEmail.getText();
+        String telefone = txtTelefone.getText();
+        String nomeResponsavel = txtNomeResponsavel.getText();
+        
+        Fornecedor f = new Fornecedor(codFornecedor, cnpj, nome, nomeFantasia, email, nomeResponsavel, telefone);
+        DatabaseUtilit.Conectar();
+        FornecedorDAO forDAO = new FornecedorDAO();
+        forDAO.updateFornecedor(f);
+        
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,6 +345,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;

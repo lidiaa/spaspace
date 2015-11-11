@@ -16,13 +16,11 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Pessoal
+ * @author Lidia
  */
 public class FrmCliente extends javax.swing.JFrame {
-
-    /**
-     * Creates new form frmCliente
-     */
+    
+    int codCliente;
     Utilitarios util;
     
     public FrmCliente() {
@@ -31,7 +29,44 @@ public class FrmCliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);   //centraliza o form no meio da tela
     }
     
-    
+     public void setCodigoClienteAlteracao(int codigo)
+    {
+        this.codCliente = codigo;
+    }
+     
+     public void setTxtNomeCliente(String nome)
+    {
+        txtNomeCliente.setText(nome);
+    }
+     
+     public void setTxtCpfCliente(String cpf)
+     {
+         txtCpfCliente.setText(cpf);
+     }
+     
+     public void setTxtRgCliente(String rg)
+     {
+         txtRgCliente.setText(rg);
+     }
+     
+     public void setTxtTelefoneCliente(String tel)
+     {
+         txtTelefone.setText(tel);
+     }
+     
+     public void setTxtGeneroCliente(String genero)
+     {
+         if(genero.equals("F"))
+         {
+             cbxFeminino.setSelected(true);
+         }
+         else if(genero.equals("M"))
+         {
+             cbxMasculino.setSelected(true);
+         }
+     }
+             
+     
     
 
     /**
@@ -58,6 +93,7 @@ public class FrmCliente extends javax.swing.JFrame {
         txtCpfCliente = new javax.swing.JFormattedTextField();
         txtRgCliente = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
+        btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro de Cliente");
         addFocusListener(new java.awt.event.FocusAdapter() {
@@ -164,6 +200,13 @@ public class FrmCliente extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlClienteLayout = new javax.swing.GroupLayout(pnlCliente);
         pnlCliente.setLayout(pnlClienteLayout);
         pnlClienteLayout.setHorizontalGroup(
@@ -202,6 +245,8 @@ public class FrmCliente extends javax.swing.JFrame {
                 .addGap(51, 51, 51))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlClienteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAlterar)
+                .addGap(54, 54, 54)
                 .addComponent(btnSalvar)
                 .addGap(40, 40, 40)
                 .addComponent(btnLimpar)
@@ -233,7 +278,8 @@ public class FrmCliente extends javax.swing.JFrame {
                 .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
-                    .addComponent(btnSair))
+                    .addComponent(btnSair)
+                    .addComponent(btnAlterar))
                 .addContainerGap())
         );
 
@@ -322,11 +368,31 @@ public class FrmCliente extends javax.swing.JFrame {
         {
             genero = "M";
         }
-        Cliente c = new Cliente(7, cpf, rg, nome, telefone, genero); //passar os itens por aqui
+        Cliente c = new Cliente(cpf, rg, nome, telefone, genero); //passar os itens por aqui
         DatabaseUtilit.Conectar();
         ClienteDAO cDAO = new ClienteDAO();
         cDAO.insertCliente(c);
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String nome = txtNomeCliente.getText();
+        String rg = txtRgCliente.getText();
+        String cpf = txtCpfCliente.getText();
+        String telefone = txtTelefone.getText();
+        String genero="";
+        if(cbxFeminino.isSelected())
+        {
+            genero = "F";
+        }
+        if(cbxMasculino.isSelected())
+        {
+            genero = "M";
+        }
+        Cliente c = new Cliente(codCliente, cpf, rg, nome, telefone, genero); 
+        DatabaseUtilit.Conectar();
+        ClienteDAO cDAO = new ClienteDAO();
+        cDAO.updateCliente(c);
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -365,6 +431,7 @@ public class FrmCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
