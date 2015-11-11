@@ -5,6 +5,7 @@
  */
 package Visao;
 
+import Util.Utilitarios;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,11 +21,14 @@ import javax.swing.JOptionPane;
 public class FrmArquivo extends javax.swing.JFrame {
 
     public File arquivo;
+    Utilitarios util;
+
     /**
      * Creates new form FrmArquivo
      */
     public FrmArquivo() {
         initComponents();
+        util = new Utilitarios();
     }
 
     /**
@@ -37,16 +41,20 @@ public class FrmArquivo extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlArquivo = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         btnSelecionar = new javax.swing.JButton();
         btnProcessar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblExtensao = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
+        lblRegistros = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pnlArquivo.setBorder(javax.swing.BorderFactory.createTitledBorder("Envio de Arquivo"));
-
-        jLabel1.setText("Nome:");
 
         btnSelecionar.setText("SELECIONAR");
         btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
@@ -62,36 +70,92 @@ public class FrmArquivo extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("jButton1");
+        btnSair.setText("SAIR");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Informações"));
+
+        jLabel1.setText("Nome:");
+
+        jLabel2.setText("Extensão:");
+
+        jLabel3.setText("Registros:");
+
+        lblExtensao.setText("-");
+
+        lblNome.setText("-");
+
+        lblRegistros.setText("-");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblExtensao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblNome))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblExtensao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblRegistros))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout pnlArquivoLayout = new javax.swing.GroupLayout(pnlArquivo);
         pnlArquivo.setLayout(pnlArquivoLayout);
         pnlArquivoLayout.setHorizontalGroup(
             pnlArquivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlArquivoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSelecionar)
-                .addGap(117, 117, 117)
-                .addComponent(btnProcessar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(22, 22, 22))
-            .addGroup(pnlArquivoLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlArquivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlArquivoLayout.createSequentialGroup()
+                        .addComponent(btnSelecionar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnProcessar)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnSair, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlArquivoLayout.setVerticalGroup(
             pnlArquivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlArquivoLayout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlArquivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProcessar)
                     .addComponent(btnSelecionar)
-                    .addComponent(jButton3))
-                .addGap(27, 27, 27))
+                    .addComponent(btnProcessar)
+                    .addComponent(btnSair))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -111,8 +175,6 @@ public class FrmArquivo extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pnlArquivo.getAccessibleContext().setAccessibleName("Envio de Arquivo");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -131,10 +193,15 @@ public class FrmArquivo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Importe um arquivo antes de processar");
         else
         {
+            lblNome.setText(arquivo.getName());
+            lblExtensao.setText("");
             JOptionPane.showMessageDialog(rootPane, "Processando...");
-            arquivo.getName();
         }
     }//GEN-LAST:event_btnProcessarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        util.fecharJanela(this);
+    }//GEN-LAST:event_btnSairActionPerformed
 
     private void processarArquivo(File file) throws FileNotFoundException, IOException
     {
@@ -200,9 +267,15 @@ public class FrmArquivo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProcessar;
+    private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSelecionar;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblExtensao;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblRegistros;
     private javax.swing.JPanel pnlArquivo;
     // End of variables declaration//GEN-END:variables
 }

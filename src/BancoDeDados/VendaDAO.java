@@ -32,7 +32,7 @@ public class VendaDAO {
         return sql;
     }
     
-    public void update(Venda venda, String dataPagamento)
+    public void update(String id, String dataPagamento)
     {
         try
         {
@@ -40,7 +40,7 @@ public class VendaDAO {
 
             // DatabaseUtilit.getPs().setInt(1, cliente.getCodigo()); //Duvida -> se tem codigo na area de update
             DatabaseUtilit.getPs().setString(1, dataPagamento);
-            DatabaseUtilit.getPs().setString(2, String.valueOf(venda.getCodigoVenda()));        
+            DatabaseUtilit.getPs().setString(2, String.valueOf(id));        
             DatabaseUtilit.getPs().executeUpdate();
 
             System.out.println("Venda atualizado com sucesso");   

@@ -23,7 +23,10 @@ public class FrmCliente extends javax.swing.JFrame {
     /**
      * Creates new form frmCliente
      */
+    Utilitarios util;
+    
     public FrmCliente() {
+        util = new Utilitarios();
         initComponents();
         this.setLocationRelativeTo(this);   //centraliza o form no meio da tela
     }
@@ -256,13 +259,10 @@ public class FrmCliente extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        Util.Utilitarios util = new Utilitarios();
-        util.fecharJanela(this);
-        
+        util.fecharJanela(this);     
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlCliente);
     }//GEN-LAST:event_btnLimparActionPerformed
 
@@ -281,17 +281,14 @@ public class FrmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxMasculinoActionPerformed
 
     private void txtCpfClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfClienteKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCpfClienteKeyTyped
 
     private void txtRgClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRgClienteKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtRgClienteKeyTyped
 
     private void txtTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtTelefoneKeyTyped
 
