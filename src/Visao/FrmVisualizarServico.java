@@ -16,11 +16,13 @@ import javax.swing.JOptionPane;
 public class FrmVisualizarServico extends javax.swing.JFrame {
 
     private ServicoModelo model;
+    FrmServico frmS;
     /**
      * Creates new form FrmVisualizarServico
      */
     public FrmVisualizarServico() {
         initComponents();
+        frmS = new FrmServico();
         this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
@@ -210,7 +212,20 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
-        // TODO add your handling code here:
+        int row = jtServico.convertRowIndexToModel(jtServico.getSelectedRow());
+        ServicoModelo model = (ServicoModelo)jtServico.getModel();
+        if(row >= 0)
+            {
+                frmS.setCodigoServicoAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
+                frmS.setTxtNome(model.getValueAt(row, 1).toString());
+                frmS.setTxtDescricao(model.getValueAt(row, 2).toString());
+                frmS.setTxtDuracao(model.getValueAt(row, 3).toString());
+                frmS.setTxtValor(model.getValueAt(row, 4).toString());
+                
+                frmS.setVisible(true);
+            }
+        else
+                JOptionPane.showMessageDialog(rootPane, "Escolha uma Mercadoria na lista para fazer a alteração"); 
     }//GEN-LAST:event_brnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

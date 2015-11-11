@@ -19,17 +19,73 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Pessoal
+ * @author Lidia
  */
 public class FrmSecretaria extends javax.swing.JFrame{
-
+    int codSecretaria;
+    Utilitarios util;
     /**
      * Creates new form FrmSecretaria
      */
     public FrmSecretaria() {
         initComponents();
+        util = new Utilitarios();
         this.setLocationRelativeTo(null);  //centralizar a tela
     }
+    
+    public void setCodigoSecretariaAlteracao(int codigo)
+    {
+        this.codSecretaria = codigo;
+    }
+    
+    public void setTxtCpf(String cpf)
+    {
+        txtCpfSecretaria.setText(cpf);
+    }
+    
+    public void setTxtRg(String rg)
+    {
+        txtRgSecretaria.setText(rg);
+    }
+    
+    public void setTxtNome(String nome)
+    {
+        txtNomeSecretaria.setText(nome);
+    }
+    
+    public void setTxtTelefone(String telefone)
+    {
+        txtTelefone.setText(telefone);
+    }
+    
+    public void setTxtGenero(String genero)
+    {
+        if(genero.equals("F"))
+         {
+             cbxFeminino.setSelected(true);
+         }
+         else if(genero.equals("M"))
+         {
+             cbxMasculino.setSelected(true);
+         }
+    }
+    
+    public void setTxtCep(String cep)
+    {
+        txtCep.setText(cep);
+    }
+    
+    public void setTxtNumCasa(String num)
+    {
+        txtNroCasa.setText(num);
+    }
+    
+    public void setTxtCargo(String cargo)
+    {
+        //
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,6 +117,7 @@ public class FrmSecretaria extends javax.swing.JFrame{
         txtCpfSecretaria = new javax.swing.JFormattedTextField();
         txtCep = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
+        btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro De Funcionário da Secretaria");
 
@@ -123,7 +180,7 @@ public class FrmSecretaria extends javax.swing.JFrame{
 
         jLabel8.setText("Cargo:");
 
-        cbbCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Secretária", "RH", "Administrador", "Estagiário" }));
+        cbbCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Secretária", "RH", "Administrador", "Estagiário", "Gerente" }));
 
         try {
             txtRgSecretaria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
@@ -174,6 +231,13 @@ public class FrmSecretaria extends javax.swing.JFrame{
             }
         });
 
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlSecretariaLayout = new javax.swing.GroupLayout(pnlSecretaria);
         pnlSecretaria.setLayout(pnlSecretariaLayout);
         pnlSecretariaLayout.setHorizontalGroup(
@@ -213,26 +277,29 @@ public class FrmSecretaria extends javax.swing.JFrame{
                                 .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(97, 97, 97)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlSecretariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSecretariaLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxFeminino)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxMasculino)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSecretariaLayout.createSequentialGroup()
+                        .addGroup(pnlSecretariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlSecretariaLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(pnlSecretariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlSecretariaLayout.createSequentialGroup()
-                                        .addComponent(btnSalvar)
-                                        .addGap(40, 40, 40)
-                                        .addComponent(btnLimpar)
-                                        .addGap(40, 40, 40)
-                                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtNroCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(3, 3, 3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSecretariaLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxFeminino)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxMasculino)
-                                .addGap(21, 21, 21)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(pnlSecretariaLayout.createSequentialGroup()
+                                .addComponent(btnAlterar)
+                                .addGap(45, 45, 45)))
+                        .addGroup(pnlSecretariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlSecretariaLayout.createSequentialGroup()
+                                .addComponent(btnSalvar)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnLimpar)
+                                .addGap(40, 40, 40)
+                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNroCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(3, 3, 3)))
                 .addGap(45, 45, 45))
         );
         pnlSecretariaLayout.setVerticalGroup(
@@ -269,7 +336,8 @@ public class FrmSecretaria extends javax.swing.JFrame{
                 .addGroup(pnlSecretariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
-                    .addComponent(btnSair))
+                    .addComponent(btnSair)
+                    .addComponent(btnAlterar))
                 .addGap(21, 21, 21))
         );
 
@@ -300,12 +368,10 @@ public class FrmSecretaria extends javax.swing.JFrame{
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
-        Util.Utilitarios util = new Utilitarios();
         util.limparCampos(pnlSecretaria);
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtNroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroCasaKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtNroCasaKeyTyped
 
@@ -324,22 +390,18 @@ public class FrmSecretaria extends javax.swing.JFrame{
     }//GEN-LAST:event_cbxMasculinoActionPerformed
 
     private void txtCpfSecretariaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfSecretariaKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCpfSecretariaKeyTyped
 
     private void txtRgSecretariaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRgSecretariaKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtRgSecretariaKeyTyped
 
     private void txtTelefoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefoneKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtTelefoneKeyTyped
 
     private void txtCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyTyped
-        Util.Utilitarios util = new Utilitarios();
         util.apenasNumeros(evt);
     }//GEN-LAST:event_txtCepKeyTyped
 
@@ -362,8 +424,28 @@ public class FrmSecretaria extends javax.swing.JFrame{
         DatabaseUtilit.Conectar();
         SecretariaDAO sDAO = new SecretariaDAO();
         sDAO.insereSecretaria(s);
-     
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String nome = txtNomeSecretaria.getText();
+        String cpf = txtCpfSecretaria.getText();
+        String rg = txtRgSecretaria.getText();
+        String telefone = txtTelefone.getText();
+        String genero = "";
+            if(cbxFeminino.isSelected())
+                genero = "F";
+            if(cbxMasculino.isSelected())   
+                genero = "M";
+        String cep = txtCep.getText();
+        String nroCasa = txtNroCasa.getText();
+        String cargo = cbbCargo.getSelectedItem().toString();
+        
+        //alterar codigo
+        Secretaria s = new Secretaria(codSecretaria, cpf, rg, nome, telefone, genero, cep, nroCasa, cargo);
+        DatabaseUtilit.Conectar();
+        SecretariaDAO sDAO = new SecretariaDAO();
+        sDAO.updateSecretaria(s);
+    }//GEN-LAST:event_btnAlterarActionPerformed
     
     /**
      * @param args the command line arguments
@@ -401,6 +483,7 @@ public class FrmSecretaria extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;

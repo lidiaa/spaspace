@@ -5,6 +5,8 @@
  */
 package Visao;
 
+import BancoDeDados.DatabaseUtilit;
+import BancoDeDados.MercadoriaDAO;
 import Modelo.MercadoriaModelo;
 import Util.Utilitarios;
 import javax.swing.JOptionPane;
@@ -19,10 +21,18 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
      * Creates new form FrmVisualizarMercadoria
      */
     private MercadoriaModelo model;
+    FrmMercadoria frmM;
     
     public FrmVisualizarMercadoria() {
         initComponents();
+        frmM = new FrmMercadoria();
         this.setLocationRelativeTo(null);  //centralizar a tela
+        configuraTabelaModelo();
+        configuraTabelaColunas();
+    }
+    
+    public void refresh() //atualiza a tabela (após remoção)
+    {
         configuraTabelaModelo();
         configuraTabelaColunas();
     }
@@ -210,13 +220,40 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
-        // TODO add your handling code here:
+        int row = jtMercadoria.convertRowIndexToModel(jtMercadoria.getSelectedRow());
+        MercadoriaModelo model = (MercadoriaModelo)jtMercadoria.getModel();
+        if(row >= 0)
+            {
+                frmM.setCodigoMercadoriaAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
+                frmM.setTxtNome(model.getValueAt(row, 1).toString());
+                frmM.setTxtCodFornecedor(model.getValueAt(row, 2).toString());
+                frmM.setTxtDescricao(model.getValueAt(row, 3).toString());
+                frmM.setTxtValor(model.getValueAt(row, 4).toString());
+                frmM.setTxtQuantidade(model.getValueAt(row, 5).toString());
+                
+                frmM.setVisible(true);
+            }
+        else
+                JOptionPane.showMessageDialog(rootPane, "Escolha uma Mercadoria na lista para fazer a alteração"); 
     }//GEN-LAST:event_brnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(JOptionPane.showConfirmDialog(null,"Deseja excluir cadastro selecionado? A operação não poderá ser desfeita.","ATENÇÃO ",javax.swing.JOptionPane.YES_NO_OPTION)==0)
         {
-            //Colocaar código para caso de Excluão
+            int row = jtMercadoria.convertRowIndexToModel(jtMercadoria.getSelectedRow());
+            MercadoriaModelo model = (MercadoriaModelo)jtMercadoria.getModel();
+            if(row >= 0) {
+                int codigoMercadoriaDeletar = (Integer.parseInt(model.getValueAt(row, 0).toString()));
+                
+                Modelo.Mercadoria m = new Modelo.Mercadoria(codigoMercadoriaDeletar);
+                DatabaseUtilit.Conectar();
+                MercadoriaDAO mDAO = new MercadoriaDAO();
+                mDAO.deleteMercadoria(m);
+                refresh(); //atualiza o jTable sem o valor removida
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Escolha um Cliente na lista para fazer a alteração"); 
+            }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 

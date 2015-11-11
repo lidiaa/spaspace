@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Pessoal
+ * @author Lidia
  */
 public class FrmVisualizarCliente extends javax.swing.JFrame {
     
@@ -19,9 +19,13 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
      * Creates new form FrmVisualizarCliente
      */
     private ClienteModelo model;
+    Utilitarios util;
+    FrmCliente frmC;
     
     public FrmVisualizarCliente() {
         initComponents();
+        util = new Utilitarios();
+        frmC = new FrmCliente();
         this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
@@ -219,10 +223,24 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
         FrmCliente objC = new FrmCliente();
         objC.setVisible(true);
+        
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
-        // TODO add your handling code here:
+        int row = jtCliente.convertRowIndexToModel(jtCliente.getSelectedRow());
+        ClienteModelo model = (ClienteModelo)jtCliente.getModel();
+        if(row >= 0)
+            {
+                frmC.setCodigoClienteAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
+                frmC.setTxtCpfCliente(model.getValueAt(row, 1).toString());
+                frmC.setTxtRgCliente(model.getValueAt(row, 2).toString());
+                frmC.setTxtNomeCliente(model.getValueAt(row, 3).toString());
+                frmC.setTxtTelefoneCliente(model.getValueAt(row, 4).toString());
+                frmC.setTxtGeneroCliente(model.getValueAt(row, 5).toString());
+                frmC.setVisible(true);
+            }
+        else
+                JOptionPane.showMessageDialog(rootPane, "Escolha um Cliente na lista para fazer a alteração"); 
     }//GEN-LAST:event_brnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Pessoal
  */
 public class ServicoModelo extends AbstractTableModel{
-    private String[] colunas = {"Cod", "Nome", "Descrição", "Duração"};
+    private String[] colunas = {"Cod", "Nome", "Descrição", "Duração", "Valor"};
     private static List<Servico> linhas;
     
     @Override
@@ -46,7 +46,10 @@ public class ServicoModelo extends AbstractTableModel{
             case 2:
                 return s.getDescricaoServico();
             case 3:
-                return s.getDescricaoServico();
+                return s.getDuracaoMinutosServico();
+            case 4:
+                return s.getValorServico();    
+                
             default:
                 throw new IndexOutOfBoundsException("Coluna fora");       
         }

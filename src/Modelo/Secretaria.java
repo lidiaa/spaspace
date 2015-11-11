@@ -15,6 +15,11 @@ public class Secretaria extends Funcionario{
     public Secretaria(){
     }
     
+    public Secretaria (int cod)
+    {
+        cod = super.getCodigo();
+    }
+    
     public Secretaria(String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String cargo)
     {
         //codigo = super.getCodigo();
@@ -28,6 +33,18 @@ public class Secretaria extends Funcionario{
         cargo = this.cargo;
     }
     
+    public Secretaria(int codigo, String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String cargo)
+    {
+        codigo = super.getCodigo();
+        cpf = super.getCPF();
+        rg = super.getRG();
+        nome = super.getNome();
+        telefone = super.getTelefone();
+        genero = super.getGenero();
+        cep = super.getCep();
+        nro = super.getNumeroCasa();
+        cargo = this.cargo;
+    }
 
     public String getCargo() {
         return cargo;

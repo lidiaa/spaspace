@@ -44,12 +44,12 @@ public class MercadoriaDAO implements OperacoesEmBanco, BuscaEmBanco{
         {
             DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
             
-           //DatabaseUtilit.getPs().setInt(1, mercadoria.getCodigoMercadoria()); 
            DatabaseUtilit.getPs().setString(1, mercadoria.getNomeMercadoria()); 
            DatabaseUtilit.getPs().setInt(2, mercadoria.getCodigoFornecedor()); 
            DatabaseUtilit.getPs().setString(3, mercadoria.getDescricaoMercadoria()); 
            DatabaseUtilit.getPs().setDouble(4, mercadoria.getValorMercadoria()); 
            DatabaseUtilit.getPs().setInt(5, mercadoria.getQuantidadeMercadoria()); 
+           DatabaseUtilit.getPs().setInt(6, mercadoria.getCodigoMercadoria()); 
 
             DatabaseUtilit.getPs().executeUpdate();
 

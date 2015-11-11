@@ -29,6 +29,11 @@ public class Mercadoria extends Arquivo{
         
     }
     
+    public Mercadoria(int codigo)
+    {
+        this.codigoMercadoria = codigo;
+    }
+    
     public Mercadoria(String nomeMercadoria, int codigoFornecedor, String descricaoMercadoria, double valorMercadoria, int quantidadeMercadoria) {
         //this.codigoMercadoria = codigoMercadoria;
         this.nomeMercadoria = nomeMercadoria;
@@ -36,6 +41,15 @@ public class Mercadoria extends Arquivo{
         this.descricaoMercadoria = descricaoMercadoria;
         this.valorMercadoria = valorMercadoria;
         this.quantidadeMercadoria = quantidadeMercadoria;
+    }
+    
+    public Mercadoria(String nomeMercadoria, int codigoFornecedor, String descricaoMercadoria, double valorMercadoria, int quantidadeMercadoria, int cod) {
+        this.nomeMercadoria = nomeMercadoria;
+        this.codigoFornecedor = codigoFornecedor;
+        this.descricaoMercadoria = descricaoMercadoria;
+        this.valorMercadoria = valorMercadoria;
+        this.quantidadeMercadoria = quantidadeMercadoria;
+        this.codigoMercadoria = codigoMercadoria;
     }
 
     

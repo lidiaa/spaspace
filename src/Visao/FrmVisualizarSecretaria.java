@@ -19,10 +19,12 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
      * Creates new form FrmVisualizarSecretaria
      */
     private SecretariaModelo model;
+    FrmSecretaria frmS;
     
     
     public FrmVisualizarSecretaria() {
         initComponents();
+        frmS = new FrmSecretaria();
         this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
@@ -217,7 +219,25 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
-        // TODO add your handling code here:
+        int row = jtSecretaria.convertRowIndexToModel(jtSecretaria.getSelectedRow());
+        SecretariaModelo model = (SecretariaModelo)jtSecretaria.getModel();
+        if(row >= 0)
+            {
+                frmS.setCodigoSecretariaAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
+                frmS.setTxtCpf(model.getValueAt(row, 1).toString());
+                frmS.setTxtRg(model.getValueAt(row, 2).toString());
+                frmS.setTxtNome(model.getValueAt(row, 3).toString());
+                frmS.setTxtTelefone(model.getValueAt(row, 4).toString());
+                frmS.setTxtGenero(model.getValueAt(row, 5).toString());
+                frmS.setTxtCep(model.getValueAt(row, 6).toString());
+                frmS.setTxtNumCasa(model.getValueAt(row, 7).toString());
+                frmS.setTxtCargo(model.getValueAt(row, 8).toString());
+                
+                frmS.setVisible(true);
+            }
+        else
+                JOptionPane.showMessageDialog(rootPane, "Escolha um Funcionário na lista para fazer alteração"); 
+   
     }//GEN-LAST:event_brnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

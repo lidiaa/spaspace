@@ -17,8 +17,28 @@ public class Massagista extends Funcionario{
     public Massagista() {
     }
     
+    public Massagista(int cod)
+    {
+        cod = super.getCodigo();
+    }
+    
     public Massagista(String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String formacao, int anos, String especialidade)        
     {
+        cpf = super.getCPF();
+        rg = super.getRG();
+        nome = super.getNome();
+        telefone = super.getTelefone();
+        genero = super.getGenero();
+        cep = super.getCep();
+        nro = super.getNumeroCasa();
+        formacao = this.formacao;
+        anos = this.anosExperiencia;
+        especialidade = this.especialidade;       
+    }
+    
+    public Massagista(int cod, String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String formacao, int anos, String especialidade)        
+    {
+        cod = super.getCodigo();
         cpf = super.getCPF();
         rg = super.getRG();
         nome = super.getNome();

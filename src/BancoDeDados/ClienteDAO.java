@@ -42,12 +42,12 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
     {
         DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
         
-        // DatabaseUtilit.getPs().setInt(1, cliente.getCodigo()); //Duvida -> se tem codigo na area de update
         DatabaseUtilit.getPs().setString(1, cliente.getCPF());
         DatabaseUtilit.getPs().setString(2, cliente.getRG());
         DatabaseUtilit.getPs().setString(3, cliente.getNome());
         DatabaseUtilit.getPs().setString(4, cliente.getTelefone());
         DatabaseUtilit.getPs().setString(5, cliente.getGenero());
+        DatabaseUtilit.getPs().setInt(6, cliente.getCodigo());
         
         DatabaseUtilit.getPs().executeUpdate();
         
