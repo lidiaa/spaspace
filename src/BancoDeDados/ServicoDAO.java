@@ -27,7 +27,8 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
             DatabaseUtilit.getPs().setInt(3, servico.getDuracaoMinutosServico());
             DatabaseUtilit.getPs().setDouble(4, servico.getValorServico());
             
-            DatabaseUtilit.getPs().execute();
+            //lidia
+            DatabaseUtilit.doOperation("INSERT");
             System.out.println("Servico cadastrado com sucesso");
 
         } catch (SQLException ex)

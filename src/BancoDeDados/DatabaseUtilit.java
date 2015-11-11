@@ -16,7 +16,7 @@ public class DatabaseUtilit {
     private static PreparedStatement ps; //envio de comandos ao banco
     private static String url = "jdbc:mysql://127.0.0.1/spaspace"; //caminho ao banco
     private static String user = "root"; //usuario do banco de dados dono do banco a ser usado no programa
-    private static String psw = "root"; //senha do usuario do banco de dados
+    private static String psw = "jonathan159"; //senha do usuario do banco de dados
                                 //jonathan159
     
     public static void Conectar()
@@ -65,5 +65,28 @@ public class DatabaseUtilit {
     public static void setPs (PreparedStatement ps)
     {
         DatabaseUtilit.ps = ps;
+    }
+    
+    public static void doOperation(String type) throws SQLException          
+    {
+        type = type.toUpperCase();
+        switch(type)
+        {
+            case "INSERT":
+                getPs().execute();    
+                break;
+            case "SELECT":
+                getPs().executeQuery();
+                break;
+            case "UPDATE":
+                getPs().executeUpdate();
+                break;
+            case "DELETE":
+                getPs().executeUpdate();
+                break;
+            default:
+                break;
+        }
+        Desconectar();
     }
 }
