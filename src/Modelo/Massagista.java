@@ -19,18 +19,18 @@ public class Massagista extends Funcionario{
     
     public Massagista(int cod)
     {
-        cod = super.getCodigo();
+        super.setCodigo(cod);
     }
     
     public Massagista(String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String formacao, int anos, String especialidade)        
     {
-        cpf = super.getCPF();
-        rg = super.getRG();
-        nome = super.getNome();
-        telefone = super.getTelefone();
-        genero = super.getGenero();
-        cep = super.getCep();
-        nro = super.getNumeroCasa();
+        super.setCPF(cpf);
+        super.setRG(rg);
+        super.setNome(nome);
+        super.setTelefone(telefone);
+        super.setGenero(genero);
+        super.setCep(cep);
+        super.setNumeroCasa(nro);
         formacao = this.formacao;
         anos = this.anosExperiencia;
         especialidade = this.especialidade;       
@@ -38,14 +38,14 @@ public class Massagista extends Funcionario{
     
     public Massagista(int cod, String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String formacao, int anos, String especialidade)        
     {
-        cod = super.getCodigo();
-        cpf = super.getCPF();
-        rg = super.getRG();
-        nome = super.getNome();
-        telefone = super.getTelefone();
-        genero = super.getGenero();
-        cep = super.getCep();
-        nro = super.getNumeroCasa();
+        super.setCodigo(cod);
+        super.setCPF(cpf);
+        super.setRG(rg);
+        super.setNome(nome);
+        super.setTelefone(telefone);
+        super.setGenero(genero);
+        super.setCep(cep);
+        super.setNumeroCasa(nro);
         formacao = this.formacao;
         anos = this.anosExperiencia;
         especialidade = this.especialidade;       

@@ -50,7 +50,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         pnlInicial.setBackground(new java.awt.Color(204, 204, 255));
 
-        pnlCadastro.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"), "Menu"));
+        pnlCadastro.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu"));
 
         btnCliente.setText("Cliente");
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +149,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(jButton8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton9)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         jLabel1.setText("Inserir Logo");
@@ -161,7 +161,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(pnlImagemLayout.createSequentialGroup()
                 .addGap(160, 160, 160)
                 .addComponent(jLabel1)
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         pnlImagemLayout.setVerticalGroup(
             pnlImagemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,20 +178,19 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(pnlInicialLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130)
+                .addGap(40, 40, 40)
                 .addComponent(pnlImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(294, Short.MAX_VALUE))
         );
         pnlInicialLayout.setVerticalGroup(
             pnlInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInicialLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlInicialLayout.createSequentialGroup()
-                        .addComponent(pnlImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 127, Short.MAX_VALUE)))
+                .addComponent(pnlCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(pnlInicialLayout.createSequentialGroup()
+                .addComponent(pnlImagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

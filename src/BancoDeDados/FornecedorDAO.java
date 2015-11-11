@@ -27,7 +27,7 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
            DatabaseUtilit.getPs().setString(4, fornecedor.getEmail()); 
            DatabaseUtilit.getPs().setString(5, fornecedor.getNomeResponsavel()); 
            DatabaseUtilit.getPs().setString(6, fornecedor.getTelefone()); 
-           DatabaseUtilit.getPs().setInt(7, fornecedor.getCodigo()); 
+           
 
            DatabaseUtilit.getPs().execute();
            System.out.println("Fornecedor cadastrado com sucesso");
@@ -44,13 +44,13 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
            
-           //DatabaseUtilit.getPs().setInt(1, fornecedor.getCodigo()); 
            DatabaseUtilit.getPs().setString(1, fornecedor.getCNPJ()); 
            DatabaseUtilit.getPs().setString(2, fornecedor.getNome()); 
            DatabaseUtilit.getPs().setString(3, fornecedor.getNomeFantasia()); 
            DatabaseUtilit.getPs().setString(4, fornecedor.getEmail()); 
            DatabaseUtilit.getPs().setString(5, fornecedor.getNomeResponsavel()); 
            DatabaseUtilit.getPs().setString(6, fornecedor.getTelefone()); 
+           DatabaseUtilit.getPs().setInt(7, fornecedor.getCodigo()); 
 
             DatabaseUtilit.getPs().executeUpdate();
 
@@ -172,7 +172,7 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
     
     @Override
     public String SQLInsert() {
-        String sql = "insert into fornecedor (CNPJ, nome, nomefantasia, "
+        String sql = "insert into fornecedor (cnpj, nome, nomefantasia, "
                 + "email, nomeresponsavel, telefone) values (?, ?, ?, ?, ?, ?)";
         return sql;
     }

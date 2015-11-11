@@ -5,6 +5,9 @@
  */
 package Visao;
 
+import BancoDeDados.ClienteDAO;
+import BancoDeDados.DatabaseUtilit;
+import Modelo.Cliente;
 import Modelo.ClienteModelo;
 import Util.Utilitarios;
 import javax.swing.JOptionPane;
@@ -27,6 +30,12 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
         util = new Utilitarios();
         frmC = new FrmCliente();
         this.setLocationRelativeTo(null);  //centralizar a tela
+        configuraTabelaModelo();
+        configuraTabelaColunas();
+    }
+    
+    public void refresh() //atualiza a tabela (após remoção)
+    {
         configuraTabelaModelo();
         configuraTabelaColunas();
     }
@@ -246,7 +255,21 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(JOptionPane.showConfirmDialog(null,"Deseja excluir cadastro selecionado? A operação não poderá ser desfeita.","ATENÇÃO ",javax.swing.JOptionPane.YES_NO_OPTION)==0)
         {
-            //Colocaar código para caso de Excluão
+            int row = jtCliente.convertRowIndexToModel(jtCliente.getSelectedRow());
+            ClienteModelo model = (ClienteModelo)jtCliente.getModel();
+            if(row >= 0)
+                {
+                    int codigoClienteDeletar = (Integer.parseInt(model.getValueAt(row, 0).toString()));
+                    
+                    Cliente c = new Cliente(codigoClienteDeletar);
+                    DatabaseUtilit.Conectar();
+                    ClienteDAO sDAO = new ClienteDAO();
+                    sDAO.deleteCliente(c);
+                    refresh(); //atualiza o jTable sem o valor removida
+                }
+                else {
+                   JOptionPane.showMessageDialog(rootPane, "Escolha uma Mercadoria na lista para fazer a alteração"); 
+                }  
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 

@@ -5,6 +5,9 @@
  */
 package Visao;
 
+import BancoDeDados.DatabaseUtilit;
+import BancoDeDados.SecretariaDAO;
+import Modelo.Secretaria;
 import Modelo.SecretariaModelo;
 import Util.Utilitarios;
 import javax.swing.JOptionPane;
@@ -26,6 +29,12 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
         initComponents();
         frmS = new FrmSecretaria();
         this.setLocationRelativeTo(null);  //centralizar a tela
+        configuraTabelaModelo();
+        configuraTabelaColunas();
+    }
+    
+    public void refresh() //atualiza a tabela (após remoção)
+    {
         configuraTabelaModelo();
         configuraTabelaColunas();
     }
@@ -243,7 +252,21 @@ public class FrmVisualizarSecretaria extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(JOptionPane.showConfirmDialog(null,"Deseja excluir cadastro selecionado? A operação não poderá ser desfeita.","ATENÇÃO ",javax.swing.JOptionPane.YES_NO_OPTION)==0)
         {
-            //Colocaar código para caso de Excluão
+            int row = jtSecretaria.convertRowIndexToModel(jtSecretaria.getSelectedRow());
+            SecretariaModelo model = (SecretariaModelo)jtSecretaria.getModel();
+            if(row >= 0)
+                {
+                    int codigoSecretariaDeletar = (Integer.parseInt(model.getValueAt(row, 0).toString()));
+                    
+                    Secretaria s = new Secretaria(codigoSecretariaDeletar);
+                    DatabaseUtilit.Conectar();
+                    SecretariaDAO sDAO = new SecretariaDAO();
+                    sDAO.deleteSecretaria(s);
+                    refresh(); //atualiza o jTable sem o valor removida
+                }
+                else {
+                   JOptionPane.showMessageDialog(rootPane, "Escolha uma Mercadoria na lista para fazer a alteração"); 
+                }  
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 

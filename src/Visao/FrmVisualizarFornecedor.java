@@ -5,6 +5,8 @@
  */
 package Visao;
 
+import BancoDeDados.DatabaseUtilit;
+import BancoDeDados.FornecedorDAO;
 import Modelo.FornecedorModelo;
 import Util.Utilitarios;
 import javax.swing.JButton;
@@ -27,6 +29,12 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
         frmF = new FrmFornecedor();
         util = new Utilitarios();
         this.setLocationRelativeTo(null);  //centralizar a tela
+        configuraTabelaModelo();
+        configuraTabelaColunas();
+    }
+    
+    public void refresh() //atualiza a tabela (após remoção)
+    {
         configuraTabelaModelo();
         configuraTabelaColunas();
     }
@@ -242,7 +250,20 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if(JOptionPane.showConfirmDialog(null,"Deseja excluir cadastro selecionado? A operação não poderá ser desfeita.","ATENÇÃO ",javax.swing.JOptionPane.YES_NO_OPTION)==0)
         {
-            //Colocaar código para caso de Excluão
+            int row = jtFornecedor.convertRowIndexToModel(jtFornecedor.getSelectedRow());
+            FornecedorModelo model = (FornecedorModelo)jtFornecedor.getModel();
+            if(row >= 0) {
+                int codigoFornecedorDeletar = (Integer.parseInt(model.getValueAt(row, 0).toString()));
+                
+                Modelo.Fornecedor f = new Modelo.Fornecedor(codigoFornecedorDeletar);
+                DatabaseUtilit.Conectar();
+                FornecedorDAO fDAO = new FornecedorDAO();
+                fDAO.deleteFornecedor(f);
+                refresh(); //atualiza o jTable sem o valor removida
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Escolha um Cliente na lista para fazer a alteração"); 
+            }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
