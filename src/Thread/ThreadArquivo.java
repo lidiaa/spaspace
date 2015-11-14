@@ -28,31 +28,35 @@ public class ThreadArquivo extends Thread {
         for(String linha : linhas)
         {
             counter++;
-            String codigo = linha.substring(70, 82);
-            String dataPagamento = linha.substring(110, 116);
-            String dataPagamentoFinal = String.format("%s%s/%s%s/%s%s", dataPagamento.charAt(0),
-                dataPagamento.charAt(1),
-                dataPagamento.charAt(2),
-                dataPagamento.charAt(3),
-                dataPagamento.charAt(4),
-                dataPagamento.charAt(5));
-            
-            
-            venda.update(codigo, dataPagamentoFinal);
-            
-            if(counter == 10)
+            if(linha.charAt(0) == '1')
             {
-                try 
+                String codigo = linha.substring(70, 83);
+                String dataPagamento = linha.substring(110, 117);
+                String dataPagamentoFinal = String.format("%s%s/%s%s/%s%s", dataPagamento.charAt(0),
+                    dataPagamento.charAt(1),
+                    dataPagamento.charAt(2),
+                    dataPagamento.charAt(3),
+                    dataPagamento.charAt(4),
+                    dataPagamento.charAt(5));
+
+
+                venda.update(codigo, dataPagamentoFinal);
+
+                if(counter == 10)
                 {
-                    Thread.sleep(10);
-                    System.out.println("Sleeping...");
-                    counter = 0;
-                } 
-                catch (InterruptedException ex) 
-                {
-                    Logger.getLogger(ThreadArquivo.class.getName()).log(Level.SEVERE, null, ex);
-                }               
+                    try 
+                    {
+                        Thread.sleep(10);
+                        System.out.println("Sleeping...");
+                        counter = 0;
+                    } 
+                    catch (InterruptedException ex) 
+                    {
+                        Logger.getLogger(ThreadArquivo.class.getName()).log(Level.SEVERE, null, ex);
+                    }               
+                }   
             }
+            
         }
         
         JOptionPane.showMessageDialog(null, "Processamento de arquivo concluído. \n Foram processados " + linhas.size() + " registros.");

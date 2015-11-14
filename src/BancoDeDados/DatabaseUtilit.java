@@ -5,6 +5,8 @@
  */
 package BancoDeDados;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -70,13 +72,11 @@ public class DatabaseUtilit {
     public static void doOperation(String type) throws SQLException          
     {
         type = type.toUpperCase();
+        
         switch(type)
         {
             case "INSERT":
                 getPs().execute();    
-                break;
-            case "SELECT":
-                getPs().executeQuery();
                 break;
             case "UPDATE":
                 getPs().executeUpdate();
@@ -88,5 +88,28 @@ public class DatabaseUtilit {
                 break;
         }
         Desconectar();
+    }
+    
+    public static List<Object[]> doSelect() throws SQLException
+    {
+        Conectar();
+        ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+        List<Object[]> retorno = new ArrayList<Object[]>();
+        
+        if(rs != null)
+        {
+            int cols = rs.getMetaData().getColumnCount();
+            while(rs.next())
+            {
+                Object[] arr = new Object[cols];
+                for(int i=0; i<cols; i++)
+                {
+                    arr[i] = rs.getObject(i+1);
+                }
+                retorno.add(arr);
+            }
+        }
+        Desconectar();
+        return retorno;
     }
 }

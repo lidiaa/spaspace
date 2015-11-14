@@ -202,6 +202,7 @@ public class FrmArquivo extends javax.swing.JFrame {
         {
             try 
             {
+                JOptionPane.showMessageDialog(rootPane, "Processando...enquanto isso, você pode continuar usando o sistema normalmente");
                 processarArquivo(arquivo);
             } 
             catch 
@@ -209,7 +210,7 @@ public class FrmArquivo extends javax.swing.JFrame {
             {
                 Logger.getLogger(FrmArquivo.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(rootPane, "Processando...enquanto isso, você pode continuar usando o sistema normalmente");
+            
         }
     }//GEN-LAST:event_btnProcessarActionPerformed
 

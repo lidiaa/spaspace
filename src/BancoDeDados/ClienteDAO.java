@@ -27,7 +27,8 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
             DatabaseUtilit.getPs().setString(4, cliente.getTelefone());
             DatabaseUtilit.getPs().setString(5, cliente.getGenero());
 
-            DatabaseUtilit.getPs().execute();
+            DatabaseUtilit.doOperation("INSERT");
+            
             System.out.println("Cliente cadastrado com sucesso");
 
         } catch (SQLException ex)
