@@ -27,7 +27,8 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
             DatabaseUtilit.getPs().setInt(3, servico.getDuracaoMinutosServico());
             DatabaseUtilit.getPs().setDouble(4, servico.getValorServico());
             
-            DatabaseUtilit.getPs().execute();
+            //lidia
+            DatabaseUtilit.doOperation("INSERT");
             System.out.println("Servico cadastrado com sucesso");
 
         } catch (SQLException ex)
@@ -81,7 +82,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
             DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLList()));
 
             ResultSet rs = DatabaseUtilit.getPs().executeQuery();
-
+            
             if(rs != null){
                 while(rs.next())
                 {
@@ -93,12 +94,14 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
                     tempServico.setValorServico(rs.getDouble(5));
                     listaServico.add(tempServico);
                 }
+                DatabaseUtilit.Desconectar();
                 return listaServico;
             }
         } catch(SQLException ex)
         {
             System.err.println("Servico não foi consultado \nErro: "+ex);
         }
+        
         return null;
     }
     
@@ -108,7 +111,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
         try
         {
             DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLListLike(Like)));
-
+            
             ResultSet rs = DatabaseUtilit.getPs().executeQuery();
 
             if(rs != null){

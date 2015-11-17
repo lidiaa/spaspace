@@ -5,6 +5,8 @@
  */
 package BancoDeDados;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,7 +18,7 @@ public class DatabaseUtilit {
     private static PreparedStatement ps; //envio de comandos ao banco
     private static String url = "jdbc:mysql://127.0.0.1/spaspace"; //caminho ao banco
     private static String user = "root"; //usuario do banco de dados dono do banco a ser usado no programa
-    private static String psw = "root"; //senha do usuario do banco de dados
+    private static String psw = "jonathan159"; //senha do usuario do banco de dados
                                 //jonathan159
     
     public static void Conectar()
@@ -52,8 +54,9 @@ public class DatabaseUtilit {
         return con;
     }
 
-    public static String getUrl() {
-      return url;
+    public static String getUrl() 
+    {
+        return url;
     }
     
     public static PreparedStatement getPs()
@@ -66,9 +69,47 @@ public class DatabaseUtilit {
         DatabaseUtilit.ps = ps;
     }
     
+    public static void doOperation(String type) throws SQLException          
+    {
+        type = type.toUpperCase();
+        
+        switch(type)
+        {
+            case "INSERT":
+                getPs().execute();    
+                break;
+            case "UPDATE":
+                getPs().executeUpdate();
+                break;
+            case "DELETE":
+                getPs().executeUpdate();
+                break;
+            default:
+                break;
+        }
+        Desconectar();
+    }
     
-    
-    
-    
-    
+    public static List<Object[]> doSelect() throws SQLException
+    {
+        Conectar();
+        ResultSet rs = DatabaseUtilit.getPs().executeQuery();
+        List<Object[]> retorno = new ArrayList<Object[]>();
+        
+        if(rs != null)
+        {
+            int cols = rs.getMetaData().getColumnCount();
+            while(rs.next())
+            {
+                Object[] arr = new Object[cols];
+                for(int i=0; i<cols; i++)
+                {
+                    arr[i] = rs.getObject(i+1);
+                }
+                retorno.add(arr);
+            }
+        }
+        Desconectar();
+        return retorno;
+    }
 }

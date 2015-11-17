@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,24 +28,43 @@ public class ThreadArquivo extends Thread {
         for(String linha : linhas)
         {
             counter++;
-            String codigo = linha.substring(0, 1);
-            String dataPagamento = linha.substring(1, 1);
-            
-            venda.update(codigo, dataPagamento);
-            
-            if(counter == 10)
+            if(linha.charAt(0) == '1')
             {
-                try 
-                {
-                    Thread.sleep(10);
-                } 
-                catch (InterruptedException ex) 
-                {
-                    Logger.getLogger(ThreadArquivo.class.getName()).log(Level.SEVERE, null, ex);
-                }               
-            }
+                String codigo = linha.substring(70, 83);
+                String dataPagamento = linha.substring(110, 117);
+                String dataPagamentoFinal = String.format("%s%s/%s%s/%s%s", dataPagamento.charAt(0),
+                    dataPagamento.charAt(1),
+                    dataPagamento.charAt(2),
+                    dataPagamento.charAt(3),
+                    dataPagamento.charAt(4),
+                    dataPagamento.charAt(5));
 
-        }        
+
+                venda.update(codigo, dataPagamentoFinal);
+
+                if(counter == 10)
+                {
+                    try 
+                    {
+                        Thread.sleep(10);
+                        System.out.println("Sleeping...");
+                        counter = 0;
+                    } 
+                    catch (InterruptedException ex) 
+                    {
+                        Logger.getLogger(ThreadArquivo.class.getName()).log(Level.SEVERE, null, ex);
+                    }               
+                }   
+            }
+            
+        }
+        
+        JOptionPane.showMessageDialog(null, "Processamento de arquivo concluído. \n Foram processados " + linhas.size() + " registros.");
+    }
+    
+    public void setLinhas(List<String> linhas)
+    {
+        this.linhas = linhas;
     }
     
 }
