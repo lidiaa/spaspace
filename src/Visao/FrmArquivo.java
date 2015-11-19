@@ -5,7 +5,9 @@
  */
 package Visao;
 
+import Thread.Recipient;
 import Thread.ThreadArquivo;
+import Thread.ThreadResultadoArquivo;
 import Util.Utilitarios;
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,6 +36,7 @@ public class FrmArquivo extends javax.swing.JFrame {
     public FrmArquivo() {
         initComponents();
         util = new Utilitarios();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -190,8 +193,25 @@ public class FrmArquivo extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) 
         {
             arquivo = fileChooser.getSelectedFile();
-            lblNome.setText(arquivo.getName());
-            lblExtensao.setText("");
+            
+            
+            String extension = "";
+
+            int i = arquivo.getName().lastIndexOf('.');
+            if (i > 0) {
+                extension = arquivo.getName().substring(i+1);
+            }
+            
+            if("ret".equals(extension.toLowerCase()))
+            {
+                lblNome.setText(arquivo.getName());
+                lblExtensao.setText(extension);
+            }            
+            else
+            {
+                JOptionPane.showMessageDialog(fileChooser, "O arquivo selecionado não contém a extensão permitida *.RET");
+                arquivo = null;
+            }
         }
     }//GEN-LAST:event_btnSelecionarActionPerformed
 
@@ -220,7 +240,8 @@ public class FrmArquivo extends javax.swing.JFrame {
 
     private void processarArquivo(File file) throws FileNotFoundException, IOException
     {
-        ThreadArquivo thread = new ThreadArquivo();
+        Recipient stack = new Recipient();
+        
         List<String> linhas = new ArrayList();
         try
         {
@@ -239,8 +260,12 @@ public class FrmArquivo extends javax.swing.JFrame {
             throw new FileNotFoundException("Erro ao processar arquivo" + ex.getMessage());
         }
         
-        thread.setLinhas(linhas);
-        thread.run();
+        //Run this shit
+        Thread thread = new Thread(new ThreadArquivo(stack, linhas));
+        Thread threadresultado = new Thread(new ThreadResultadoArquivo(stack, linhas.size()));
+        thread.start();   
+        threadresultado.start();
+        System.out.println("Threads iniciadas");
     }
     
     /**
