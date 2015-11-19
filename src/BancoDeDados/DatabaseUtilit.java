@@ -21,6 +21,7 @@ public class DatabaseUtilit {
     private static String psw = "root"; //senha do usuario do banco de dados
                                 //jonathan159
     
+    
     public static void Conectar()
     {
         try {
