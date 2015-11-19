@@ -94,6 +94,12 @@ public class Utilitarios {
     }
     
     
+    public void atualizandoTabela(JButton b1)
+    {
+        
+        b1.doClick();
+    }
+    
     
     
 }

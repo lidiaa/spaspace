@@ -31,6 +31,7 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
 
            DatabaseUtilit.getPs().execute();
            System.out.println("Fornecedor cadastrado com sucesso");
+           DatabaseUtilit.Desconectar();
 
        } catch (SQLException ex)
        {
@@ -53,8 +54,9 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
            DatabaseUtilit.getPs().setInt(7, fornecedor.getCodigo()); 
 
             DatabaseUtilit.getPs().executeUpdate();
-
             System.out.println("Fornecedor atualizado com sucesso");   
+            DatabaseUtilit.Desconectar();
+            
         } catch (SQLException ex)
         {
             System.err.println("Fornecedor não foi atualizado por @updateFornecedor\\FornecedorDAO \nErro: "+ex);
@@ -71,6 +73,7 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
 
             DatabaseUtilit.getPs().executeUpdate();
             System.out.println("Fornecedor removido com sucesso");   
+            DatabaseUtilit.Desconectar();
         } catch (SQLException ex)
         {
             System.err.println("Fornecedor não foi removido por @deleteFornecedor\\FornecedorDAO \nErro: "+ex);
@@ -105,6 +108,7 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Fornecedor não foi consultado \nErro: "+ex);
         }    
+        DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -136,6 +140,7 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Fornecedor não foi consultado \nErro: "+ex);
         }    
+        DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -167,6 +172,7 @@ public class FornecedorDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Fornecedor não foi consultado \nErro: "+ex);
         }    
+        DatabaseUtilit.Desconectar();
         return null;
     }
     

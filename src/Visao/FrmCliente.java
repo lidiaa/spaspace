@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.apache.commons.net.telnet.TelnetOption;
 
 /**
  *
@@ -22,11 +23,26 @@ public class FrmCliente extends javax.swing.JFrame {
     
     int codCliente;
     Utilitarios util;
+    FrmVisualizarCliente visualizaCliente; 
+    String operacao;
     
-    public FrmCliente() {
+    public FrmCliente(FrmVisualizarCliente form) { 
         util = new Utilitarios();
         initComponents();
+        this.visualizaCliente = form;
         this.setLocationRelativeTo(this);   //centraliza o form no meio da tela
+    }
+    
+    public void controlaBotoes(){
+        if("salvar".equals(operacao))
+        {
+            util.limparCampos(pnlCliente);
+            btnAlterar.setEnabled(false);
+            btnSalvar.setEnabled(true);            
+        } else if("alterar".equals(operacao))  {
+            btnAlterar.setEnabled(true);
+            btnSalvar.setEnabled(false);
+        }
     }
     
      public void setCodigoClienteAlteracao(int codigo)
@@ -78,6 +94,8 @@ public class FrmCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
         pnlCliente = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -95,10 +113,55 @@ public class FrmCliente extends javax.swing.JFrame {
         txtTelefone = new javax.swing.JFormattedTextField();
         btnAlterar = new javax.swing.JButton();
 
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
         setTitle("Cadastro de Cliente");
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                formFocusLost(evt);
+            }
+        });
+        addWindowStateListener(new java.awt.event.WindowStateListener() {
+            public void windowStateChanged(java.awt.event.WindowEvent evt) {
+                formWindowStateChanged(evt);
+            }
+        });
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                formPropertyChange(evt);
             }
         });
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -111,6 +174,16 @@ public class FrmCliente extends javax.swing.JFrame {
         });
 
         pnlCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
+        pnlCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlClienteMouseEntered(evt);
+            }
+        });
+        pnlCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pnlClienteKeyPressed(evt);
+            }
+        });
 
         jLabel1.setText("Nome:");
 
@@ -300,6 +373,8 @@ public class FrmCliente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -339,11 +414,10 @@ public class FrmCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTelefoneKeyTyped
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-
     }//GEN-LAST:event_formFocusGained
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-
+           
     }//GEN-LAST:event_formKeyPressed
 
     private void btnSairItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_btnSairItemStateChanged
@@ -368,10 +442,23 @@ public class FrmCliente extends javax.swing.JFrame {
         {
             genero = "M";
         }
-        Cliente c = new Cliente(cpf, rg, nome, telefone, genero); //passar os itens por aqui
-        DatabaseUtilit.Conectar();
-        ClienteDAO cDAO = new ClienteDAO();
-        cDAO.insertCliente(c);
+        
+        if(("".equals(nome)) || ("".equals(rg)) || ("".equals(cpf)) || ("".equals(telefone)) || ("".equals(genero)))
+        {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else //todos os campos estao com valores validos
+        {
+            Cliente c = new Cliente(cpf, rg, nome, telefone, genero); //passar os itens por aqui
+            DatabaseUtilit.Conectar();
+            ClienteDAO cDAO = new ClienteDAO();
+            cDAO.insertCliente(c);
+            visualizaCliente.refresh();
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+            
+        }
+        
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -388,11 +475,64 @@ public class FrmCliente extends javax.swing.JFrame {
         {
             genero = "M";
         }
-        Cliente c = new Cliente(codCliente, cpf, rg, nome, telefone, genero); 
-        DatabaseUtilit.Conectar();
-        ClienteDAO cDAO = new ClienteDAO();
-        cDAO.updateCliente(c);
+         if(("".equals(nome)) || ("".equals(rg)) || ("".equals(cpf)) || ("".equals(telefone)) || ("".equals(genero)))
+        {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else //todos os campos estao com valores validos
+        {
+            Cliente c = new Cliente(codCliente, cpf, rg, nome, telefone, genero); 
+            DatabaseUtilit.Conectar();
+            ClienteDAO cDAO = new ClienteDAO();
+            cDAO.updateCliente(c);
+            visualizaCliente.refresh();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso");
+         }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
+
+    }//GEN-LAST:event_formWindowStateChanged
+
+    private void formPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_formPropertyChange
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formPropertyChange
+
+    private void pnlClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlClienteMouseEntered
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_pnlClienteMouseEntered
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        //controlaBotoes();
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void pnlClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pnlClienteKeyPressed
+        
+    }//GEN-LAST:event_pnlClienteKeyPressed
+
+    private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formFocusLost
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        controlaBotoes(); // contra os botoes de alterar e salvar, a cada vez que entra no form vindo do VisualizarCliente
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments
@@ -425,7 +565,7 @@ public class FrmCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCliente().setVisible(true);
+          //      new FrmCliente().setVisible(true); //this ()
             }
         });
     }
@@ -442,6 +582,8 @@ public class FrmCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JList jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCliente;
     private javax.swing.JFormattedTextField txtCpfCliente;
     private javax.swing.JTextField txtNomeCliente;

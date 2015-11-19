@@ -26,7 +26,7 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
      */
     public FrmVisualizarFornecedor() {
         initComponents();
-        frmF = new FrmFornecedor();
+        frmF = new FrmFornecedor(this);
         util = new Utilitarios();
         this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
@@ -153,22 +153,25 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
             .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
                     .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnBuscar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVerTodos))
-                    .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
-                        .addComponent(btnCadastro)
-                        .addGap(89, 89, 89)
-                        .addComponent(btnExcluir)
-                        .addGap(110, 110, 110)
-                        .addComponent(brnAlterar)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
+                                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(btnBuscar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnVerTodos))
+                            .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
+                                .addComponent(btnCadastro)
+                                .addGap(89, 89, 89)
+                                .addComponent(btnExcluir)
+                                .addGap(110, 110, 110)
+                                .addComponent(brnAlterar)))
+                        .addGap(0, 301, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlVisualizarClienteLayout.setVerticalGroup(
             pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +200,7 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlVisualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,7 +226,8 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-     //   frmF.statusBotoesCadastrais = true; //new cadastro
+     
+        frmF.operacao = "salvar";
         frmF.setVisible(true);
         
     }//GEN-LAST:event_btnCadastroActionPerformed
@@ -233,6 +237,7 @@ public class FrmVisualizarFornecedor extends javax.swing.JFrame {
         FornecedorModelo model = (FornecedorModelo)jtFornecedor.getModel();
         if(row >= 0)
             {
+                frmF.operacao = "alterar";
                 frmF.setCodigoFornecedorAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
                 frmF.setTxtCnpj(model.getValueAt(row, 1).toString());
                 frmF.setTxtNome(model.getValueAt(row, 2).toString());

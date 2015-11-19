@@ -18,13 +18,28 @@ import javax.swing.JOptionPane;
 public class FrmMassagista extends javax.swing.JFrame {
     int codMassagista;
     Utilitarios util;
+    FrmVisualizarMassagista visualizaMassagista;
+    String operacao;
     /**
      * Creates new form frmFuncionario
      */
-    public FrmMassagista() {
+    public FrmMassagista(FrmVisualizarMassagista form) {
         initComponents();
+        this.visualizaMassagista = form;
         util = new Utilitarios();
         this.setLocationRelativeTo(null);  //centralizar a tela
+    }
+    
+    public void controlaBotoes(){
+        if("salvar".equals(operacao))
+        {
+            util.limparCampos(pnlMassagista);
+            btnAlterar.setEnabled(false);
+            btnSalvar.setEnabled(true);            
+        } else if("alterar".equals(operacao))  {
+            btnAlterar.setEnabled(true);
+            btnSalvar.setEnabled(false);
+        }
     }
     
     public void setCodigoMassagistaAlteracao(int codigo)
@@ -126,6 +141,11 @@ public class FrmMassagista extends javax.swing.JFrame {
         btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro de Funcionários Atendentes ao Público");
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         pnlMassagista.setBorder(javax.swing.BorderFactory.createTitledBorder("Atendente"));
 
@@ -462,15 +482,22 @@ public class FrmMassagista extends javax.swing.JFrame {
         String cep = txtCep.getText();
         String numeroCasa = txtNroCasa.getText();
         String formacao = txtFormacao.getText();
-        int anosExp = Integer.parseInt(txtAnosExperiencia.getText());
         String especialidade = txtEspecialidade.getText();
         
-        //alt codigo
-        Massagista m = new Massagista(cpf, rg, nome, telefone, genero, cep, numeroCasa, formacao, anosExp, especialidade);
-        DatabaseUtilit.Conectar();
-        MassagistaDAO mDAO = new MassagistaDAO();
-        mDAO.insereMassagista(m);
-                    
+        if("".equals(nome) || "".equals(cpf) || "".equals(rg) || "".equals(telefone) || "".equals(genero) || 
+           "".equals(cep) || "".equals(numeroCasa) || "".equals(formacao) || (txtAnosExperiencia.equals("")) || 
+                "".equals(especialidade)) {
+           JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else {
+            int anosExp = Integer.parseInt(txtAnosExperiencia.getText());
+            Massagista m = new Massagista(cpf, rg, nome, telefone, genero, cep, numeroCasa, formacao, anosExp, especialidade);
+            DatabaseUtilit.Conectar();
+            MassagistaDAO mDAO = new MassagistaDAO();
+            mDAO.insereMassagista(m);
+            visualizaMassagista.refresh();
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+        }      
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -487,15 +514,28 @@ public class FrmMassagista extends javax.swing.JFrame {
         String cep = txtCep.getText();
         String numeroCasa = txtNroCasa.getText();
         String formacao = txtFormacao.getText();
-        int anosExp = Integer.parseInt(txtAnosExperiencia.getText());
         String especialidade = txtEspecialidade.getText();
         
-        //alt codigo
-        Massagista m = new Massagista(codMassagista, cpf, rg, nome, telefone, genero, cep, numeroCasa, formacao, anosExp, especialidade);
-        DatabaseUtilit.Conectar();
-        MassagistaDAO mDAO = new MassagistaDAO();
-        mDAO.updateMassagista(m);
+        
+        if("".equals(nome) || "".equals(cpf) || "".equals(rg) || "".equals(telefone) || "".equals(genero) || 
+           "".equals(cep) || "".equals(numeroCasa) || "".equals(formacao) || (txtAnosExperiencia.equals("")) || 
+                "".equals(especialidade)) {
+           JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else {
+            int anosExp = Integer.parseInt(txtAnosExperiencia.getText());
+            Massagista m = new Massagista(codMassagista, cpf, rg, nome, telefone, genero, cep, numeroCasa, formacao, anosExp, especialidade);
+            DatabaseUtilit.Conectar();
+            MassagistaDAO mDAO = new MassagistaDAO();
+            mDAO.updateMassagista(m);
+            visualizaMassagista.refresh();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso");
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        controlaBotoes(); // contra os botoes de alterar e salvar
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments
@@ -528,7 +568,7 @@ public class FrmMassagista extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmMassagista().setVisible(true);
+             //  new FrmMassagista().setVisible(true);
             }
         });
     }

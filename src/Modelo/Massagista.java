@@ -31,9 +31,9 @@ public class Massagista extends Funcionario{
         super.setGenero(genero);
         super.setCep(cep);
         super.setNumeroCasa(nro);
-        formacao = this.formacao;
-        anos = this.anosExperiencia;
-        especialidade = this.especialidade;       
+        this.formacao = formacao;
+        this.anosExperiencia = anos;
+        this.especialidade = especialidade;
     }
     
     public Massagista(int cod, String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String formacao, int anos, String especialidade)        
@@ -46,9 +46,9 @@ public class Massagista extends Funcionario{
         super.setGenero(genero);
         super.setCep(cep);
         super.setNumeroCasa(nro);
-        formacao = this.formacao;
-        anos = this.anosExperiencia;
-        especialidade = this.especialidade;       
+        this.formacao = formacao;
+        this.anosExperiencia = anos;
+        this.especialidade = especialidade;
     }
     
     public String getFormacao() {

@@ -22,16 +22,30 @@ import javax.swing.JTextField;
  */
 public class FrmServico extends javax.swing.JFrame {
     int codServico;
-    Utilitarios util;
-    
+    Utilitarios util;    
+    FrmVisualizarServico visualizaServico;
+    String operacao;
 
     /**
      * Creates new form FrmServico
      */
-    public FrmServico() {
+    public FrmServico(FrmVisualizarServico form) {
         initComponents();
+        this.visualizaServico = form;
         util = new Utilitarios();
         this.setLocationRelativeTo(null);  //centralizar a tela  
+    }
+    
+    public void controlaBotoes(){
+        if("salvar".equals(operacao))
+        {
+            util.limparCampos(pnlServico);
+            btnAlterar.setEnabled(false);
+            btnSalvar.setEnabled(true);            
+        } else if("alterar".equals(operacao))  {
+            btnAlterar.setEnabled(true);
+            btnSalvar.setEnabled(false);
+        }
     }
     
     public void setCodigoServicoAlteracao(int codigo)
@@ -86,6 +100,11 @@ public class FrmServico extends javax.swing.JFrame {
         setTitle("Cadastro de Serviço");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocationByPlatform(true);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         pnlServico.setBorder(javax.swing.BorderFactory.createTitledBorder("Serviço"));
 
@@ -236,15 +255,23 @@ public class FrmServico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        String nomeServico = txtNome.getText();
-        String descricaoServico = txtDescricao.getText();
-        int minutosDuracao = Integer.parseInt(txtDuracao.getText());
-        double valorServico = Double.parseDouble(txtValor.getText());
-                
-        Servico x = new Servico(nomeServico, descricaoServico, minutosDuracao, valorServico);
-        DatabaseUtilit.Conectar();
-        ServicoDAO serDAO = new ServicoDAO();
-        serDAO.insereServico(x);
+        if("".equals(txtNome.getText()) || "".equals(txtDescricao.getText()) || "".equals(txtDuracao.getText()) || "".equals(txtValor.getText()))
+        {
+             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        } else {
+            String nomeServico = txtNome.getText();
+            String descricaoServico = txtDescricao.getText();
+            int minutosDuracao = Integer.parseInt(txtDuracao.getText());
+            double valorServico = Double.parseDouble(txtValor.getText());
+            
+            Servico x = new Servico(nomeServico, descricaoServico, minutosDuracao, valorServico);
+            DatabaseUtilit.Conectar();
+            ServicoDAO serDAO = new ServicoDAO();
+            serDAO.insereServico(x);
+            visualizaServico.refresh();
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+        }
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -269,16 +296,27 @@ public class FrmServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        String nomeServico = txtNome.getText();
-        String descricaoServico = txtDescricao.getText();
-        int minutosDuracao = Integer.parseInt(txtDuracao.getText());
-        double valorServico = Double.parseDouble(txtValor.getText());
-                
-        Servico x = new Servico(codServico, nomeServico, descricaoServico, minutosDuracao, valorServico);
-        DatabaseUtilit.Conectar();
-        ServicoDAO serDAO = new ServicoDAO();
-        serDAO.updateServico(x);
+        if("".equals(txtNome.getText()) || "".equals(txtDescricao.getText()) || "".equals(txtDuracao.getText()) || "".equals(txtValor.getText()))
+        {
+             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        } else {
+            String nomeServico = txtNome.getText();
+            String descricaoServico = txtDescricao.getText();
+            int minutosDuracao = Integer.parseInt(txtDuracao.getText());
+            double valorServico = Double.parseDouble(txtValor.getText());
+            
+            Servico x = new Servico(codServico, nomeServico, descricaoServico, minutosDuracao, valorServico);
+            DatabaseUtilit.Conectar();
+            ServicoDAO serDAO = new ServicoDAO();
+            serDAO.updateServico(x);
+            visualizaServico.refresh();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso");
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        controlaBotoes(); // contra os botoes de alterar e salvar
+    }//GEN-LAST:event_formComponentShown
 
     
     /**
@@ -311,7 +349,7 @@ public class FrmServico extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmServico().setVisible(true);
+//                new FrmServico().setVisible(true);
             }
         });
     }

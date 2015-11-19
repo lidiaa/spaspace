@@ -23,12 +23,12 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
      */
     private ClienteModelo model;
     Utilitarios util;
-    FrmCliente frmC;
+    FrmCliente frmC = new FrmCliente(this);
+ 
     
     public FrmVisualizarCliente() {
         initComponents();
         util = new Utilitarios();
-        frmC = new FrmCliente();
         this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
@@ -91,6 +91,12 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
         brnAlterar = new javax.swing.JButton();
         btnVerTodos = new javax.swing.JButton();
 
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
+
         pnlVisualizarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Cliente"));
 
         cbbBuscarPor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "código", "nome" }));
@@ -145,6 +151,11 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
         });
 
         btnVerTodos.setText("Ver todos");
+        btnVerTodos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVerTodosMouseClicked(evt);
+            }
+        });
         btnVerTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerTodosActionPerformed(evt);
@@ -158,7 +169,6 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
             .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
                         .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42)
@@ -172,8 +182,9 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
                         .addGap(115, 115, 115)
                         .addComponent(btnExcluir)
                         .addGap(110, 110, 110)
-                        .addComponent(brnAlterar)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addComponent(brnAlterar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         pnlVisualizarClienteLayout.setVerticalGroup(
             pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +212,7 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlVisualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,9 +241,11 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        FrmCliente objC = new FrmCliente();
-        objC.setVisible(true);
+        frmC.operacao = "salvar";
+        frmC.setVisible(true);
+    
         
+       
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
@@ -240,12 +253,14 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
         ClienteModelo model = (ClienteModelo)jtCliente.getModel();
         if(row >= 0)
             {
+                frmC.operacao = "alterar";
                 frmC.setCodigoClienteAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
                 frmC.setTxtCpfCliente(model.getValueAt(row, 1).toString());
                 frmC.setTxtRgCliente(model.getValueAt(row, 2).toString());
                 frmC.setTxtNomeCliente(model.getValueAt(row, 3).toString());
                 frmC.setTxtTelefoneCliente(model.getValueAt(row, 4).toString());
                 frmC.setTxtGeneroCliente(model.getValueAt(row, 5).toString());
+                
                 frmC.setVisible(true);
             }
         else
@@ -302,6 +317,15 @@ public class FrmVisualizarCliente extends javax.swing.JFrame {
     private void txtPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyPressed
               
     }//GEN-LAST:event_txtPesquisaKeyPressed
+
+    private void btnVerTodosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerTodosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerTodosMouseClicked
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments

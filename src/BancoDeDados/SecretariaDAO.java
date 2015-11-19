@@ -33,6 +33,7 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
             
             DatabaseUtilit.getPs().execute();
             System.out.println("Funcionario de Secretaria cadastrado com sucesso");
+            DatabaseUtilit.Desconectar();
 
         } catch (SQLException ex)
         {
@@ -58,8 +59,9 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
             DatabaseUtilit.getPs().setInt(9, secretaria.getCodigo()); 
            
             DatabaseUtilit.getPs().executeUpdate();
-
             System.out.println("Secretaria atualizado com sucesso");   
+            DatabaseUtilit.Desconectar();
+            
         } catch (SQLException ex)
         {
             System.err.println("Secretaria não foi atualizado por @updateSecretaria\\SecretariaDAO \nErro: "+ex);
@@ -76,6 +78,8 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
 
             DatabaseUtilit.getPs().executeUpdate();
             System.out.println("Secretaria removido com sucesso");   
+            DatabaseUtilit.Desconectar();
+            
         } catch (SQLException ex)
         {
             System.err.println("Secretaria não foi removido por @deleteSecretaria\\SecretariaDAO \nErro: "+ex);
@@ -115,7 +119,7 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Secretaria não foi consultado \nErro: "+ex);
         }
-        
+        DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -151,7 +155,7 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Secretaria não foi consultado \nErro: "+ex);
         }
-        
+        DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -188,7 +192,7 @@ public class SecretariaDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Secretaria não foi consultado \nErro: "+ex);
         }
-        
+        DatabaseUtilit.Desconectar();
         return null;
     }
 

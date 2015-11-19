@@ -51,8 +51,9 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
         DatabaseUtilit.getPs().setInt(6, cliente.getCodigo());
         
         DatabaseUtilit.getPs().executeUpdate();
-        
         System.out.println("Cliente atualizado com sucesso");   
+        DatabaseUtilit.Desconectar();
+        
     } catch (SQLException ex)
     {
         System.err.println("Cliente não foi atualizado por @updateCliente\\ClienteDAO \nErro: "+ex);
@@ -67,7 +68,9 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
         DatabaseUtilit.getPs().setInt(1, cliente.getCodigo());
         
         DatabaseUtilit.getPs().executeUpdate();
-        System.out.println("Cliente removido com sucesso");   
+        System.out.println("Cliente removido com sucesso");  
+        DatabaseUtilit.Desconectar();
+        
     } catch (SQLException ex)
     {
         System.err.println("Cliente não foi removido por @deleteCliente\\ClienteDAO \nErro: "+ex);
@@ -96,11 +99,13 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
                 listaCliente.add(tempCliente);
             }
             return listaCliente;
+
         }
     } catch(SQLException ex)
     {
         System.err.println("Cliente não foi consultado \nErro: "+ex);
     }
+    DatabaseUtilit.Desconectar();
     return null;
 }
 
@@ -130,6 +135,7 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
             } catch(SQLException ex){
                 System.err.println("Cliente não foi consultado \nErro: "+ex);
             }
+        DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -159,6 +165,7 @@ public class ClienteDAO implements BuscaEmBanco, OperacoesEmBanco{
             } catch(SQLException ex){
                 System.err.println("Cliente não foi consultado \nErro: "+ex);
             }
+        DatabaseUtilit.Desconectar();
         return null;
     }
     

@@ -24,13 +24,28 @@ import javax.swing.JTextField;
 public class FrmSecretaria extends javax.swing.JFrame{
     int codSecretaria;
     Utilitarios util;
+    FrmVisualizarSecretaria visualizaSecretaria;
+    String operacao;
     /**
      * Creates new form FrmSecretaria
      */
-    public FrmSecretaria() {
+    public FrmSecretaria(FrmVisualizarSecretaria form) {
         initComponents();
         util = new Utilitarios();
+        this.visualizaSecretaria = form;
         this.setLocationRelativeTo(null);  //centralizar a tela
+    }
+    
+    public void controlaBotoes(){
+        if("salvar".equals(operacao))
+        {
+            util.limparCampos(pnlSecretaria);
+            btnAlterar.setEnabled(false);
+            btnSalvar.setEnabled(true);            
+        } else if("alterar".equals(operacao))  {
+            btnAlterar.setEnabled(true);
+            btnSalvar.setEnabled(false);
+        }
     }
     
     public void setCodigoSecretariaAlteracao(int codigo)
@@ -82,10 +97,20 @@ public class FrmSecretaria extends javax.swing.JFrame{
     
     public void setTxtCargo(String cargo)
     {
-        //
+        //para preencher o cbbCargo de acordo com o escolhido
+        int i = 0;
+        int achou = 0; //nao achou
+        while(achou != 1) //se achar pare
+        {
+            cbbCargo.setSelectedIndex(i); //seleciona o do index ipara verificar se é
+            if (cbbCargo.getSelectedItem().toString().equals(cargo)) //caso o valor texto dele seja igual do cargo
+            {
+                cbbCargo.setSelectedIndex(i); //seleciona no form o item
+                achou = 1; //achou recebe 1 para sair do while
+            }
+            i++; //vira 0
+        }   
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,6 +145,11 @@ public class FrmSecretaria extends javax.swing.JFrame{
         btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro De Funcionário da Secretaria");
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         pnlSecretaria.setBorder(javax.swing.BorderFactory.createTitledBorder("Secretaria"));
 
@@ -180,7 +210,8 @@ public class FrmSecretaria extends javax.swing.JFrame{
 
         jLabel8.setText("Cargo:");
 
-        cbbCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Secretária", "RH", "Administrador", "Estagiário", "Gerente" }));
+        cbbCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Secretário", "RH", "Administrador", "Estagiário", "Gerente" }));
+        cbbCargo.setToolTipText("");
 
         try {
             txtRgSecretaria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###-#")));
@@ -419,11 +450,20 @@ public class FrmSecretaria extends javax.swing.JFrame{
         String nroCasa = txtNroCasa.getText();
         String cargo = cbbCargo.getSelectedItem().toString();
         
-        //alterar codigo
-        Secretaria s = new Secretaria(cpf, rg, nome, telefone, genero, cep, nroCasa, cargo);
-        DatabaseUtilit.Conectar();
-        SecretariaDAO sDAO = new SecretariaDAO();
-        sDAO.insereSecretaria(s);
+        if("".equals(nome) || "".equals(cpf) || "".equals(rg) || "".equals(telefone) || "".equals(genero) || 
+           "".equals(cep) || "".equals(nroCasa) || "".equals(cargo))
+        {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else {
+            Secretaria s = new Secretaria(cpf, rg, nome, telefone, genero, cep, nroCasa, cargo);
+            DatabaseUtilit.Conectar();
+            SecretariaDAO sDAO = new SecretariaDAO();
+            sDAO.insereSecretaria(s);
+            visualizaSecretaria.refresh();
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+        }
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -440,12 +480,24 @@ public class FrmSecretaria extends javax.swing.JFrame{
         String nroCasa = txtNroCasa.getText();
         String cargo = cbbCargo.getSelectedItem().toString();
         
-        //alterar codigo
-        Secretaria s = new Secretaria(codSecretaria, cpf, rg, nome, telefone, genero, cep, nroCasa, cargo);
-        DatabaseUtilit.Conectar();
-        SecretariaDAO sDAO = new SecretariaDAO();
-        sDAO.updateSecretaria(s);
+        if("".equals(nome) || "".equals(cpf) || "".equals(rg) || "".equals(telefone) || "".equals(genero) || 
+           "".equals(cep) || "".equals(nroCasa) || "".equals(cargo))
+        {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else {            
+            Secretaria s = new Secretaria(codSecretaria, cpf, rg, nome, telefone, genero, cep, nroCasa, cargo);
+            DatabaseUtilit.Conectar();
+            SecretariaDAO sDAO = new SecretariaDAO();
+            sDAO.updateSecretaria(s);
+            visualizaSecretaria.refresh();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso");
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        controlaBotoes(); // contra os botoes de alterar e salvar
+    }//GEN-LAST:event_formComponentShown
     
     /**
      * @param args the command line arguments
@@ -477,7 +529,7 @@ public class FrmSecretaria extends javax.swing.JFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmSecretaria().setVisible(true);
+//                new FrmSecretaria().setVisible(true);
             }
         });
     }

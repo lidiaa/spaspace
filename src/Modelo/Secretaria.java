@@ -29,7 +29,7 @@ public class Secretaria extends Funcionario{
         super.setGenero(genero);
         super.setCep(cep);
         super.setNumeroCasa(nro);
-        cargo = this.cargo;
+        this.cargo = cargo;
     }
     
     public Secretaria(int codigo, String cpf, String rg, String nome, String telefone, String genero, String cep, String nro, String cargo)
@@ -42,7 +42,7 @@ public class Secretaria extends Funcionario{
         super.setGenero(genero);
         super.setCep(cep);
         super.setNumeroCasa(nro);
-        cargo = this.cargo;
+        this.cargo = cargo; 
     }
 
     public String getCargo() {

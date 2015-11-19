@@ -23,15 +23,31 @@ public class FrmMercadoria extends javax.swing.JFrame {
     int codMercadoria;
     Utilitarios util;
     MercadoriaDAO mDAO;
+    FrmVisualizarMercadoria visualizaMercadoria;
+    String operacao;
+    int codigoFornecedorAlteracao = -1;
     /**
      * Creates new form FrmMercadoria
      */
-    public FrmMercadoria() {
+    public FrmMercadoria(FrmVisualizarMercadoria form) {
         initComponents();
         util = new Utilitarios();
         mDAO = new MercadoriaDAO();
+        this.visualizaMercadoria = form;
         this.setLocationRelativeTo(null);  //centralizar a tela
         setCboFornecedor(); //para inicializar o combobox com os fornecedores
+    }
+    
+    public void controlaBotoes(){
+        if("salvar".equals(operacao))
+        {
+            util.limparCampos(pnlMercadoria);
+            btnAlterar.setEnabled(false);
+            btnSalvar.setEnabled(true);            
+        } else if("alterar".equals(operacao))  {
+            btnAlterar.setEnabled(true);
+            btnSalvar.setEnabled(false);
+        }
     }
 
     public void setCodigoMercadoriaAlteracao(int codigo)
@@ -61,8 +77,12 @@ public class FrmMercadoria extends javax.swing.JFrame {
     
     public void setTxtCodFornecedor (String codForn)
     {
-         
+        codigoFornecedorAlteracao = Integer.parseInt(codForn);
+        setCboFornecedor();
+        recuperaCboFornecedor();
     }
+    
+    
     
         
     
@@ -93,6 +113,11 @@ public class FrmMercadoria extends javax.swing.JFrame {
         btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro de Mercadoria");
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         pnlMercadoria.setBorder(javax.swing.BorderFactory.createTitledBorder("Mercadoria"));
 
@@ -265,19 +290,60 @@ public class FrmMercadoria extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         String nome = txtNome.getText();
         String descricao = txtDescricao.getText();
-        Double valor = Double.parseDouble(txtValor.getText());
-        int quantidade = Integer.parseInt(txtQuantidade.getText());
         //Comandos para pegar o valor selecionado no combobox, ao inves do texto pega a chave primaria
         Object item = cbbFornecedores.getSelectedItem();
         String valueFornecedor = ((MercadoriaComboFornecedor)item).getValue();
         int fornecedor = Integer.parseInt(valueFornecedor); //convertendo de String para int
         
-        System.out.println("Seu fornecedor é: "+fornecedor);
-        Mercadoria m = new Mercadoria(nome, fornecedor, descricao, valor, quantidade);
-        DatabaseUtilit.Conectar();
-        mDAO.insereMercadoria(m);
+        
+        if("".equals(nome) || "".equals(descricao) || "".equals(txtValor.getText()) || txtQuantidade.getText() == "" || "".equals(valueFornecedor))
+        {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else {
+            Double valor = Double.parseDouble(txtValor.getText());
+            int quantidade = Integer.parseInt(txtQuantidade.getText());
+            Mercadoria m = new Mercadoria(nome, fornecedor, descricao, valor, quantidade);
+            DatabaseUtilit.Conectar();
+            mDAO.insereMercadoria(m);
+            visualizaMercadoria.refresh();
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+        }
+    //  System.out.println("Seu fornecedor é: "+fornecedor);
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    public void recuperaCboFornecedor()
+    {
+        FornecedorDAO fDAO = new FornecedorDAO();
+        try
+        {
+            List<Fornecedor> fornecedor = fDAO.listarTodosFornecedoresLike(codigoFornecedorAlteracao);
+            for(Fornecedor fornece : fornecedor)
+            {  
+               String nomeFantasiaAlteracao = fornece.getNomeFantasia();
+                
+                int achou = 0;
+                int i = 0;
+                while (achou != 1)
+                {
+                    cbbFornecedores.setSelectedIndex(i);
+                    if (cbbFornecedores.getSelectedItem().toString().equals(nomeFantasiaAlteracao))
+                    {
+                        cbbFornecedores.setSelectedIndex(i); //seleciona no form o item
+                        achou = 1; //achou recebe 1 para sair do while
+                    }
+                    i++;    
+                }
+                
+            }
+        }
+        catch(Exception ex)
+        {
+            //blabla
+        }
+    }
+    
     public void setCboFornecedor()
     {        
         cbbFornecedores.removeAllItems();    
@@ -305,17 +371,30 @@ public class FrmMercadoria extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         String nome = txtNome.getText();
         String descricao = txtDescricao.getText();
-        Double valor = Double.parseDouble(txtValor.getText());
-        int quantidade = Integer.parseInt(txtQuantidade.getText());
         //Comandos para pegar o valor selecionado no combobox, ao inves do texto pega a chave primaria
         Object item = cbbFornecedores.getSelectedItem();
         String valueFornecedor = ((MercadoriaComboFornecedor)item).getValue();
         int fornecedor = Integer.parseInt(valueFornecedor); //convertendo de String para int
         
-        Mercadoria m = new Mercadoria(nome, fornecedor, descricao, valor, quantidade, codMercadoria);
-        DatabaseUtilit.Conectar();
-        mDAO.updateMercadoria(m);
+        
+        if("".equals(nome) || "".equals(descricao) || "".equals(txtValor.getText()) || txtQuantidade.getText() == "" || "".equals(valueFornecedor))
+        {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else {
+            Double valor = Double.parseDouble(txtValor.getText());
+            int quantidade = Integer.parseInt(txtQuantidade.getText());
+            Mercadoria m = new Mercadoria(nome, fornecedor, descricao, valor, quantidade, codMercadoria);
+            DatabaseUtilit.Conectar();
+            mDAO.updateMercadoria(m);
+            visualizaMercadoria.refresh();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso");
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        controlaBotoes(); // contra os botoes de alterar e salvar
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments
@@ -347,7 +426,7 @@ public class FrmMercadoria extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmMercadoria().setVisible(true);
+              //  new FrmMercadoria().setVisible(true);
             }
         });
     }

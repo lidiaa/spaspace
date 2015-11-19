@@ -5,6 +5,9 @@
  */
 package Visao;
 
+import BancoDeDados.DatabaseUtilit;
+import BancoDeDados.MassagistaDAO;
+import Modelo.Massagista;
 import Modelo.MassagistaModelo;
 import Util.Utilitarios;
 import javax.swing.JOptionPane;
@@ -22,7 +25,7 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
     
     public FrmVisualizarMassagista() {
         initComponents();
-        frmM = new FrmMassagista();
+        frmM = new FrmMassagista(this);
         this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
@@ -55,6 +58,12 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
         jtMassagista.getColumnModel().getColumn(1).setPreferredWidth(100);
         jtMassagista.getColumnModel().getColumn(2).setPreferredWidth(160);
         jtMassagista.getColumnModel().getColumn(3).setPreferredWidth(120);   
+    }
+    
+    public void refresh() //atualiza a tabela (após remoção)
+    {
+        configuraTabelaModelo();
+        configuraTabelaColunas();
     }
     
     /**
@@ -109,6 +118,11 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
         });
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         brnAlterar.setText("Alterar");
         brnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -131,22 +145,25 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
             .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
                     .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnBuscar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnVerTodos3))
-                    .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
-                        .addComponent(btnCadastro)
-                        .addGap(80, 80, 80)
-                        .addComponent(btnExcluir)
-                        .addGap(110, 110, 110)
-                        .addComponent(brnAlterar)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
+                                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(btnBuscar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnVerTodos3))
+                            .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
+                                .addComponent(btnCadastro)
+                                .addGap(80, 80, 80)
+                                .addComponent(btnExcluir)
+                                .addGap(110, 110, 110)
+                                .addComponent(brnAlterar)))
+                        .addGap(0, 310, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlVisualizarClienteLayout.setVerticalGroup(
             pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,8 +191,8 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlVisualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlVisualizarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,8 +218,8 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        FrmMassagista objMa = new FrmMassagista();
-        objMa.setVisible(true);
+        frmM.operacao = "salvar";
+        frmM.setVisible(true);
 
     }//GEN-LAST:event_btnCadastroActionPerformed
 
@@ -211,6 +228,7 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
         MassagistaModelo model = (MassagistaModelo)jtMassagista.getModel();
         if(row >= 0)
             {
+                frmM.operacao = "alterar";
                 frmM.setCodigoMassagistaAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
                 frmM.setTxtCpf(model.getValueAt(row, 1).toString());
                 frmM.setTxtRg(model.getValueAt(row, 2).toString());
@@ -250,6 +268,27 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
         configuraTabelaColunas();
         txtPesquisa.setText("");
     }//GEN-LAST:event_btnVerTodos3ActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+            if(JOptionPane.showConfirmDialog(null,"Deseja excluir cadastro selecionado? A operação não poderá ser desfeita.","ATENÇÃO ",javax.swing.JOptionPane.YES_NO_OPTION)==0)
+        {
+            int row = jtMassagista.convertRowIndexToModel(jtMassagista.getSelectedRow());
+            MassagistaModelo model = (MassagistaModelo)jtMassagista.getModel();
+            if(row >= 0)
+                {
+                    int codigoMassagistaDeletar = (Integer.parseInt(model.getValueAt(row, 0).toString()));
+                    
+                    Massagista m = new Massagista(codigoMassagistaDeletar);
+                    DatabaseUtilit.Conectar();
+                    MassagistaDAO mDAO = new MassagistaDAO();
+                    mDAO.deleteMassagista(m);
+                    refresh(); //atualiza o jTable sem o valor removida
+                }
+                else {
+                   JOptionPane.showMessageDialog(rootPane, "Escolha uma Mercadoria na lista para fazer a alteração"); 
+                }  
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,9 +330,6 @@ public class FrmVisualizarMassagista extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastro;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnVerTodos;
-    private javax.swing.JButton btnVerTodos1;
-    private javax.swing.JButton btnVerTodos2;
     private javax.swing.JButton btnVerTodos3;
     private javax.swing.JComboBox cbbBuscarPor;
     private javax.swing.JScrollPane jScrollPane1;

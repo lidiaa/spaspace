@@ -19,16 +19,31 @@ public class FrmFornecedor extends javax.swing.JFrame {
     int codFornecedor;
    // boolean statusBotoesCadastrais;
     Utilitarios util;
+    FrmVisualizarFornecedor visualizaFornecedor;
+    String operacao;
+    
     /**
      * Creates new form FrmFornecedor
      */
     
-    public FrmFornecedor() {
+    public FrmFornecedor(FrmVisualizarFornecedor x) {
         initComponents();
         util = new Utilitarios();
+        visualizaFornecedor = x;
         //util.controlaBotoes(this, btnSalvar, btnAlterar, statusBotoesCadastrais);
-        this.setLocationRelativeTo(null);  //centralizar a tela
-        
+        this.setLocationRelativeTo(null);  //centralizar a tela   
+    }
+    
+    public void controlaBotoes(){
+        if("salvar".equals(operacao))
+        {
+            util.limparCampos(pnlFornecedor);
+            btnAlterar.setEnabled(false);
+            btnSalvar.setEnabled(true);            
+        } else if("alterar".equals(operacao))  {
+            btnAlterar.setEnabled(true);
+            btnSalvar.setEnabled(false);
+        }
     }
     
      public void setCodigoFornecedorAlteracao(int codigo) {
@@ -94,6 +109,11 @@ public class FrmFornecedor extends javax.swing.JFrame {
         btnAlterar = new javax.swing.JButton();
 
         setTitle("Cadastro de Fornecedor");
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         pnlFornecedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Fornecedor"));
 
@@ -286,11 +306,20 @@ public class FrmFornecedor extends javax.swing.JFrame {
         
         System.out.println("CNPJ : "+cnpj);
         
-        //alt codigo
-        Fornecedor f = new Fornecedor(cnpj, nome, nomeFantasia, email, nomeResponsavel, telefone);
-        DatabaseUtilit.Conectar();
-        FornecedorDAO forDAO = new FornecedorDAO();
-        forDAO.insereFornecedor(f);
+        if("".equals(nome) || "".equals(nomeFantasia) || "".equals(cnpj) || "".equals(email) || "".equals(telefone) || "".equals(nomeResponsavel))
+        {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else {
+            Fornecedor f = new Fornecedor(cnpj, nome, nomeFantasia, email, nomeResponsavel, telefone);
+            DatabaseUtilit.Conectar();
+            FornecedorDAO forDAO = new FornecedorDAO();
+            forDAO.insereFornecedor(f);
+            this.dispose();
+            visualizaFornecedor.refresh();
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+        }
+       
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -302,12 +331,24 @@ public class FrmFornecedor extends javax.swing.JFrame {
         String telefone = txtTelefone.getText();
         String nomeResponsavel = txtNomeResponsavel.getText();
         
-        Fornecedor f = new Fornecedor(codFornecedor, cnpj, nome, nomeFantasia, email, nomeResponsavel, telefone);
-        DatabaseUtilit.Conectar();
-        FornecedorDAO forDAO = new FornecedorDAO();
-        forDAO.updateFornecedor(f);
         
+        if("".equals(nome) || "".equals(nomeFantasia) || "".equals(cnpj) || "".equals(email) || "".equals(telefone) || "".equals(nomeResponsavel))
+        {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+        else {
+            Fornecedor f = new Fornecedor(codFornecedor, cnpj, nome, nomeFantasia, email, nomeResponsavel, telefone);
+            DatabaseUtilit.Conectar();
+            FornecedorDAO forDAO = new FornecedorDAO();
+            forDAO.updateFornecedor(f);
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso");
+            visualizaFornecedor.refresh();
+        }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        controlaBotoes(); // contra os botoes de alterar e salvar
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments
@@ -339,7 +380,7 @@ public class FrmFornecedor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmFornecedor().setVisible(true);
+                //new FrmFornecedor().setVisible(true);
             }
         });
     }

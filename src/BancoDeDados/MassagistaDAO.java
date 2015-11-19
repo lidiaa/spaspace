@@ -35,6 +35,7 @@ public class MassagistaDAO implements OperacoesEmBanco, BuscaEmBanco{
             
             DatabaseUtilit.getPs().execute();
             System.out.println("Funcionario cadastrado com sucesso");
+            DatabaseUtilit.Desconectar();
 
         } catch (SQLException ex)
         {
@@ -61,8 +62,9 @@ public class MassagistaDAO implements OperacoesEmBanco, BuscaEmBanco{
             DatabaseUtilit.getPs().setInt(11, massagista.getCodigo()); 
         
            DatabaseUtilit.getPs().executeUpdate();
-
-           System.out.println("Funcionario Massagista atualizado com sucesso");   
+           System.out.println("Funcionario Massagista atualizado com sucesso");  
+           DatabaseUtilit.Desconectar();
+           
        } catch (SQLException ex)
        {
            System.err.println("Massagista não foi atualizado por @updateMassagista\\MassagistaDAO \nErro: "+ex);
@@ -79,6 +81,7 @@ public class MassagistaDAO implements OperacoesEmBanco, BuscaEmBanco{
             
             DatabaseUtilit.getPs().executeUpdate();
             System.out.println("Massagista removido com sucesso");   
+            DatabaseUtilit.Desconectar();
         } catch (SQLException ex)
         {
             System.err.println("Massagista não foi removido por @deleteMassagista\\MassagistaDAO \nErro: "+ex);
@@ -121,6 +124,7 @@ public class MassagistaDAO implements OperacoesEmBanco, BuscaEmBanco{
         {
             System.err.println("Massagista não foi consultado \nErro: "+ex);
         }
+        DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -159,6 +163,7 @@ public class MassagistaDAO implements OperacoesEmBanco, BuscaEmBanco{
         {
             System.err.println("Massagista não foi consultado \nErro: "+ex);
         }
+        DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -197,6 +202,7 @@ public class MassagistaDAO implements OperacoesEmBanco, BuscaEmBanco{
         {
             System.err.println("Massagista não foi consultado \nErro: "+ex);
         }
+        DatabaseUtilit.Desconectar();
         return null;
     }
     

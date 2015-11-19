@@ -30,6 +30,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
             //lidia
             DatabaseUtilit.doOperation("INSERT");
             System.out.println("Servico cadastrado com sucesso");
+            DatabaseUtilit.Desconectar();
 
         } catch (SQLException ex)
         {
@@ -50,8 +51,9 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
             DatabaseUtilit.getPs().setInt(5, servico.getCodigoServico()); 
 
             DatabaseUtilit.getPs().executeUpdate();
-
             System.out.println("Servico atualizado com sucesso");   
+            DatabaseUtilit.Desconectar();
+            
         } catch (SQLException ex)
         {
             System.err.println("Servico não foi atualizado por @updateServico\\ServicoDAO \nErro: "+ex);
@@ -68,6 +70,8 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
 
             DatabaseUtilit.getPs().executeUpdate();
             System.out.println("Servico removido com sucesso");   
+            DatabaseUtilit.Desconectar();
+            
         } catch (SQLException ex)
         {
             System.err.println("Servico não foi removido por @deleteServico\\ServicoDAO \nErro: "+ex);
@@ -101,7 +105,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Servico não foi consultado \nErro: "+ex);
         }
-        
+        DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -131,6 +135,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Servico não foi consultado \nErro: "+ex);
         }
+        DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -160,6 +165,7 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
         {
             System.err.println("Servico não foi consultado \nErro: "+ex);
         }
+         DatabaseUtilit.Desconectar();
         return null;
     }
     

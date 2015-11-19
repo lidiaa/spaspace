@@ -25,7 +25,7 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
     
     public FrmVisualizarMercadoria() {
         initComponents();
-        frmM = new FrmMercadoria();
+        frmM = new FrmMercadoria(this);
         this.setLocationRelativeTo(null);  //centralizar a tela
         configuraTabelaModelo();
         configuraTabelaColunas();
@@ -145,22 +145,25 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
             .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
                     .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnVerTodos))
-                    .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
-                        .addComponent(btnCadastro)
-                        .addGap(86, 86, 86)
-                        .addComponent(btnExcluir)
-                        .addGap(110, 110, 110)
-                        .addComponent(brnAlterar)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
+                                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(btnBuscar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnVerTodos))
+                            .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
+                                .addComponent(btnCadastro)
+                                .addGap(86, 86, 86)
+                                .addComponent(btnExcluir)
+                                .addGap(110, 110, 110)
+                                .addComponent(brnAlterar)))
+                        .addGap(0, 325, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlVisualizarClienteLayout.setVerticalGroup(
             pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,8 +191,8 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlVisualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlVisualizarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,8 +218,8 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        FrmMercadoria objM = new FrmMercadoria();
-        objM.setVisible(true);
+        frmM.operacao = "salvar";
+        frmM.setVisible(true);
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void brnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brnAlterarActionPerformed
@@ -224,13 +227,13 @@ public class FrmVisualizarMercadoria extends javax.swing.JFrame {
         MercadoriaModelo model = (MercadoriaModelo)jtMercadoria.getModel();
         if(row >= 0)
             {
+                frmM.operacao = "alterar";
                 frmM.setCodigoMercadoriaAlteracao(Integer.parseInt(model.getValueAt(row, 0).toString()));
                 frmM.setTxtNome(model.getValueAt(row, 1).toString());
                 frmM.setTxtCodFornecedor(model.getValueAt(row, 2).toString());
                 frmM.setTxtDescricao(model.getValueAt(row, 3).toString());
                 frmM.setTxtValor(model.getValueAt(row, 4).toString());
                 frmM.setTxtQuantidade(model.getValueAt(row, 5).toString());
-                
                 frmM.setVisible(true);
             }
         else
