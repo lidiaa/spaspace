@@ -33,6 +33,7 @@ public class FrmVenda extends javax.swing.JFrame {
     public FrmVenda() {
         initComponents();
         setCboServicos();
+        this.setLocationRelativeTo(null);
     }
     
     public void setCodigoCliente(String codigo)

@@ -32,8 +32,9 @@ public class VendaDAO {
         return sql;
     }
     
-    public void update(String id, String dataPagamento)
+    public int update(String id, String dataPagamento)
     {
+        int result=0;
         try
         {
             DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
@@ -41,15 +42,17 @@ public class VendaDAO {
             // DatabaseUtilit.getPs().setInt(1, cliente.getCodigo()); //Duvida -> se tem codigo na area de update
             DatabaseUtilit.getPs().setString(1, dataPagamento);
             DatabaseUtilit.getPs().setString(2, String.valueOf(id));        
-            DatabaseUtilit.getPs().executeUpdate();
+            result = DatabaseUtilit.getPs().executeUpdate();
             DatabaseUtilit.Desconectar();
 
-            System.out.println("Venda atualizado com sucesso");   
+            System.out.println("Venda atualizado com sucesso");
+            return result;
         } 
         catch (SQLException ex)
         {
             System.err.println("Cliente não foi atualizado por @updateCliente\\ClienteDAO \nErro: "+ex);
         }
+        return result;
     }
     
     public void insert(Venda venda)

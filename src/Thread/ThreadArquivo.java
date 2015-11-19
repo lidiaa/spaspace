@@ -20,13 +20,23 @@ public class ThreadArquivo extends Thread {
     
     VendaDAO venda;
     List<String> linhas; 
+    Recipient stack = new Recipient();
+    int result=0;
+    
+    public ThreadArquivo(Recipient rec, List<String> linhas)
+    {
+        this.stack = rec;
+        this.linhas = linhas;
+    }
+    
     @Override
     public void run()
     {
         venda = new VendaDAO();
         int counter = 0;
         for(String linha : linhas)
-        {
+        {   
+            stack.setCounter(linhas.size());
             counter++;
             if(linha.charAt(0) == '1')
             {
@@ -38,24 +48,12 @@ public class ThreadArquivo extends Thread {
                     dataPagamento.charAt(3),
                     dataPagamento.charAt(4),
                     dataPagamento.charAt(5));
-
-
-                venda.update(codigo, dataPagamentoFinal);
-
-                if(counter == 10)
-                {
-                    try 
-                    {
-                        Thread.sleep(10);
-                        System.out.println("Sleeping...");
-                        counter = 0;
-                    } 
-                    catch (InterruptedException ex) 
-                    {
-                        Logger.getLogger(ThreadArquivo.class.getName()).log(Level.SEVERE, null, ex);
-                    }               
-                }   
+                
+                result = venda.update(codigo, dataPagamentoFinal);
+                stack.set(codigo +" "+dataPagamento, result);
+                System.out.println("Inserido");
             }
+            
             
         }
         
@@ -66,5 +64,4 @@ public class ThreadArquivo extends Thread {
     {
         this.linhas = linhas;
     }
-    
 }
