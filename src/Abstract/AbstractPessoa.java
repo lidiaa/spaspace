@@ -13,9 +13,16 @@ public abstract class AbstractPessoa {
     
     //este método deve concatenar as informarções da Pessoa(Funcionario, Cliente etc)
     // e mostrar ao usuário em um JOptionPanel;
-    public abstract String details();
+    public abstract void details();
     
-    //deverá ser criada a propriedade dataNascimento, e a partir dessa data, retornar a idade 
-    //para usar na função acima;
-    public abstract String getIdade();  
+    //Dê uma pensada em algo pra colocarmos aqui, que seja genérico pras Pessoas do Sistema
+    //nome?
+    
+    //mas métodos
+    //blz
+   //data de cadastro? demoro
+    
+    
+
+  
 }

@@ -43,7 +43,7 @@ public class MercadoriaDAO implements OperacoesEmBanco, BuscaEmBanco{
     {
         try
         {
-            DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
+          DatabaseUtilit.setPs(DatabaseUtilit.getCon().prepareStatement(SQLUpdate()));
             
            DatabaseUtilit.getPs().setString(1, mercadoria.getNomeMercadoria()); 
            DatabaseUtilit.getPs().setInt(2, mercadoria.getCodigoFornecedor()); 
@@ -52,9 +52,8 @@ public class MercadoriaDAO implements OperacoesEmBanco, BuscaEmBanco{
            DatabaseUtilit.getPs().setInt(5, mercadoria.getQuantidadeMercadoria()); 
            DatabaseUtilit.getPs().setInt(6, mercadoria.getCodigoMercadoria()); 
 
-            DatabaseUtilit.getPs().executeUpdate();
+            DatabaseUtilit.doOperation("UPDATE");
             System.out.println("Mercadoria atualizado com sucesso");   
-            DatabaseUtilit.Desconectar();
             
         } catch (SQLException ex)
         {
@@ -108,7 +107,7 @@ public class MercadoriaDAO implements OperacoesEmBanco, BuscaEmBanco{
         {
             System.err.println("Mercadoria não foi consultado \nErro: "+ex);
         }
-        DatabaseUtilit.Desconectar();
+        //DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -140,7 +139,7 @@ public class MercadoriaDAO implements OperacoesEmBanco, BuscaEmBanco{
         {
             System.err.println("Mercadoria não foi consultado \nErro: "+ex);
         }
-        DatabaseUtilit.Desconectar();
+        //DatabaseUtilit.Desconectar();
         return null;
     }
     
@@ -172,7 +171,7 @@ public class MercadoriaDAO implements OperacoesEmBanco, BuscaEmBanco{
         {
             System.err.println("Mercadoria não foi consultado \nErro: "+ex);
         }
-        DatabaseUtilit.Desconectar();
+        //DatabaseUtilit.Desconectar();
         return null;
     }
     

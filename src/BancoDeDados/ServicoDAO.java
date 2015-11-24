@@ -30,7 +30,6 @@ public class ServicoDAO implements OperacoesEmBanco, BuscaEmBanco {
             //lidia
             DatabaseUtilit.doOperation("INSERT");
             System.out.println("Servico cadastrado com sucesso");
-            DatabaseUtilit.Desconectar();
 
         } catch (SQLException ex)
         {

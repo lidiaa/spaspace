@@ -55,9 +55,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pnlCadastro" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="193" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="738" max="-2" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -69,7 +69,7 @@
                       <Component id="pnlCadastro" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -218,7 +218,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Pessoal\Documents\00 IFSP\4 Semestre\LP3\Prova P2\Spa Space\SpaSpace3\spaspace\image\spaspace.png"/>
+              <Image iconType="2" name="C:\Users\Pessoal\Documents\00 IFSP\4 Semestre\LP3\Prova P2\Spa Space\SpaSpace3\spaspace\image\bgOriginal.png"/>
             </Property>
           </Properties>
         </Component>

@@ -55,25 +55,23 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="txtPesquisa" min="-2" pref="304" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="cbbBuscarPor" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                  <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnVerTodos" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnCadastro" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
-                                  <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
-                                  <Component id="brnAlterar" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="0" pref="328" max="32767" attributes="0"/>
+                          <Component id="btnCadastro" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                          <Component id="btnExcluir" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                          <Component id="brnAlterar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="449" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="txtPesquisa" min="-2" pref="304" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                          <Component id="cbbBuscarPor" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnVerTodos" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnImposto" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -89,6 +87,7 @@
                       <Component id="txtPesquisa" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnVerTodos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnImposto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="336" max="-2" attributes="0"/>
@@ -181,6 +180,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerTodosActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnImposto">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="$"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnImpostoActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

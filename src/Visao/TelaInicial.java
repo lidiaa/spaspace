@@ -161,7 +161,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Pessoal\\Documents\\00 IFSP\\4 Semestre\\LP3\\Prova P2\\Spa Space\\SpaSpace3\\spaspace\\image\\spaspace.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Pessoal\\Documents\\00 IFSP\\4 Semestre\\LP3\\Prova P2\\Spa Space\\SpaSpace3\\spaspace\\image\\bgOriginal.png")); // NOI18N
 
         javax.swing.GroupLayout pnlInicialLayout = new javax.swing.GroupLayout(pnlInicial);
         pnlInicial.setLayout(pnlInicialLayout);
@@ -170,9 +170,9 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(pnlInicialLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143)
-                .addComponent(jLabel1)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pnlInicialLayout.setVerticalGroup(
             pnlInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +181,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(pnlInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

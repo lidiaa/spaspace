@@ -25,6 +25,7 @@ public class FrmCliente extends javax.swing.JFrame {
     Utilitarios util;
     FrmVisualizarCliente visualizaCliente; 
     String operacao;
+    Cliente _cliente;
     
     public FrmCliente(FrmVisualizarCliente form) { 
         util = new Utilitarios();
@@ -112,6 +113,7 @@ public class FrmCliente extends javax.swing.JFrame {
         txtRgCliente = new javax.swing.JFormattedTextField();
         txtTelefone = new javax.swing.JFormattedTextField();
         btnAlterar = new javax.swing.JButton();
+        btnResumo = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -280,6 +282,13 @@ public class FrmCliente extends javax.swing.JFrame {
             }
         });
 
+        btnResumo.setText("Resumo");
+        btnResumo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResumoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlClienteLayout = new javax.swing.GroupLayout(pnlCliente);
         pnlCliente.setLayout(pnlClienteLayout);
         pnlClienteLayout.setHorizontalGroup(
@@ -288,44 +297,47 @@ public class FrmCliente extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlClienteLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnResumo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlClienteLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtRgCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlClienteLayout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxFeminino)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxMasculino))))
+                        .addComponent(btnAlterar)
+                        .addGap(54, 54, 54)
+                        .addComponent(btnSalvar)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnLimpar)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
                     .addGroup(pnlClienteLayout.createSequentialGroup()
                         .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlClienteLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlClienteLayout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtRgCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlClienteLayout.createSequentialGroup()
+                                        .addGap(7, 7, 7)
+                                        .addComponent(jLabel5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cbxFeminino)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cbxMasculino))))
                             .addGroup(pnlClienteLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(51, 51, 51))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAlterar)
-                .addGap(54, 54, 54)
-                .addComponent(btnSalvar)
-                .addGap(40, 40, 40)
-                .addComponent(btnLimpar)
-                .addGap(40, 40, 40)
-                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                                .addGroup(pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlClienteLayout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlClienteLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(51, 51, 51))))
         );
         pnlClienteLayout.setVerticalGroup(
             pnlClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,7 +364,8 @@ public class FrmCliente extends javax.swing.JFrame {
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
                     .addComponent(btnSair)
-                    .addComponent(btnAlterar))
+                    .addComponent(btnAlterar)
+                    .addComponent(btnResumo))
                 .addContainerGap())
         );
 
@@ -450,6 +463,7 @@ public class FrmCliente extends javax.swing.JFrame {
         else //todos os campos estao com valores validos
         {
             Cliente c = new Cliente(cpf, rg, nome, telefone, genero); //passar os itens por aqui
+            _cliente = c;
             DatabaseUtilit.Conectar();
             ClienteDAO cDAO = new ClienteDAO();
             cDAO.insertCliente(c);
@@ -481,7 +495,8 @@ public class FrmCliente extends javax.swing.JFrame {
         }
         else //todos os campos estao com valores validos
         {
-            Cliente c = new Cliente(codCliente, cpf, rg, nome, telefone, genero); 
+            Cliente c = new Cliente(codCliente, cpf, rg, nome, telefone, genero);
+            _cliente = c;
             DatabaseUtilit.Conectar();
             ClienteDAO cDAO = new ClienteDAO();
             cDAO.updateCliente(c);
@@ -534,6 +549,17 @@ public class FrmCliente extends javax.swing.JFrame {
         controlaBotoes(); // contra os botoes de alterar e salvar, a cada vez que entra no form vindo do VisualizarCliente
     }//GEN-LAST:event_formComponentShown
 
+    private void btnResumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResumoActionPerformed
+        if(_cliente == null)
+        {
+            JOptionPane.showMessageDialog(pnlCliente, "Altere para ver o resumo");
+        }
+        else
+        {
+            _cliente.details();
+        }
+    }//GEN-LAST:event_btnResumoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -573,6 +599,7 @@ public class FrmCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnResumo;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox cbxFeminino;

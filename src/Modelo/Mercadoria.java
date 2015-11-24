@@ -49,7 +49,7 @@ public class Mercadoria extends Arquivo{
         this.descricaoMercadoria = descricaoMercadoria;
         this.valorMercadoria = valorMercadoria;
         this.quantidadeMercadoria = quantidadeMercadoria;
-        this.codigoMercadoria = codigoMercadoria;
+        this.codigoMercadoria = cod;
     }
 
     

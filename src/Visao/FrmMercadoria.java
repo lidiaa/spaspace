@@ -8,6 +8,7 @@ package Visao;
 import BancoDeDados.DatabaseUtilit;
 import BancoDeDados.FornecedorDAO;
 import BancoDeDados.MercadoriaDAO;
+import BancoDeDados.ServicoDAO;
 import Modelo.Fornecedor;
 import Modelo.Mercadoria;
 import Util.Utilitarios;
@@ -375,8 +376,7 @@ public class FrmMercadoria extends javax.swing.JFrame {
         Object item = cbbFornecedores.getSelectedItem();
         String valueFornecedor = ((MercadoriaComboFornecedor)item).getValue();
         int fornecedor = Integer.parseInt(valueFornecedor); //convertendo de String para int
-        
-        
+                
         if("".equals(nome) || "".equals(descricao) || "".equals(txtValor.getText()) || txtQuantidade.getText() == "" || "".equals(valueFornecedor))
         {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos");
@@ -384,8 +384,10 @@ public class FrmMercadoria extends javax.swing.JFrame {
         else {
             Double valor = Double.parseDouble(txtValor.getText());
             int quantidade = Integer.parseInt(txtQuantidade.getText());
+            
             Mercadoria m = new Mercadoria(nome, fornecedor, descricao, valor, quantidade, codMercadoria);
             DatabaseUtilit.Conectar();
+          //  MercadoriaDAO mmDAO = new MercadoriaDAO();
             mDAO.updateMercadoria(m);
             visualizaMercadoria.refresh();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso");

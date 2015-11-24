@@ -7,6 +7,7 @@ package Visao;
 
 import BancoDeDados.DatabaseUtilit;
 import BancoDeDados.ServicoDAO;
+import Modelo.Servico;
 import Modelo.ServicoModelo;
 import Util.Utilitarios;
 import javax.swing.JOptionPane;
@@ -87,6 +88,7 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         brnAlterar = new javax.swing.JButton();
         btnVerTodos = new javax.swing.JButton();
+        btnImposto = new javax.swing.JButton();
 
         pnlVisualizarCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Visualizar Serviço"));
 
@@ -141,6 +143,13 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
             }
         });
 
+        btnImposto.setText("$");
+        btnImposto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImpostoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlVisualizarClienteLayout = new javax.swing.GroupLayout(pnlVisualizarCliente);
         pnlVisualizarCliente.setLayout(pnlVisualizarClienteLayout);
         pnlVisualizarClienteLayout.setHorizontalGroup(
@@ -150,22 +159,22 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
                 .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
-                        .addGroup(pnlVisualizarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
-                                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(btnBuscar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnVerTodos))
-                            .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
-                                .addComponent(btnCadastro)
-                                .addGap(109, 109, 109)
-                                .addComponent(btnExcluir)
-                                .addGap(110, 110, 110)
-                                .addComponent(brnAlterar)))
-                        .addGap(0, 328, Short.MAX_VALUE)))
+                        .addComponent(btnCadastro)
+                        .addGap(109, 109, 109)
+                        .addComponent(btnExcluir)
+                        .addGap(110, 110, 110)
+                        .addComponent(brnAlterar)
+                        .addGap(0, 449, Short.MAX_VALUE))
+                    .addGroup(pnlVisualizarClienteLayout.createSequentialGroup()
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnVerTodos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnImposto)))
                 .addContainerGap())
         );
         pnlVisualizarClienteLayout.setVerticalGroup(
@@ -176,7 +185,8 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
                     .addComponent(cbbBuscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar)
-                    .addComponent(btnVerTodos))
+                    .addComponent(btnVerTodos)
+                    .addComponent(btnImposto))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -290,6 +300,19 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
         txtPesquisa.setText("");
     }//GEN-LAST:event_btnVerTodosActionPerformed
 
+    private void btnImpostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpostoActionPerformed
+        int row = jtServico.convertRowIndexToModel(jtServico.getSelectedRow());
+            ServicoModelo model = (ServicoModelo)jtServico.getModel();
+            if(row >= 0)
+            {
+                Servico servico = new Servico();
+                servico.setValorServico(Double.valueOf(model.getValueAt(row, 4).toString()));
+                servico.MostrarImposto();         
+            }
+            else
+                JOptionPane.showMessageDialog(rootPane, "Escolha um serviço na lista, por favor."); 
+    }//GEN-LAST:event_btnImpostoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -330,6 +353,7 @@ public class FrmVisualizarServico extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCadastro;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnImposto;
     private javax.swing.JButton btnVerTodos;
     private javax.swing.JComboBox cbbBuscarPor;
     private javax.swing.JScrollPane jScrollPane1;

@@ -5,11 +5,14 @@
  */
 package Modelo;
 
+import Abstract.AbstractServico;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Pessoal
  */
-public class Servico {
+public class Servico extends AbstractServico {
     private int codigoServico;
     private String nomeServico;
     private String descricaoServico;
@@ -81,6 +84,13 @@ public class Servico {
 
     public void setValorServico(double valorServico) {
         this.valorServico = valorServico;
+    }
+    
+    @Override
+    public void MostrarImposto()
+    {
+        double valorimposto = (0.1 * this.valorServico);
+        JOptionPane.showMessageDialog(null, "O cliente paga: R$" + valorimposto + " de imposto");
     }
     
 }

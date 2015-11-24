@@ -5,11 +5,14 @@
  */
 package Modelo;
 
+import Abstract.AbstractPessoa;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Pessoal
  */
-public class Pessoa {
+public class Pessoa extends AbstractPessoa {
     private int codigo;
     private String CPF;
     private String RG;
@@ -64,6 +67,17 @@ public class Pessoa {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+    @Override
+    public void details()
+    {
+        JOptionPane.showMessageDialog(null, 
+            "Nome: " + this.nome + "\n"
+            + "Sexo: " + this.genero + "\n"
+            + "Telefone: " + this.telefone + "\n"
+            + "CPF: " + this.CPF + "\n"
+            + "RG: " + this.RG + "\n");
+    }
+            
     
     
 }
