@@ -1,5 +1,5 @@
 # SpaSpace
-Sistema gerenciador de Spas, feito em linguagem Java, banco de dados MySQL e relatório gerados através do iReport.
+Sistema gerenciador de Spas, feito em linguagem Java, banco de dados MySQL e relatórios gerados através do iReport.
 
 # Versões Utilizadas
 - iReport 5.6.0
